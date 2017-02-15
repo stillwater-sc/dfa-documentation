@@ -12,9 +12,19 @@
             margin: 0px;
             overflow: hidden;
         }
-        #info {
+        #top_banner {
             position: absolute;
             top: 0px;
+            width: 100%;
+            padding: 5px;
+            font-family: Monospace;
+            font-size: 13px;
+            text-align: center;
+            font-weight: bold;
+        }
+        #bottom_banner {
+            position: absolute;
+            bottom: 0px;
             width: 100%;
             padding: 5px;
             font-family: Monospace;
@@ -29,8 +39,8 @@
 </head>
 <body>
 <div id="container"></div>
-<div id="info"><a href="http://stillwater-sc.com" target="_blank">Stillwater Supercomputing, Inc.</a>
-    <a href="http://localhost:1313/dfa-docs/introduction/introduction.md" target="_blank">Introduction to Domain Flow</a> </div>
+<div id="top_banner"><a href="http://localhost:1313/dfa-docs/introduction/" target="_blank">Getting Started</a> </div>
+<div id="bottom_banner"><a href="http://stillwater-sc.com" target="_blank">Stillwater Supercomputing, Inc.</a> </div>
 
 <script src="js/build/three.js"></script>
 
