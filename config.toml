@@ -1,0 +1,4 @@
+languageCode = "en-us"
+title = "How to design Domain Flow Algorithms"
+baseURL = "http://www.stillwater-sc.com/dfa-docs"
+theme = "hugo-theme-learn"
