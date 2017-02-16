@@ -4,7 +4,7 @@ chapter = true
 next = "/introduction/introduction"
 prev = "/"
 weight = 0
-title = "Intro"
+title = "Introduction"
 date = "2017-02-15T06:49:44-05:00"
 
 +++

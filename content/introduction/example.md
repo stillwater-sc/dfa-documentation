@@ -1,5 +1,5 @@
 +++
-weight = 5
+weight = 1
 title = "An Example"
 date = "2017-02-15T07:00:21-05:00"
 toc = true
@@ -34,3 +34,11 @@ by a single computational unit that is reused over and over again. But for paral
 use this dependency to order the computational events in space. From the parallel design perspective,
 we are looking for (partial) orders where independent computational events are physically separated
 in space.
+
+If we look back again at the domain flow algorithm of matrix multiply, we observe that all results
+are assigned to a unique variable. This is called Single Assignment Form, and this yields a
+computational graph that makes all computational dependencies explicit.
+
+The second observation is that the computational events are made unique with a variable name and
+an index tag, such as [i,j,k]. Thirdly, dependencies between computational events are specified
+by an index expression, such as [i,j-1,k].
