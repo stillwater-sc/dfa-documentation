@@ -1,7 +1,7 @@
 +++
 icon = "<b>1. </b>"
 chapter = true
-next = "/introduction/introduction"
+next = "/introduction/example"
 prev = "/"
 weight = 0
 title = "Introduction"

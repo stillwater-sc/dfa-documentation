@@ -8,7 +8,7 @@ toc = true
 
 +++
 
-We alluded to the fact that inherently-parallel algorithms exhibit some partial order and not a complete order
+We alluded to the fact that inherently-parallel algorithms exhibit some partial order and not a total order
 because the instructions that can execute independently do not have any explicit order among each other.
 This extra degree of freedom is another benefit domain flow algorithms exhibit over sequential algorithms.
 It allows the execution engine to organize any resource contention in a more energy, space, or time efficient way,

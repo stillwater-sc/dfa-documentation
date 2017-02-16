@@ -1,9 +1,35 @@
 languageCode = "en-us"
-title = "How to design Domain Flow Algorithms"
+title = "Domain Flow Algorithms"
 baseURL = "http://www.stillwater-sc.com/dfa-docs"
 theme = "hugo-theme-learn"
-# google analytics tracking id
-googleAnalytics = "UA-2922553-1"
+
+[taxonomies]
+    tag = "tags"
+    topic = "topics"
+
+[author]
+    name = "E. Theodore L. Omtzigt"
+    email = "theo@stillwater-sc.com"
 
 [params]
   menu = [ "introduction", "design", "linearalgebra"]
+  author = "E. Theodore L. Omtzigt"
+
+  # You can use markdown here.
+  brand = "Stillwater"
+  topline = "Documentation site for parallel algorithm designers using the Domain Flow model of execution"
+  footline = "code with <i class='fa fa-heart'></i>"
+
+  # google analytics tracking id
+  googleAnalytics = "UA-2922553-1"
+
+  # Sidebar social links.
+  github = "stillwater-sc/dfa-documentation" # Your Github profile ID
+  linkedin = "stillwater-sc" # Your LinkedIn profile ID (from public URL)
+  googleplus = "" # Your Google+ profile ID
+  facebook = "" # Your Facebook profile ID
+  twitter = "" # Your Twitter profile ID
+  youtube = "stillwater-supercomputing"  # Your Youtube channel ID
+  flattr = ""  # populate with your flattr uid
+  flickr = "" # Your Flickr profile ID
+  vimeo = "" # Your Vimeo profile ID
