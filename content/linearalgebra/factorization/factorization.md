@@ -8,4 +8,6 @@ weight = 20
 
 +++
 
-Lorem Ipsum
+This is the quadratic equation:
+
+<div>$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$</div>
