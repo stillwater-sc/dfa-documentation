@@ -12,7 +12,7 @@ theme = "hugo-theme-learn"
     email = "theo@stillwater-sc.com"
 
 [params]
-  menu = [ "introduction", "design", "linearalgebra"]
+  menu = [ "introduction", "design", "blas", "factorization", "matrixkernels", "linearsolvers" ]
   author = "E. Theodore L. Omtzigt"
 
   # You can use markdown here.
