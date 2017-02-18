@@ -3,20 +3,18 @@ title = "Domain Flow Algorithms"
 baseURL = "http://www.stillwater-sc.com/dfa-docs"
 theme = "hugo-theme-learn"
 
-[taxonomies]
-    tag = "tags"
-    topic = "topics"
-
 [author]
-    name = "E. Theodore L. Omtzigt"
-    email = "theo@stillwater-sc.com"
+  name = "Stillwater Team"
+  email = "theo@stillwater-sc.com"
 
 [params]
   menu = [ "introduction", "design", "blas", "factorization", "matrixkernels", "linearsolvers" ]
   author = "E. Theodore L. Omtzigt"
+  description = "Introduction and educational site for the design and optimization of parallel domain flow algorithms"
+  showVisitedLinks = true
 
   # You can use markdown here.
-  brand = "Stillwater"
+  brand = "Stillwater Supercomputing, Inc."
   topline = "Documentation site for parallel algorithm designers using the Domain Flow model of execution"
   footline = "code with <i class='fa fa-heart'></i>"
 
