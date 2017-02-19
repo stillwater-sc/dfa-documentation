@@ -1,6 +1,14 @@
 {{ partial "header.html" . }}
 {{ if .Params.WebGLRenderTarget }}
-    {{ partial "webglrendertarget.html" . }}
+    {{ if .Params.IndexSpaceVisualization }}
+        {{ partial "webglrendertarget.html" . }}
+    {{ end }}
+    {{ if .Params.FreeScheduleVisualization }}
+        {{ partial "freeschedule.html" . }}
+    {{ end }}
+    {{ if .Params.LinearScheduleVisualization }}
+        {{ partial "linearschedule.html" . }}
+    {{ end }}
 {{ end }}
 {{ .Content }}
 {{ partial "footer.html" . }}

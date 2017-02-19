@@ -46,7 +46,8 @@
                 renderer.setClearColor( 0xffffff );
                 renderer.setPixelRatio( window.devicePixelRatio );
 
-                views.push( document.getElementById( 'index_space_view' ) );
+                var renderTarget = "{{ .Params.RenderTargetName }}";
+                views.push( document.getElementById( renderTarget ) );
 
                 { // views[0] = index_space_view
                     var lattice0 = createIndexSpaceGeometry(20, 20, 20, 1, true);

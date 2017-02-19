@@ -1,11 +1,13 @@
 +++
-weight = 2
+weight = 3
 title = "Domain Flow"
 date = "2017-02-15T06:58:22-05:00"
 toc = true
-next = "/introduction/physical"
+next = "/introduction/freeschedule"
 prev = "/introduction/example"
-webglrendertarget = true
+WebGLRenderTarget = true
+IndexSpaceVisualization = true
+RenderTargetName = "index_space_view"
 +++
 
 To appreciate domain flow algorithms and what they enable, you need to think about the physical
@@ -36,9 +38,9 @@ These crystalline patterns are typically referred to as a _lattice_, and thus
 the design of a domain flow algorithm is the act of finding space, time, and energy efficient embeddings
 of some computational graph in N-dimensional space.
 
-Back to our matrix multiply. We can now reinterpret the domain flow algorithm as a physical embedding.
-Each index range, that is, the i, j, and k in the constraint set, can be seen as a dimension in 3D space.
-The index tag, such as $[i,j,k]$ can then be interpreted as a location in 3D space, more accurately,
+Back to our matrix multiply; we can now reinterpret the domain flow algorithm as a physical embedding.
+Each index range, that is, the $i$, $j$, and $k$ in the constraint set, can be seen as a dimension in 3D space.
+The index tag, such as $[i,j,k]$, is a location in 3D space, more accurately,
 a location in the 3D Cartesian lattice, $\mathbb{N}^3$.
 
 This is what the lattice for matmul looks like for a given N:
