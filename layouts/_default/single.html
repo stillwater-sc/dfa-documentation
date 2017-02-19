@@ -1,0 +1,6 @@
+{{ partial "header.html" . }}
+{{ if .Params.WebGLRenderTarget }}
+    {{ partial "webglrendertarget.html" . }}
+{{ end }}
+{{ .Content }}
+{{ partial "footer.html" . }}
