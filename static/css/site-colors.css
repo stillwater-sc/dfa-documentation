@@ -39,3 +39,18 @@ code.has-jax {font: inherit;
     border: inherit;
     color: #515151;
 }
+
+#c {
+    position: fixed;
+    left: 0px; top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: -1;
+}
+
+#index_space_view {
+    width: 4in;
+    height: 4in;
+    margin: auto;
+}

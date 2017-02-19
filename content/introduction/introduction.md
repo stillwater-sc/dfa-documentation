@@ -43,5 +43,7 @@ a location in the 3D Cartesian lattice, $\mathbb{N}^3$.
 
 This is what the lattice for matmul looks like for a given N:
 
+<canvas id="c"></canvas>
+
 <div id="index_space_view"></div>
 

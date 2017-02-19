@@ -75,7 +75,7 @@
                 <h1>{{.Title}}</h1>
                 {{ end }}
 
-        <canvas id="c"></canvas>
+
 
         <script src="{{ .Site.BaseURL }}js/build/three.js"></script>
         <script src="{{ .Site.BaseURL }}js/controls/OrbitControls.js"></script>
@@ -209,8 +209,6 @@
                     renderer.setViewport( left, bottom, width, height );
                     renderer.setScissor( left, bottom, width, height );
 
-                    uniforms1.time.value = t;
-                    uniforms2.time.value = t;
                     renderer.render( scene, scene.userData.camera );
 
                     scene.children[0].geometry.verticesNeedUpdate = true;
