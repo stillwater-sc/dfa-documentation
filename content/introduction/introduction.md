@@ -8,9 +8,7 @@ prev = "/introduction/example"
 
 +++
 
-# Why are Domain Flow Algorithms specified this way?
-
-To appreciate the domain flow algorithms and what they enable, you need to think about the physical
+To appreciate domain flow algorithms and what they enable, you need to think about the physical
 form a 'program evaluator', or processor, could take. In the days when a processor occupied the volume
 of a small room, any physical computational machine was limited to a single computational element.
 This implied that the execution of any algorithm had to be specified as a complete order in time.
@@ -40,9 +38,10 @@ of some computational graph in N-dimensional space.
 
 Back to our matrix multiply. We can now reinterpret the domain flow algorithm as a physical embedding.
 Each index range, that is, the i, j, and k in the constraint set, can be seen as a dimension in 3D space.
-The index tag, such as [i,j,k] can then be interpreted as a location in 3D space, more accurately,
-a location in the 3D Cartesian lattice.
+The index tag, such as $[i,j,k]$ can then be interpreted as a location in 3D space, more accurately,
+a location in the 3D Cartesian lattice, $\mathbb{N}^3$.
 
-This is what that lattice looks like for a given N:
+This is what the lattice for matmul looks like for a given N:
 
-<div id="index_space_view">_</div>
+<div id="index_space_view"></div>
+

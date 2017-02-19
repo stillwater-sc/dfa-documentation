@@ -21,6 +21,10 @@
     background-color: #322A38;
 }
 
+#footer p {
+    text-align: right;
+}
+
 /* color of all links, including arrows to get to previous and next pages */
 a {
     color: #00bcd4;
