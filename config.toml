@@ -3,6 +3,11 @@ title = "Domain Flow Algorithms"
 baseURL = "http://www.stillwater-sc.com/dfa-docs"
 theme = "hugo-theme-learn"
 
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  series = "series"
+
 [author]
   name = "Stillwater Team"
   email = "theo@stillwater-sc.com"

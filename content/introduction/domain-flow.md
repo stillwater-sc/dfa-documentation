@@ -8,6 +8,11 @@ prev = "/introduction/example"
 WebGLRenderTarget = true
 IndexSpaceVisualization = true
 RenderTargetName = "index_space_view"
+
+tags = [ "domain flow algorithm", "matrix-multiply", "index-space", "lattice" ]
+categories = [ "domain flow", "introduction" ]
+series = [ "introduction" ]
+
 +++
 
 To appreciate domain flow algorithms and what they enable, you need to think about the physical

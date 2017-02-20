@@ -8,6 +8,11 @@ toc = true
 WebGLRenderTarget = true
 FreeScheduleVisualization = true
 RenderTargetName = "freeschedule_animation"
+
+tags = [ "domain flow algorithm", "matrix-multiply", "free-schedule" ]
+categories = [ "domain flow", "schedule" ]
+series = [ "introduction" ]
+
 +++
 
 <canvas id="c"></canvas>
@@ -25,7 +30,7 @@ execution models from sequential specifications. Secondly, as we'll see shortly,
 may organize their computation differently as compared to a sequential algorithm. There are even cases where
 a parallel algorithm is better off using a different mathematical basis for its solution to reduce operand
 movement [communication-avoiding linear algebra](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2010/EECS-2010-37.pdf),
-or higher-order methods in finite element and finite volume methods to increase the computation to communication ratio
+or higher-order methods in finite element and finite volume methods to increase the computation to operand bandwidth ratio
 of the kernels.
 
 Instead, the domain flow specification only specifies the data dependencies
@@ -51,5 +56,5 @@ The $c$ recurrence, however, does depend on both $a$ and $b$, as well as on its 
 that the $c$ recurrence evolves into is a wavefront that moves along the $[1,1,1]$ direction. The $a$ and $b$ values
 will arrive 'early' at a $[i,j,k]$ lattice location, and as the $c$ values arrive, the recurrence equation:
 $$c: c[i,j,k-1] + a[i,j-1,k] * b[i-1, j, k]$$
-will execute. 
+will trigger. 
 

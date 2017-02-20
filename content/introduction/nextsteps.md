@@ -1,7 +1,7 @@
 +++
 toc = true
 next = "/design/"
-prev = "/introduction/linearschedule"
+prev = "/introduction/derivation"
 weight = 10
 title = "Next Steps"
 date = "2017-02-15T07:44:23-05:00"

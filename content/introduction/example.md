@@ -6,6 +6,10 @@ toc = true
 next = "/introduction/domain-flow"
 prev = "/introduction/"
 
+tags = [ "domain flow algorithm", "matrix-multiply" ]
+categories = [ "domain flow", "introduction" ]
+series = [ "introduction" ]
+
 +++
 
 Let's look at an example of a simple, but valuable operator: dense matrix multiplication.
