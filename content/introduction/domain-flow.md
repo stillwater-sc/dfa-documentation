@@ -1,51 +1,59 @@
 +++
-weight = 3
-title = "Parallel Programming"
+weight = 6
+title = "Domain Flow"
 date = "2017-02-15T06:58:22-05:00"
 toc = true
-next = "/introduction/computational-spacetime"
-prev = "/introduction/example"
+next = "/introduction/freeschedule"
+prev = "/introduction/computational-spacetime"
 WebGLRenderTarget = true
 IndexSpaceVisualization = true
 RenderTargetName = "index_space_view"
 
-tags = [ "domain flow algorithm", "matrix-multiply", "index-space", "lattice" ]
+tags = [ "domain flow algorithm", "matrix-multiply", "index-space", "lattice", "domain flow" ]
 categories = [ "domain flow", "introduction" ]
 series = [ "introduction" ]
 
 +++
 
-To appreciate the domain flow programming model and what it enables, you need to think about the physical
-form a 'program evaluator' could take. In the days when a processor occupied the volume
-of a small room, any physical computational machine was limited to a single computational element.
-This implied that the execution of any algorithm had to be specified as a complete order in time.
-At each step of the execution, the computational element would read input operands, execute
-an instruction, and write a result. The reading and writing of operands was from and to some storage mechanism.
+The goal of domain flow was to create an abstract programming model that is invariant to technology changes.
+We discussed the fact that an equation $c = a + b$ is comprised of a computation phase and a communication phase.
+Implementation technology will impact these phases differently, and we want a programming model that is invariant
+to the actual delays. Again, a thought experiment will shed light on the progression and ultimate state of such a system. 
+Because we know that technology impacts computation delay and communicate delay differently, we have decided to think of 
+computational progressions as alternating computation and communication phases, and to overlap these two phases as
+to improve performance and utilization of the resources. If our technology delivers
+a ten-fold improvement in computation time, this would imply that any dependent computational event needs to come ten times 
+closer to maintain the same balance. If that technology change leaves the communication
+phase the same, all we would have accomplished is that the computation resource is now 90% idle, as it is waiting for
+the results to be delivered. Our ten-fold technology bump in computational performance would deliver just a 
+$(2.0-1.1)/2.0 = 45\%$ system-level improvement. 
 
-This sequential approach has been very successful, as it is a general purpose mechanism to execute
-_any_ algorithm. But it is not the most efficient approach to execute _all_ algorithms. This is
-the niche that domain flow fills: algorithms that exhibit complex, inherently parallel, but geometrically
-constrained concurrency patterns. These algorithms offer the opportunity to be evaluated more efficiently 
-by taking advantage of the regularity of movement of collections of data elements, dubbed _domains_.
-The venerable matrix multiply (matmul) is a good introduction to this class of algorithms,
-more formally defined by the term _systems of affine recurrence equations_. Matmul is so regular that the affine
-index transformation is the identity matrix: matmul can be expressed as a system of regular recurrence equations.
+This thought experiment should elucidate the fact that making the computation, or the communication phase, faster
+independent of each other leads to low utilization of one of the resources, and is thus unattractive from an engineering perspective. 
+When the computation and communication phases are balanced we can deliver 100% resource
+utilization and maximum concurrency: all the electrons in the system are wiggling to affect some result. 
 
-The Domain Flow programming model was invented in the late 80's to solve the problem of parallel algorithm
-dependence on the structure of the underlying hardware. This period generated many new and wonderful parallel
-machines:
+Now, imagine that we have as many computational resources as there are nodes in the computational graph. 
+In that case, we could simply embed the computational graph in free space.
+However, a physical machine will have some physical extent, and a collection of manufactured computational nodes will 
+fill free space in some 'regular', crystalline pattern.
+These crystalline patterns are typically referred to as a _lattice_. When engineering these structures, we can
+balance the computation and communication delays through simple area-time trade-offs. This presents the invariance
+we are seeking. Independent of technology, we can always engineer a machine that offers balance between 
+computation and communication delays, and that offers connectivity among nodes that fall within the future cone of the 
+computational spacetime.
+One such computational spacetime that is uniform in all directions is the Cartesian lattice, $\mathbb{N}^3$.
+ 
+The design of a domain flow algorithm is the act of finding an efficient embedding of the computational graph of
+the single assignment form in the Cartesian lattice, $\mathbb{N}^c$.
 
-  1. [Transputer](https://en.wikipedia.org/wiki/Transputer)
-  2. Hypercubes from [nCUBE](https://en.wikipedia.org/wiki/NCUBE) and Intel
-  3. the first SMPs of [Sequent](https://en.wikipedia.org/wiki/Sequent_Computer_Systems) and NUMA innovations,
-  4. the first massively parallel machines, CM-1 and CM-2 from [Thinking Machines](https://en.wikipedia.org/wiki/Thinking_Machines_Corporation)
+Back to our matrix multiply; we can now reinterpret the domain flow algorithm as an embedding.
+Each index range, that is, the $i$, $j$, and $k$ in the constraint set, can be seen as a dimension in the Cartesian lattice.
+The index tag, such as $[i,j,k]$, is a location in the lattice.
 
-The software engineers tasked to write high-performance libraries for these machines discovered the inconvenient
-truth about programming for high-performance: the characteristics of the hardware drive the structure of the optimal
-algorithm. The best algorithm for our matrix multiply example has four completely different incarnations for the
-machines mentioned above. Furthermore, the optimal algorithm even changes when the same machine architecture introduces
-a new, typically faster, implementation. And we are not just talking about simple algorithmic changes, such as 
-loop order or blocking, sometimes even the underlying mathematics needs to change. Given the complexity of 
-writing parallel algorithms, this one-off nature of parallel algorithm design begged the question: is there a 
-parallel programming model that is invariant to the implementation technology of the machine?
+This is what the lattice for matmul looks like for a given N:
+
+<canvas id="c"></canvas>
+
+<div id="index_space_view"></div>
 

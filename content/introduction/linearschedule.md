@@ -1,7 +1,7 @@
 +++
 next = "/introduction/derivation"
 prev = "/introduction/freeschedule"
-weight = 7
+weight = 8
 title = "Linear Schedules"
 date = "2017-02-15T07:24:38-05:00"
 toc = true

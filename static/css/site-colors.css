@@ -49,6 +49,13 @@ code.has-jax {font: inherit;
     z-index: -1;
 }
 
+
+#spacetime_view {
+    width: 6in;
+    height: 6in;
+    margin: auto;
+}
+
 #index_space_view {
     width: 6in;
     height: 6in;
