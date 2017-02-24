@@ -34,11 +34,11 @@ between computation and communication in the parallel algorithm. In the vocabula
 move farther away. Spacetime has another geometric interpretation of the relationship between space and time, called
 the spacetime light cone, as shown here:
 
-{{< figure src="/images/spacetime-light-cone.png" title="Spacetime Light Cone" >}}
+{{< figure src="http://stillwater-sc.com/dfa-docs/images/spacetime-light-cone.png" title="Spacetime Light Cone" >}}
 
 The spacetime light cone is a visual mnemomic device to think about which events in spacetime can affect each other.
 Parallel computation is the distribution of information to create some useful transformation and is constrained by
-the propagation of information. A computational event has to be able 'see' its operands before it could commence. 
+the propagation of information. A computational event has to be able to 'see' its operands before it could commence. 
 Otherwise stated, its operands need to lie in the future cone. 
 This is all complicated by the fact that man-made structures today do not communicate through free space yet,
 and the physical communication structure adds additional constraints on the shape and extend of the future cone.
