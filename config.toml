@@ -1,6 +1,6 @@
 languageCode = "en-us"
 title = "Domain Flow Algorithms"
-baseURL = "http://www.stillwater-sc.com/dfa-docs"
+baseURL = "http://stillwater-sc.com/dfa-docs"
 theme = "hugo-theme-learn"
 
 [taxonomies]

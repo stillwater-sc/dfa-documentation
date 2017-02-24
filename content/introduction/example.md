@@ -12,9 +12,9 @@ series = [ "introduction" ]
 
 +++
 
-Let's look at an example of a simple, but valuable operator: dense matrix multiplication.
+Let's look at an example of a simple, but frequently used operator: dense matrix multiplication.
 
-A Domain Flow Algorithm for matrix multiply is shown here:
+A Domain Flow Algorithm for matrix multiply is shown below:
 
 ```
 
@@ -29,15 +29,17 @@ compute ( (i,j,k) | 1 <= i,j,k <= N ) {
 This algorithm defines a domain of computation governed by a set of constraints, and a set of
 computational dependencies that implicitly define a partial order across all the operations in the computation. 
 
-For example, we can't execute the result for $c[i,j,k]$ until we have computed the result for $c[i,j,k-1]$.
+An example of the partial order is we need to have computed the result for $c[i,j,k-1]$ before the computation
+of $c[i,j,k]$ can commence. But the $a$ and $b$ recurrences are independent of each other.
 
 From a design perspective, an explicit dependency allows us to 'order' the nodes in a
-computational graph. This can be done in time, as is customary in sequential programming. Here, the dependency 
-is a constraint so that all operations can be executed by a single computational unit that is reused over and over again. 
-Parallel algorithms also offer the opportunity to order the computational events in space. For high-performant 
-and energy efficient parallel computation,
-we are looking for partial orders, or $posets$, where independent computational events are physically separated
-in space.
+computational graph. This can be done in time, as is customary in sequential programming: the sequence of
+instructions is a constraint to order the operations in time and enable an unambiguious semantic interpretation
+of the value of a variable even though that variable may be reused.
+Parallel algorithms offer more degrees of freedom to order the computational events. In addition to sequential
+order, we can also disambiguate variables in space. For high-performant parallel computation,
+we are looking for partial orders, or $posets$, where independent computational events are spatially separated
+in space, and where dependent events are spatially 'close'. 
 
 {{% notice note %}}
 The concepts of partial and total orders are essential for finding optimal domain flow algorithms. 
@@ -50,13 +52,12 @@ are assigned to a unique variable. This is called *Single Assignment Form* (SAF)
 computational graph that makes all computational dependencies explicit.
 
 The second observation is that the computational events are made unique with a variable name and an index tag, 
-such as $[i,j,k]$. 
+represented by $[i,j,k]$. 
 The constraint set $$compute ( (i,j,k) | 1 <= i,j,k <= N )$$ carves out a subset in the lattice $\mathbb{N}^3$, 
-and the body defines the computational events at each of the lattice points $[i,j,k]$ contained inthe subset.
+and the body defines the computational events at each of the lattice points $[i,j,k]$ contained in the subset.
 
 Thirdly, dependencies between computational events are specified by an index expression.
- The statement $a: a[i,j-1,k]$ 
-is a shorthand for $$a: a[i,j,k] => a[i,j,k] = a[i,j-1,k]$$
+The statement $a: a[i,j-1,k]$ is a shorthand for $$a: a[i,j,k] => a[i,j,k] = a[i,j-1,k]$$
 defining a dependency to the value at $[i,j-1,k]$ for each lattice point where the variable $a$ is defined.
 
 
