@@ -80,10 +80,10 @@
 				// scale particles as objects in 3D space that modulate in size as a computational wavefront passes through
 				float period = mod(time, cardinality);  // set a modulo range so the visualization cycles
 
-				// modulate a full (-1, 1)
-				if (period > (schedule - 1.0) && period < (schedule + 1.0)) {
+				// modulate from (0 - 1)
+				if (period > schedule && period < (schedule + 1.0)) {
 
-				    gl_PointSize = (1.0 + (period - schedule)) * ( 500.0 / length( -mvPosition.z ) );
+				    gl_PointSize = (0.2 + (period - schedule)*2.75) * ( 500.0 / length( -mvPosition.z ) );
 
 				} else {
 
