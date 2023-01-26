@@ -13,11 +13,9 @@ series = [ "introduction" ]
 
 Remember this note?
 
-{{% notice note %}}
 The concepts of partial and total orders are essential for finding optimal domain flow algorithms. 
 [Poset](https://en.wikipedia.org/wiki/Partially_ordered_set) are the
 source of potentially interesting solutions to high-performance, low-power execution patterns. 
-{{% /notice %}}
 
 The Linear Algebra universe is particularly rich in partial orders, something that has been exploited for centuries. <sup>[1](#history)</sup> 
 Fortunately, for our discussion we can focus on the last couple of decades.

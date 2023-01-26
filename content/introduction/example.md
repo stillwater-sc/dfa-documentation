@@ -51,9 +51,7 @@ Thirdly, dependencies between computational events are specified by an index exp
 The statement $a: a[i,j-1,k]$ is a shorthand for $$a: a[i,j,k] => a[i,j,k] = a[i,j-1,k]$$
 defining a dependency to the value at $[i,j-1,k]$ for each lattice point where the variable $a$ is defined.
 
-{{% notice note %}}
 The concepts of partial and total orders are essential for finding optimal domain flow algorithms. 
 [Poset](https://en.wikipedia.org/wiki/Partially_ordered_set) are the
 source of potentially interesting solutions to high-performance, low-power execution patterns. 
-{{% /notice %}}
 

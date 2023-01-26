@@ -1,6 +1,6 @@
 languageCode = "en-us"
 title = "Domain Flow Algorithms"
-baseURL = "http://stillwater-sc.com/dfa-docs"
+baseURL = "https://stillwater-sc.github.io/domain-flow"
 theme = "hugo-theme-learn"
 
 [taxonomies]
@@ -9,7 +9,7 @@ theme = "hugo-theme-learn"
   series = "series"
 
 [author]
-  name = "Stillwater Team"
+  name = "Stillwater Supercomputing, Inc."
   email = "theo@stillwater-sc.com"
 
 [params]
@@ -32,7 +32,7 @@ theme = "hugo-theme-learn"
   googleplus = "" # Your Google+ profile ID
   facebook = "" # Your Facebook profile ID
   twitter = "" # Your Twitter profile ID
-  youtube = "stillwater-supercomputing"  # Your Youtube channel ID
+  youtube = ""  # Your Youtube channel ID
   flattr = ""  # populate with your flattr uid
   flickr = "" # Your Flickr profile ID
   vimeo = "" # Your Vimeo profile ID
