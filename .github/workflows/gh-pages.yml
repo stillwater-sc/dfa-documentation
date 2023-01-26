@@ -2,9 +2,9 @@ name: github pages
 
 on: 
   push:
-    branches:
-      - main    # the branch that will trigger a site deployment
-  pull_requests:
+    branches: [ draft, main ]   # the branch that will trigger a site deployment
+  pull_request:
+    branches: [ main ]
 
 jobs:
   deploy:
