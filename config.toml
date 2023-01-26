@@ -27,7 +27,7 @@ theme = "hugo-theme-learn"
   googleAnalytics = "UA-2922553-1"
 
   # Sidebar social links.
-  github = "stillwater-sc/dfa-documentation" # Your Github profile ID
+  github = "stillwater-sc/domain-flow" # Your Github profile ID
   linkedin = "stillwater-sc" # Your LinkedIn profile ID (from public URL)
   googleplus = "" # Your Google+ profile ID
   facebook = "" # Your Facebook profile ID
