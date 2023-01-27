@@ -1,11 +1,13 @@
 +++
-next = "/matrixkernels/matrixkernels"
-prev = "/factorization"
-weight = 0
+
 title = "Matrix Kernels"
 date = "2017-02-15T07:54:08-05:00"
 icon = "<b>5. </b>"
 chapter = true
+
+weight = 50
+next = "/matrixkernels/matrixkernels"
+prev = "/factorization"
 
 +++
 
