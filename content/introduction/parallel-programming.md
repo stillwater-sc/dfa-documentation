@@ -1,5 +1,5 @@
 +++
-weight = 3
+weight = 4
 title = "Parallel Programming"
 date = "2017-02-15T06:58:22-05:00"
 toc = true

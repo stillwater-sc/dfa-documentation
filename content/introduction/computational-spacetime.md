@@ -1,5 +1,5 @@
 +++
-weight = 5
+weight = 6
 title = "Computational Spacetime"
 date = "2017-02-15T06:58:22-05:00"
 toc = true

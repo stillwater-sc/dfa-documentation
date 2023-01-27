@@ -2,7 +2,7 @@
 toc = true
 next = "/design/"
 prev = "/introduction/derivation"
-weight = 10
+weight = 11
 title = "Next Steps"
 date = "2017-02-15T07:44:23-05:00"
 
