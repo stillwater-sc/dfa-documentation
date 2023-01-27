@@ -1,11 +1,13 @@
 +++
-next = "/factorization/factorization"
-prev = "/blas"
-weight = 0
+
 title = "Matrix Factorization"
 date = "2017-02-15T07:54:08-05:00"
 icon = "<b>4. </b>"
 chapter = true
+
+weight = 40
+next = "/factorization/factorization"
+prev = "/blas"
 
 +++
 
