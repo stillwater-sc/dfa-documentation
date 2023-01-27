@@ -1,11 +1,13 @@
 +++
-next = "/blas/level1"
-prev = "/design"
-weight = 0
+
 title = "Basic Linear Algebra"
 date = "2017-02-15T07:54:08-05:00"
 icon = "<b>3. </b>"
 chapter = true
+
+weight = 30
+next = "/blas/level1"
+prev = "/design"
 
 +++
 
