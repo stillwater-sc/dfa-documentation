@@ -1,10 +1,13 @@
 +++
-weight = 7
+
 title = "Domain Flow"
 date = "2017-02-15T06:58:22-05:00"
 toc = true
+
+weight = 7
 next = "/introduction/freeschedule"
 prev = "/introduction/computational-spacetime"
+
 WebGLRenderTarget = true
 IndexSpaceVisualization = true
 RenderTargetName = "index_space_view"

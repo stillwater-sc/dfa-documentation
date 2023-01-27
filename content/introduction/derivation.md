@@ -1,10 +1,12 @@
 +++
-next = "/introduction/nextsteps"
-prev = "/introduction/linearschedule"
-weight = 10
+
 title = "Derivation"
 date = "2017-02-15T07:24:38-05:00"
 toc = true
+
+weight = 10
+next = "/introduction/nextsteps"
+prev = "/introduction/linearschedule"
 
 tags = [ "domain flow algorithm", "matrix-multiply", "derivation" ]
 categories = [ "domain flow", "design", "matrix-math" ]

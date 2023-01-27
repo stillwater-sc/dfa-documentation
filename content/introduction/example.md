@@ -1,8 +1,12 @@
 +++
-weight = 2
+
 title = "An Example"
 date = "2017-02-15T07:00:21-05:00"
 toc = true
+
+weight = 2
+next = "/introduction/linearschedule"
+prev = "/introduction/"
 
 tags = [ "domain flow algorithm", "matrix-multiply" ]
 categories = [ "domain flow", "introduction" ]
