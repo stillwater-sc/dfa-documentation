@@ -1,7 +1,7 @@
 languageCode = "en-us"
-title = "Domain Flow Algorithms"
+title = "Domain Flow Architecture"
 baseURL = "https://stillwater-sc.github.io/domain-flow"
-theme = "hugo-theme-learn"
+theme = [ "hugo-theme-learn", "hugo-theme-relearn" ]
 
 [taxonomies]
   tag = "tags"
@@ -11,6 +11,10 @@ theme = "hugo-theme-learn"
 [author]
   name = "Stillwater Supercomputing, Inc."
   email = "theo@stillwater-sc.com"
+
+# for search functionality
+[outputs]
+  home = [ "HTML", "RSS", "JSON"]
 
 [params]
   menu = [ "introduction", "design", "blas", "factorization", "matrixkernels", "linearsolvers" ]
