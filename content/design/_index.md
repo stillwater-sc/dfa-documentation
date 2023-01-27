@@ -1,9 +1,11 @@
 +++
-weight = 0
+
 title = "Elements of Good Design"
 date = "2017-02-15T07:42:59-05:00"
 icon = "<b>2. </b>"
 chapter = true
+
+weight = 20
 next = "/design/currentstate"
 prev = "/introduction/nextsteps"
 
