@@ -12,11 +12,13 @@ WebGLRenderTarget = true
 SpacetimeVisualization = true
 RenderTargetName = "spacetime_view"
 
-tags = [ "domain flow algorithm", "matrix-multiply", "index-space", "lattice", "computational spacetime" ]
-categories = [ "domain flow", "introduction" ]
+tags = [ "domain-flow", "matrix-multiply", "index-space", "lattice", "computational-spacetime" ]
+categories = [ "domain-flow", "introduction" ]
 series = [ "introduction" ]
 
 +++
+
+# Computational Spacetime
 
 Data movement in a parallel machine experiences the constraints of spacetime and more. The propagation delays
 in the communication channels act similarly as the constraint on the speed of light in spacetime. Let's bring back

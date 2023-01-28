@@ -1,10 +1,14 @@
 +++
-next = "/introduction/derivation"
-prev = "/introduction/freeschedule"
-weight = 9
+
 title = "Linear Schedules"
 date = "2017-02-15T07:24:38-05:00"
 toc = true
+
+weight = 9
+next = "/introduction/derivation"
+prev = "/introduction/freeschedule"
+
+
 webglrendertarget = true
 LinearScheduleVisualization = true
 RenderTargetName = "linearschedule_animation"

@@ -1,19 +1,24 @@
 +++
-weight = 4
+
 title = "Parallel Programming"
 date = "2017-02-15T06:58:22-05:00"
 toc = true
+
+weight = 4
 next = "/introduction/spacetime"
 prev = "/introduction/example"
-WebGLRenderTarget = true
-IndexSpaceVisualization = true
-RenderTargetName = "index_space_view"
 
-tags = [ "domain flow algorithm", "matrix-multiply", "index-space", "lattice" ]
+# WebGLRenderTarget = true
+# IndexSpaceVisualization = true
+# RenderTargetName = "index_space_view"
+
+tags = [ "domain-flow", "matrix-multiply", "index-space", "lattice" ]
 categories = [ "domain flow", "introduction" ]
 series = [ "introduction" ]
 
 +++
+
+# Parallel Programming
 
 To appreciate the domain flow programming model and what it enables, you need to think about the physical
 form a 'program evaluator' could take. In the days when a processor occupied the volume
@@ -45,7 +50,8 @@ truth about programming for high-performance: the characteristics of the hardwar
 algorithm. The best algorithm for our matrix multiply example has four completely different incarnations for the
 machines mentioned above. Furthermore, the optimal algorithm even changes when the same machine architecture introduces
 a new, typically faster, implementation. And we are not just talking about simple algorithmic changes, such as 
-loop order or blocking, sometimes even the underlying mathematics needs to change. Given the complexity of 
-writing parallel algorithms, this one-off nature of parallel algorithm design begged the question: is there a 
-parallel programming model that is invariant to the implementation technology of the machine?
+loop order or blocking, sometimes even the underlying mathematics needs to change. 
+
+Given the complexity of writing parallel algorithms, this one-off nature of parallel algorithm design begged 
+the question: is there a parallel programming model that is invariant to the implementation technology of the machine?
 
