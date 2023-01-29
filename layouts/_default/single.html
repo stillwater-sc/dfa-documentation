@@ -12,6 +12,9 @@
     {{ if .Params.LinearScheduleVisualization }}
         {{ partial "linearschedule.html" . }}
     {{ end }}
+    {{ if .Params.WebGLAnimation }}
+        {{ partial "webgl.html" . }}
+    {{ end }}
 {{ end }}
 {{ .Content }}
 {{ partial "footer.html" . }}
