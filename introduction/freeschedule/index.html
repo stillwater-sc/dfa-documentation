@@ -1,0 +1,151 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1"><meta name=generator content="Hugo 0.110.0"><meta name=generator content="Relearn 5.10.2+tip"><meta name=description content="Introduction and educational site for the design and optimization of parallel domain flow algorithms"><meta name=author content="E. Theodore L. Omtzigt"><title>Free Schedule - Domain Flow Architecture</title><link href=../../images/favicon.png?1675114962 rel=icon type=image/png><link href=../../css/fontawesome-all.min.css?1675114962 rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href=../../css/fontawesome-all.min.css?1675114962 rel=stylesheet></noscript><link href=../../css/featherlight.min.css?1675114962 rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href=../../css/featherlight.min.css?1675114962 rel=stylesheet></noscript><link href=../../css/auto-complete.css?1675114962 rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href=../../css/auto-complete.css?1675114962 rel=stylesheet></noscript><link href=../../css/perfect-scrollbar.min.css?1675114962 rel=stylesheet><link href=../../css/nucleus.css?1675114962 rel=stylesheet><link href=../../css/fonts.css?1675114962 rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href=../../css/fonts.css?1675114962 rel=stylesheet></noscript><link href=../../css/theme.css?1675114962 rel=stylesheet><link href=../../css/theme-blue.css?1675114962 rel=stylesheet id=variant-style><link href=../../css/ie.css?1675114962 rel=stylesheet><link href=../../css/variant.css?1675114962 rel=stylesheet><link href=../../css/print.css?1675114962 rel=stylesheet media=print><script src=../../js/url.js?1675114962></script>
+<script src=../../js/variant.js?1675114962></script>
+<script>window.index_json_url="../../index.json";var root_url="../../",baseUriFull,baseUri=root_url.replace(/\/$/,"");window.T_Copy_to_clipboard="Copy to clipboard",window.T_Copied_to_clipboard="Copied to clipboard!",window.T_Copy_link_to_clipboard="Copy link to clipboard",window.T_Link_copied_to_clipboard="Copied link to clipboard!",window.T_No_results_found="No results found for \u0022{0}\u0022",window.T_N_results_found="{1} results found for \u0022{0}\u0022",baseUriFull="https://stillwater-sc.github.io/domain-flow/",window.variants&&variants.init(["blue","green","red","relearn-light","relearn-dark"])</script><script src=../../js/jquery.min.js?1675114962 defer></script></head><body class="mobile-support html" data-url=../../introduction/freeschedule/index.html><div id=body class=default-animation><div id=sidebar-overlay></div><div id=toc-overlay></div><nav id=topbar class=highlightable dir=ltr><div><div id=breadcrumbs><span id=sidebar-toggle-span><a href=# id=sidebar-toggle title='Menu (CTRL+ALT+n)'><i class="fas fa-bars fa-fw"></i></a></span><ol class=links itemscope itemtype=http://schema.org/BreadcrumbList><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><a itemprop=item href=../../index.html><span itemprop=name>Domain Flow Architecture</span></a><meta itemprop=position content="1">></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><a itemprop=item href=../../introduction/index.html><span itemprop=name>Getting Started</span></a><meta itemprop=position content="2">></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><span itemprop=name>Free Schedule</span><meta itemprop=position content="3"></li></ol></div></div></nav><main id=body-inner class="highlightable default" tabindex=-1><div class=flex-block-wrapper><div id=head-tags><div class=tags><a class=tag-link href=../../tags/free-schedule/index.html>free-schedule</a>
+<a class=tag-link href=../../tags/matrix-multiply/index.html>matrix-multiply</a></div></div><script src=https://stillwater-sc.github.io/domain-flow/js/build/three.js></script>
+<script src=https://stillwater-sc.github.io/domain-flow/js/controls/OrbitControls.js></script>
+<script src=https://stillwater-sc.github.io/domain-flow/js/Detector.js></script>
+<script src=https://stillwater-sc.github.io/domain-flow/js/libs/numeric-1.2.6.js></script>
+<script src=https://stillwater-sc.github.io/domain-flow/js/dfa/indexspace.js></script>
+<script src=https://stillwater-sc.github.io/domain-flow/js/dfa/freeschedule.js></script>
+<script src=https://stillwater-sc.github.io/domain-flow/js/dfa/wavefront.js></script>
+<script type=x-shader/x-vertex id=vertexshader>
+
+			attribute float size;
+			attribute vec3 customColor;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				vColor = customColor;
+
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+				gl_PointSize = size * ( 300.0 / -mvPosition.z );
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script><script type=x-shader/x-vertex id=wavefrontshader>
+			uniform float time;
+			uniform float cardinality;
+			attribute float schedule;
+			attribute float size;
+			attribute vec3 customColor;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				vColor = customColor;
+
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+				// scale particles as objects in 3D space that modulate in size as a computational wavefront passes through
+				float period = mod(time, cardinality);  // set a modulo range so the visualization cycles
+
+				// modulate a full sinusoid long: (sin(-pi/2), sin(3*pi/2))
+				if (period > (schedule - 1.0) && period &lt; (schedule + 1.0)) {
+
+				    gl_PointSize = (1.5 + sin((period - schedule)*3.14 + 1.57)) * ( 300.0 / length( mvPosition.xyz ) );
+
+				} else {
+
+				    gl_PointSize = size * ( 100.0 / -mvPosition.z );
+
+				}
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script><script type=x-shader/x-vertex id=wavefrontshader2>
+			uniform float time;
+			uniform float cardinality;
+			attribute float schedule;
+			attribute float size;
+			attribute vec3 customColor;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				vColor = customColor;
+
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+
+				// scale particles as objects in 3D space that modulate in size as a computational wavefront passes through
+				float period = mod(time, cardinality);  // set a modulo range so the visualization cycles
+
+				// modulate a full sinusoid long: (sin(-pi/2), sin(3*pi/2))
+				if (period > (schedule - 1.0) && period &lt; (schedule + 1.0)) {
+
+				    gl_PointSize = (1.5 + sin((period - schedule)*3.14 + 1.57)) * ( 300.0 / length( mvPosition.xyz ) );
+
+				} else {
+
+				    gl_PointSize = size * ( 100.0 / -mvPosition.z );
+
+				}
+
+				gl_Position = projectionMatrix * mvPosition;
+
+			}
+
+		</script><script type=x-shader/x-fragment id=fragmentshader>
+
+			uniform vec3 color;
+			uniform sampler2D texture;
+
+			varying vec3 vColor;
+
+			void main() {
+
+				gl_FragColor = vec4( color * vColor, 1.0 );
+
+				gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+
+				if ( gl_FragColor.a &lt; ALPHATEST ) discard;
+
+			}
+
+</script><script>Detector.webgl||Detector.addGetWebGLMessage();var t,scenes=[],canvas,renderer,views=[],PARTICLE_SIZE=2,clock=new THREE.Clock(!0);window.onload=init;function init(){canvas=document.getElementById("c"),renderer=new THREE.WebGLRenderer({canvas,antialias:!0}),renderer.setClearColor(16777215),renderer.setPixelRatio(window.devicePixelRatio);var e,n,s,i,a,r,c="freeschedule_animation",o=document.getElementById(c);views.push(o),i=createIndexSpaceGeometry(20,20,20,1,!1,!0),a=PARTICLE_SIZE*.5,r="https://stillwater-sc.github.io/domain-flow/textures/sprites/ball.png",uniforms1={cardinality:{value:60},time:{value:1},color:{value:new THREE.Color(16777215)},texture:{value:(new THREE.TextureLoader).load(r)}},e=createFreeScheduleWavefrontScene(i,a,"wavefrontshader","fragmentshader",uniforms1,schedule),e.userData.view=o,n=new THREE.PerspectiveCamera(75,1,.1,1e3),n.position.set(25,25,25),e.userData.camera=n,s=new THREE.OrbitControls(n,o),s.minDistance=20,s.maxDistance=500,e.userData.controls=s,scenes.push(e),t=0,animate()}function updateSize(){var e=canvas.clientWidth,t=canvas.clientHeight;(canvas.width!==e||canvas.height!=t)&&renderer.setSize(e,t,!1)}function animate(){render(),requestAnimationFrame(animate)}function schedule(e,t){return numeric.dot(e,t)}function render(){updateSize(),renderer.setClearColor(16777215),renderer.setScissorTest(!1),renderer.clear(),renderer.setClearColor(0),renderer.setScissorTest(!0),scenes.forEach(function(e){var s,o,i,a,n=e.userData.view.getBoundingClientRect();if(n.bottom<0||n.top>renderer.domElement.clientHeight||n.right<0||n.left>renderer.domElement.clientWidth)return;s=n.right-n.left,o=n.bottom-n.top,i=n.left,a=renderer.domElement.clientHeight-n.bottom,renderer.setViewport(i,a,s,o),renderer.setScissor(i,a,s,o),uniforms1.time.value=t,renderer.render(e,e.userData.camera),e.children[0].geometry.verticesNeedUpdate=!0}),t=clock.getElapsedTime()}</script><p></p><p>We alluded to the fact that inherently-parallel algorithms exhibit some partial order, and not a total order,
+because the instructions that can execute independently do not have any explicit order among each other.
+This extra degree of freedom is another benefit domain flow algorithms exhibit over sequential algorithms.
+It allows the execution engine to organize any resource contention in a more energy, space, or time efficient way,
+as long the machine does not violate the dependency relationships specified in the algorithm.</p><p>Typically, the complete order defined by sequential algorithms over-constrains the execution order, and
+parallelizing compilers can&rsquo;t recover the inherent dependency structure of the mathematics behind the algorithm,
+leading to disappointing speed-ups. This is a fundamental limitation to trying to generate parallel
+execution models from sequential specifications. Secondly, as we&rsquo;ll see shortly, the best parallel algorithms
+may organize their computation differently as compared to a sequential algorithm. There are even cases where
+a parallel algorithm is better off using a different mathematical basis for its solution to reduce operand
+movement <a href=https://www2.eecs.berkeley.edu/Pubs/TechRpts/2010/EECS-2010-37.pdf target=_blank>communication-avoiding linear algebra</a>,
+or higher-order methods in finite element and finite volume methods to increase the computation to operand bandwidth ratio
+of the kernels.</p><p>Instead, the domain flow specification only specifies the data dependencies
+inherent to the algorithm: the partial order will simply <em><em>evolve</em></em> from these constraints.
+If we would present a domain flow algorithm with infinite resources and instantaneous access to its inputs,
+then the computational activity of the specification would evolve in what is called the <em>free schedule</em>.</p><p>The free schedule for our matrix multiply is visualized in the following, interactive, simulation:</p><p>We see the activity wavefronts of the $a$ recurrence (blue), the $b$ recurrence (purple), and the $c$ recurrence (red)
+evolve through space and time.</p><p>The $a$ recurrence was defined by the recurrence equation: $$a: a[i,j-1,k]$$
+It is independent of either $b$ or $c$ and the computational wavefront represents the computational event: $$a[i,j,k] = a[i,j-1,k]$$
+and will evolve along the $[0,1,0]$ direction.</p><p>Similarly, the $b$ recurrence, defined by the equation: $$b: b[i-1,j,k]$$ is also independent of $a$ or $c$ and the
+computational wavefront evolves along the $[1,0,0]$ direction.</p><p>The $c$ recurrence, however, does depend on both $a$ and $b$, as well as on its own previous values. The <em>free</em> schedule
+that the $c$ recurrence evolves into is a wavefront that moves along the $[1,1,1]$ direction. The $a$ and $b$ values
+will arrive &rsquo;early&rsquo; at a $[i,j,k]$ lattice location, and as the $c$ values arrive, the recurrence equation:
+$$c: c[i,j,k-1] + a[i,j-1,k] * b[i-1, j, k]$$
+will trigger.</p></div></main></div><aside id=sidebar class=default-animation dir=ltr><div id=header-wrapper class=default-animation><div id=header class=default-animation><a href=https://stillwater-sc.github.io/domain-flow><img src=https://stillwater-sc.github.io/domain-flow/images/stillwater-logo.png alt="Stillwater Supercomputing, Inc."></a></div><form action=../../search.html method=get><div class="searchbox default-animation"><button type=submit title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+<label class=a11y-only for=search-by>Search</label>
+<input data-search-input id=search-by name=search-by class=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div></form><script>var contentLangs=["en"]</script><script src=../../js/auto-complete.js?1675114962 defer></script>
+<script src=../../js/lunr/lunr.min.js?1675114962 defer></script>
+<script src=../../js/lunr/lunr.stemmer.support.min.js?1675114962 defer></script>
+<script src=../../js/lunr/lunr.multi.min.js?1675114962 defer></script>
+<script src=../../js/lunr/lunr.en.min.js?1675114962 defer></script>
+<script src=../../js/search.js?1675114962 defer></script></div><div id=content-wrapper class=highlightable><ul class=topics><li data-nav-id=/introduction/index.html class="dd-item parent alwaysopen"><a href=../../introduction/index.html>Getting Started</a><ul id=subsections-db5db1cf4b1800282ddcebf5cde99c36><li data-nav-id=/introduction/example/index.html class=dd-item><a href=../../introduction/example/index.html>An Example</a></li><li data-nav-id=/introduction/parallel-programming/index.html class=dd-item><a href=../../introduction/parallel-programming/index.html>Parallel Programming</a></li><li data-nav-id=/introduction/spacetime/index.html class=dd-item><a href=../../introduction/spacetime/index.html>Spacetime</a></li><li data-nav-id=/introduction/computational-spacetime/index.html class=dd-item><a href=../../introduction/computational-spacetime/index.html>Computational Spacetime</a></li><li data-nav-id=/introduction/domain-flow/index.html class=dd-item><a href=../../introduction/domain-flow/index.html>Domain Flow</a></li><li data-nav-id=/introduction/freeschedule/index.html class="dd-item active"><a href=../../introduction/freeschedule/index.html>Free Schedule</a></li><li data-nav-id=/introduction/linearschedule/index.html class=dd-item><a href=../../introduction/linearschedule/index.html>Linear Schedules</a></li><li data-nav-id=/introduction/derivation/index.html class=dd-item><a href=../../introduction/derivation/index.html>Derivation</a></li><li data-nav-id=/introduction/nextsteps/index.html class=dd-item><a href=../../introduction/nextsteps/index.html>Next Steps</a></li><li data-nav-id=/introduction/webgl/index.html class=dd-item><a href=../../introduction/webgl/index.html>Webgl</a></li></ul></li><li data-nav-id=/design/index.html class="dd-item alwaysopen"><a href=../../design/index.html>Elements of Good Design</a><ul id=subsections-d25739b54eec6c54b486058b3e2f3701><li data-nav-id=/design/currentstate/index.html class=dd-item><a href=../../design/currentstate/index.html>Algorithm Dynamics</a></li><li data-nav-id=/design/elements/index.html class=dd-item><a href=../../design/elements/index.html>Elements of Design</a></li><li data-nav-id=/design/dfm/index.html class=dd-item><a href=../../design/dfm/index.html>Data Flow Machine</a></li><li data-nav-id=/design/time/index.html class=dd-item><a href=../../design/time/index.html>Time: the when</a></li><li data-nav-id=/design/space/index.html class=dd-item><a href=../../design/space/index.html>Space: the where</a></li><li data-nav-id=/design/nextsteps/index.html class=dd-item><a href=../../design/nextsteps/index.html>Next Steps</a></li></ul></li><li data-nav-id=/blas/index.html class="dd-item alwaysopen"><a href=../../blas/index.html>Basic Linear Algebra</a><ul id=subsections-c04c91366fb5eba2efaaddab304f1204><li data-nav-id=/blas/level1/index.html class=dd-item><a href=../../blas/level1/index.html>BLAS Level 1</a></li><li data-nav-id=/blas/level2/index.html class=dd-item><a href=../../blas/level2/index.html>BLAS Level 2</a></li><li data-nav-id=/blas/level3/index.html class=dd-item><a href=../../blas/level3/index.html>BLAS Level 3</a></li></ul></li><li data-nav-id=/factorization/index.html class="dd-item alwaysopen"><a href=../../factorization/index.html>Matrix Factorization</a><ul id=subsections-ad68331fc764b7acec0f1f237c6522bf><li data-nav-id=/factorization/factorization/index.html class=dd-item><a href=../../factorization/factorization/index.html>Matrix Factorizations</a></li></ul></li><li data-nav-id=/matrixkernels/index.html class="dd-item alwaysopen"><a href=../../matrixkernels/index.html>Matrix Kernels</a><ul id=subsections-7c2bfc25d3abc9a62b3397c74cd33be7><li data-nav-id=/matrixkernels/matrixkernels/index.html class=dd-item><a href=../../matrixkernels/matrixkernels/index.html>Matrix Kernels</a></li></ul></li><li data-nav-id=/linearsolvers/index.html class="dd-item alwaysopen"><a href=../../linearsolvers/index.html>Linear Solvers</a><ul id=subsections-5d80ff15816d384ff301e1b89749e656><li data-nav-id=/linearsolvers/solvers/index.html class=dd-item><a href=../../linearsolvers/solvers/index.html>Linear Solvers</a></li><li data-nav-id=/linearsolvers/lu/index.html class=dd-item><a href=../../linearsolvers/lu/index.html>Gaussian Elimination</a></li></ul></li></ul><div class="footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showVariantSwitch showFooter"></div><hr class="default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showVariantSwitch showFooter"><div id=prefooter class="footerLangSwitch footerVariantSwitch footerVisitedLinks showVariantSwitch"><ul><li id=select-language-container class=footerLangSwitch><div class="padding select-container"><i class="fas fa-language fa-fw"></i>
+<span>&nbsp;</span><div class=select-style><label class=a11y-only for=select-language>Language</label>
+<select id=select-language onchange="location=baseUri+this.value"></select></div><div class=select-clear></div></div></li><li id=select-variant-container class="footerVariantSwitch showVariantSwitch"><div class="padding select-container"><i class="fas fa-paint-brush fa-fw"></i>
+<span>&nbsp;</span><div class=select-style><label class=a11y-only for=select-variant>Theme</label>
+<select id=select-variant onchange=window.variants&&variants.changeVariant(this.value)><option id=blue value=blue selected>Blue</option><option id=green value=green>Green</option><option id=red value=red>Red</option><option id=relearn-light value=relearn-light>Relearn Light</option><option id=relearn-dark value=relearn-dark>Relearn Dark</option></select></div><div class=select-clear></div></div><script>window.variants&&variants.markSelectedVariant()</script></li><li class=footerVisitedLinks><button class=padding onclick=clearHistory()><i class="fas fa-history fa-fw"></i> Clear History</button></li></ul></div><div id=footer class="footerFooter showFooter"><p>Built with <a href=https://github.com/McShelby/hugo-theme-relearn title=love><i class="fas fa-heart"></i></a> by <a href=https://gohugo.io/>Hugo</a></p></div></div></aside><script src=../../js/clipboard.min.js?1675114962 defer></script>
+<script src=../../js/perfect-scrollbar.min.js?1675114962 defer></script>
+<script src=../../js/featherlight.min.js?1675114962 defer></script>
+<script src=../../js/theme.js?1675114962 defer></script></body></html>
