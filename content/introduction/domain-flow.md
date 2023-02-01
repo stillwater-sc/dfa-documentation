@@ -17,8 +17,9 @@ series = [ "introduction" ]
 
 Domain flow is an abstract parallel programming model that is invariant to technology changes.
 
-An equation {{<math>}}$c = a \oplus b${{</math>}} is comprised of a computation phase, the {{<math>}}$\oplus${{</math>}},
-and a communication phase, the {{<math>}}$=${{</math>}}.
+An equation {{< math >}}$c = a \oplus b${{< /math >}} is comprised of a computation phase, 
+the {{< math >}}$\oplus${{< /math >}},
+and a communication phase, the {{< math >}}$=${{< /math >}}.
 
 Implementation technology will impact these phases differently, and we are seeking a programming model 
 that is invariant to the difference. A thought experiment will shed light on the desired properties of such a model. 
@@ -44,13 +45,14 @@ we are seeking. Independent of technology, we can always engineer a machine that
 computation and communication delays, and that offers connectivity among nodes that fall within the future cone of the 
 computational spacetime.
 
-One such computational spacetime that is uniform in all directions is the Cartesian lattice, {{<math>}}$\mathbb{N}^3${{</math>}}.
-And the design of a domain flow algorithm is the act of finding an efficient embedding of the computational graph of
-the single assignment form in the Cartesian lattice, {{<math>}}$\mathbb{N}^c${{</math>}}.
+One such computational spacetime that is uniform in all directions is the Cartesian lattice, 
+{{< math >}}$\mathbb{N}^3${{< /math >}}.
+And the design of a domain flow algorithm is the act of finding an efficient embedding of the 
+computational graph of the single assignment form in the Cartesian lattice, {{< math >}}$\mathbb{N}^c${{< /math >}}.
 
 Back to our matrix multiply; we can now reinterpret the domain flow algorithm as an embedding.
-Each index range, that is, the {{<math>}}$i, j, k${{</math>}} in the constraint set, can be seen as a dimension in 
-the Cartesian lattice. The index tag, such as {{<math>}}$[i,j,k]${{</math>}}, is a location in the lattice.
+Each index range, that is, the {{< math >}}$i, j, k${{< /math >}} in the constraint set, can be seen as a dimension in 
+the Cartesian lattice. The index tag, such as {{< math >}}$[i,j,k]${{< /math >}}, is a location in the lattice.
 
 This is what the lattice for matmul looks like for a given N:
 

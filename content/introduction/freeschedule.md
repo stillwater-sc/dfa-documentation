@@ -42,25 +42,28 @@ The free schedule for our matrix multiply is visualized in the following, intera
 
 <div id="freeschedule_animation">_</div>
 
-We see the activity wavefront of the {{<math>}}$a${{</math>}} recurrence (blue), the {{<math>}}$b${{</math>}} 
-recurrence (purple), and the {{<math>}}$c${{</math>}} recurrence (red) evolve through space and time.
+We see the activity wavefront of the {{< math >}}$a${{< /math >}} recurrence (blue), the 
+{{< math >}}$b${{< /math >}} 
+recurrence (purple), and the {{< math >}}$c${{< /math >}} recurrence (red) evolve through space and time.
 
-The {{<math>}}$a${{</math>}} recurrence is defined by the recurrence equation: {{<math>}}$a: a[i,j-1,k]${{</math>}} 
-is independent of both {{<math>}}$b${{</math>}} and {{<math>}}$c${{</math>}}. The computational 
-wavefront represents the computational event set: {{<math>}}$a[i,j,k] = a[i,j-1,k]${{</math>}}
-and will evolve along the {{<math>}}$[0,1,0]${{</math>}} direction.
+The {{< math >}}$a${{< /math >}} recurrence is defined by the recurrence equation: 
+{{< math >}}$a: a[i,j-1,k]${{< /math >}} 
+is independent of both {{< math >}}$b${{< /math >}} and {{< math >}}$c${{< /math >}}. The computational 
+wavefront represents the computational event set: {{< math >}}$a[i,j,k] = a[i,j-1,k]${{< /math >}}
+and will evolve along the {{< math >}}$[0,1,0]${{< /math >}} direction.
 
-Similarly, the {{<math>}}$b${{</math>}} recurrence, defined by the equation: {{<math>}}$b: b[i-1,j,k]${{</math>}} 
-is independent of {{<math>}}$a${{</math>}} and {{<math>}}$c${{</math>}} and the
-computational wavefront evolves along the {{<math>}}$[1,0,0]${{</math>}} direction.
+Similarly, the {{< math >}}$b${{< /math >}} recurrence, defined by the equation: 
+{{< math >}}$b: b[i-1,j,k]${{< /math >}} 
+is independent of {{< math >}}$a${{< /math >}} and {{< math >}}$c${{< /math >}} and the
+computational wavefront evolves along the {{< math >}}$[1,0,0]${{< /math >}} direction.
 
-The {{<math>}}$c${{</math>}} recurrence, however, does depend on both {{<math>}}$a${{</math>}} and
-{{<math>}}$b${{</math>}}, as well as on its own previous values. The _free_ schedule
-that the {{<math>}}$c${{</math>}} recurrence evolves into is a wavefront that moves along the 
-{{<math>}}$[1,1,1]${{</math>}} direction. The {{<math>}}$a${{</math>}} and {{<math>}}$b${{</math>}} values
-will arrive 'early' at a {{<math>}}$[i,j,k]${{</math>}} lattice location, and as the {{<math>}}$c${{</math>}} values arrive, 
-the recurrence equation for {{<math>}}$c${{</math>}}, shown below, will trigger: 
+The {{< math >}}$c${{< /math >}} recurrence, however, does depend on both {{< math >}}$a${{< /math >}} and
+{{< math >}}$b${{< /math >}}, as well as on its own previous values. The _free_ schedule
+that the {{< math >}}$c${{< /math >}} recurrence evolves into is a wavefront that moves along the 
+{{< math >}}$[1,1,1]${{< /math >}} direction. The {{< math >}}$a${{< /math >}} and {{< math >}}$b${{< /math >}} values
+will arrive 'early' at a {{< math >}}$[i,j,k]${{< /math >}} lattice location, and as the {{< math >}}$c${{< /math >}} values arrive, 
+the recurrence equation for {{< math >}}$c${{< /math >}}, shown below, will trigger: 
 
-{{<math>}}$c: c[i,j,k-1] + a[i,j-1,k] * b[i-1, j, k]${{</math>}}
+{{< math >}}$c: c[i,j,k-1] + a[i,j-1,k] * b[i-1, j, k]${{< /math >}}
 
 
