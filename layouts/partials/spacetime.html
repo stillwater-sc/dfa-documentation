@@ -119,11 +119,11 @@
 <script>
     if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-    var scenes = [];
-    var views = [];
-    var t, canvas, renderer;
-    var PARTICLE_SIZE = 2;
-    var clock = new THREE.Clock( true );
+	let scenes = [];
+	let views = [];
+	let t, canvas, renderer;
+	let PARTICLE_SIZE = 2;
+	let clock = new THREE.Clock( true );
 
     window.onload = init;
 
@@ -134,15 +134,15 @@
         renderer.setClearColor( 0xffffff );
         renderer.setPixelRatio( window.devicePixelRatio );
 
-        var renderTarget = "{{ .Params.RenderTargetName }}";
-        var view = document.getElementById( renderTarget );
+		let renderTarget = "{{ .Params.RenderTargetName }}";
+		let view = document.getElementById( renderTarget );
         views.push( view );
 
         { // view = wavefront_view_2  animate linear schedule
-            var lattice2 = createSpacetimeGeometry(4, 4, 4, 1);
-            var pointSize2 = PARTICLE_SIZE * 0.25;
+			let lattice2 = createSpacetimeLattice(4, 4, 4, 1);
+			let pointSize2 = PARTICLE_SIZE * 0.25;
 
-            var texturePath = "{{ .Site.BaseURL }}/textures/sprites/ball.png";
+			let texturePath = "{{ .Site.BaseURL }}/textures/sprites/ball.png";
             // cardinality of the simulation is from [3, 60]
             uniforms2 = {
                 cardinality: { value: 6.0 },
@@ -150,15 +150,15 @@
                 color:       { value: new THREE.Color( 0xffffff ) },
                 texture:     { value: new THREE.TextureLoader().load( texturePath ) }
             };
-            var scene2 = createSpacetimeScene( lattice2, pointSize2, 'wavefrontshader2', 'fragmentshader', uniforms2, sphericalWavefront );
+			let scene2 = createSpacetimeScene( lattice2, pointSize2, 'wavefrontshader2', 'fragmentshader', uniforms2, sphericalWavefront );
             scene2.userData.view = view;
 
             // PerspectiveCamera ( fov, aspectRatio, near clipping plane, var clipping plane )
-            var camera2 = new THREE.PerspectiveCamera( 75, 1, 0.1, 100 );
+			let camera2 = new THREE.PerspectiveCamera( 75, 1, 0.1, 100 );
             camera2.position.set( 5, 5, 2.5 );
             scene2.userData.camera = camera2;
 
-            var controls2 = new THREE.OrbitControls( camera2, view );
+			let controls2 = new THREE.OrbitControls( camera2, view );
             controls2.minDistance = 2;   // zoom can't zoom in further than z = 20
             controls2.maxDistance = 100;   // zoom can't zoom out further than z = 500
             scene2.userData.controls = controls2;
@@ -172,8 +172,8 @@
     }
 
     function updateSize() {
-        var width = canvas.clientWidth;
-        var height = canvas.clientHeight;
+		let width = canvas.clientWidth;
+		let height = canvas.clientHeight;
 
         if ( canvas.width !== width || canvas.height != height ) {
             renderer.setSize( width, height, false );
@@ -198,7 +198,7 @@
 
         scenes.forEach( function( scene ) {
 
-            var rect = scene.userData.view.getBoundingClientRect();
+			let rect = scene.userData.view.getBoundingClientRect();
             // check if it's off-screen. If so skip it
             if ( rect.bottom < 0 || rect.top  > renderer.domElement.clientHeight ||
                 rect.right  < 0 || rect.left > renderer.domElement.clientWidth ) {
@@ -206,10 +206,10 @@
             }
 
             // set the viewport
-            var width  = rect.right - rect.left;
-            var height = rect.bottom - rect.top;
-            var left   = rect.left;
-            var bottom = renderer.domElement.clientHeight - rect.bottom;
+			let width  = rect.right - rect.left;
+			let height = rect.bottom - rect.top;
+			let left   = rect.left;
+			let bottom = renderer.domElement.clientHeight - rect.bottom;
             renderer.setViewport( left, bottom, width, height );
             renderer.setScissor( left, bottom, width, height );
 

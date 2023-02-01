@@ -1,19 +1,10 @@
 +++
-
+weight = 4
 title = "Parallel Programming"
 date = "2017-02-15T06:58:22-05:00"
-toc = true
-
-weight = 4
-next = "/introduction/spacetime"
-prev = "/introduction/example"
-
-# WebGLRenderTarget = true
-# IndexSpaceVisualization = true
-# RenderTargetName = "index_space_view"
 
 tags = [ "domain-flow", "matrix-multiply", "index-space", "lattice" ]
-categories = [ "domain flow", "introduction" ]
+categories = [ "domain-flow", "introduction" ]
 series = [ "introduction" ]
 
 +++
