@@ -2,7 +2,7 @@
  * Created by tomtz on 2/14/2017.
  */
 function createIndexSpaceGeometry( N, M, K, cellSize, center, matmul ) {
-    let lattice = new THREE.Geometry();
+    let lattice = { vertices: [] };
 
     if (center) {
         for ( let i = -N/2; i <= N/2; i++ ) {
@@ -57,9 +57,9 @@ function createIndexSpaceScene( lattice, pointSize ) {
     }
 
     let geometry = new THREE.BufferGeometry();
-    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-    geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
-    geometry.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
+    geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+    geometry.setAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
+    geometry.setAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
 
     let material = new THREE.ShaderMaterial( {
         uniforms: {
