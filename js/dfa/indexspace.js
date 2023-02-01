@@ -2,20 +2,20 @@
  * Created by tomtz on 2/14/2017.
  */
 function createIndexSpaceGeometry( N, M, K, cellSize, center, matmul ) {
-    var lattice = new THREE.Geometry();
+    let lattice = new THREE.Geometry();
 
     if (center) {
-        for ( var i = -N/2; i <= N/2; i++ ) {
-            for ( var j = -M/2; j <= M/2; j++ ) {
-                for ( var k = -K/2; k <= K/2; k++ ) {
+        for ( let i = -N/2; i <= N/2; i++ ) {
+            for ( let j = -M/2; j <= M/2; j++ ) {
+                for ( let k = -K/2; k <= K/2; k++ ) {
                     lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
                 }
             }
         }
     } else {
-        for ( var i = 0; i < N; i++ ) {
-            for ( var j = 0; j < M; j++ ) {
-                for ( var k = 0; k < K; k++ ) {
+        for ( let i = 0; i < N; i++ ) {
+            for ( let j = 0; j < M; j++ ) {
+                for ( let k = 0; k < K; k++ ) {
                     if (matmul) {
                         // create the lattices for a, b, and c recurrences
                         lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
@@ -33,19 +33,19 @@ function createIndexSpaceGeometry( N, M, K, cellSize, center, matmul ) {
 }
 
 function createIndexSpaceScene( lattice, pointSize ) {
-    var scene = new THREE.Scene();
+    let scene = new THREE.Scene();
     // var geometry1 = new THREE.BoxGeometry( 200, 200, 200, 16, 16, 16 );
-    var vertices = lattice.vertices;
+    let vertices = lattice.vertices;
 
-    var positions = new Float32Array( vertices.length * 3 );
-    var colors    = new Float32Array( vertices.length * 3 );
-    var sizes     = new Float32Array( vertices.length );
+    let positions = new Float32Array( vertices.length * 3 );
+    let colors    = new Float32Array( vertices.length * 3 );
+    let sizes     = new Float32Array( vertices.length );
 
-    var vertex;
-    var color = new THREE.Color();
+    let vertex;
+    let color = new THREE.Color();
 
-    var hue = 0.11;
-    for ( var i = 0, l = vertices.length; i < l; i++ ) {
+    let hue = 0.11;
+    for ( let i = 0, l = vertices.length; i < l; i++ ) {
         vertex = vertices[i];
         vertex.toArray( positions, i * 3 );
 
@@ -56,12 +56,12 @@ function createIndexSpaceScene( lattice, pointSize ) {
         sizes[ i ] = pointSize;
     }
 
-    var geometry = new THREE.BufferGeometry();
+    let geometry = new THREE.BufferGeometry();
     geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
     geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
     geometry.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
 
-    var material = new THREE.ShaderMaterial( {
+    let material = new THREE.ShaderMaterial( {
         uniforms: {
             color:    { value: new THREE.Color( 0xffffff ) },
             texture:  { value: new THREE.TextureLoader().load( "../../textures/sprites/ball.png" ) }
