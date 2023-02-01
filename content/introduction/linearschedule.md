@@ -13,8 +13,6 @@ series = [ "introduction" ]
 
 +++
 
-# Linear Schedules
-
 <canvas id="c"></canvas>
 
 In the previous section, we saw what the computational evolution of an unconstrained parallel algorithm looks like.
@@ -27,16 +25,17 @@ In the free schedule animation, the propagation recurrences distributing the {{<
 {{< math >}}$B${{< /math >}} matrix elements throughout the 3D lattice run 'ahead' of the actual computational 
 recurrence calculating the {{< math >}}$C${{< /math >}} matrix elements.
 
-The *A* and *B* matrix elements arrive at their destination earlier than when they are consumed. 
-A physical system would need to have memory to hold these operands until
-all of the operands are present and the computation can commence. The extra memory required to hold
-these operands is consuming space and energy; 
-attributes an algorithm designer would want to optimize.
+The {{< math >}}$A${{< /math >}} and {{< math >}}$B${{< /math >}} matrix elements arrive at their destination 
+earlier than when they are consumed. A physical system would need to have memory to hold these operands until
+all the operands are present and the computation can commence. The extra memory required to hold
+these operands is consuming space and energy; attributes an algorithm designer would want to optimize.
 
-Looking more closely at the wavefront that expresses the evolution of the *C* matrix elements, we
-can observe that the wavefront evolves as a two-dimensional plane with normal {{< math >}}$[1 1 1]^T${{< /math >}}.
-This implies that if we _constrain_ the *A* and *B* propagation to evolve along this same wavefront
-then all memory requirements would disappear as we deliver the matrix elements just in time
+Looking more closely at the wavefront that expresses the evolution of the {{< math >}}$C${{< /math >}} 
+matrix elements, we can observe that the wavefront evolves as a two-dimensional plane with normal 
+{{< math >}}$[1 1 1]^T${{< /math >}}.
+This implies that if we _constrain_ the propagation of the {{< math >}}$A${{< /math >}} and 
+{{< math >}}$B${{< /math >}} matrix elements to evolve along this same wavefront
+then all memory requirements would disappear as we deliver the matrix elements just-in-time
 to participate in the computational event:
  
 {{< math >}}$$c: c[i,j,k-1] + a[i,j-1,k] * b[i-1, j,k]$${{< /math >}}

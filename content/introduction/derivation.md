@@ -1,14 +1,15 @@
 +++
 weight = 10
-title = "Derivation"
+menuTitle = "Derivation"
 date = "2017-02-15T07:24:38-05:00"
+title = "Derivation of the matrix multiply domain flow program"
 
 tags = [ "domain-flow", "matrix-multiply", "derivation" ]
 categories = [ "domain-flow", "design", "matrix-math" ]
 series = [ "introduction" ]
 +++
 
-# Derivation of the matrix multiply domain flow program
+# 
 
 The concepts of partial and total orders are essential for finding optimal domain flow algorithms. 
 Partial orders, or [Poset](https://en.wikipedia.org/wiki/Partially_ordered_set), are the
@@ -20,11 +21,11 @@ a comprehensive review. What follows may be a bit technical to communicate in ma
 what is going on, but keep in mind the visualizations of the previous
 pages as you try to visualize what the math implies.
 
-We want to evaluate the matrix-matrix multiplication: {{<math>}}$ C = AB ${{</math>}}, where
-{{<math>}}$A${{</math>}}, {{<math>}}$B${{</math>}}, and {{<math>}}$C${{</math>}} 
-are matrices of size {{<math>}}$N \times N${{</math>}}.
-We picked the square matrix version because it is simpler, but all that will follow will work just 
-as well when the matrices are rectangular.
+We want to evaluate the matrix-matrix multiplication: {{< math >}}$ C = A \oplus B ${{< /math >}}, where
+{{< math >}}$A${{< /math >}}, {{< math >}}$B${{< /math >}}, and {{< math >}}$C${{< /math >}} 
+are matrices of size {{< math >}}$N \times N${{< /math >}}.
+We picked the square matrix version because it is cleaner to visualize the symmetry in the computational
+wavefront, but all that will follow will work just as well when the matrices are rectangular.
 
 Matrix operations exhibits many independent operations. For example, there are four basic vector operations:
 1. scale
@@ -32,32 +33,32 @@ Matrix operations exhibits many independent operations. For example, there are f
 3. multiply, and 
 4. dot product 
 
-The operator {{<math>}}$z = alpha * x + y${{</math>}} is frequently used, and although redundant, tends
+The operator {{< math >}}$z = alpha * x + y${{< /math >}} is frequently used, and although redundant, tends
 to be added as the fifth operator, and referred to as the _saxpy_ operator for "Scalar Alpha X Plus Y". 
 The _dot product_ is also referred to as the _inner product_. The _inner product_ is an operator that 
 collapses two vectors into a scalar.
 The _outer product_ is an operator that expands two vectors into a matrix: for vector 
-{{<math>}}$x${{</math>}} and {{<math>}}$y${{</math>}}, the outer product {{<math>}}$\times${{</math>}} 
-is defined as: {{<math>}}$xy^T${{</math>}}.
+{{< math >}}$x${{< /math >}} and {{< math >}}$y${{< /math >}}, the outer product {{< math >}}$\times${{< /math >}} 
+is defined as: {{< math >}}$xy^T${{< /math >}}.
 
 Matrix operations can be expressed in terms of these vector operators with many degrees of freedom. 
-For example, 'double loop' matrix-vector multiplication can be arranged in {{<math>}}$2! = 2${{</math>}} 
+For example, 'double loop' matrix-vector multiplication can be arranged in {{< math >}}$2! = 2${{< /math >}} 
 different ways; we can evaluate the inner products, or we can evaluate the outer products.
 
-'Triple loop' matrix-matrix multiplication can be arranged in {{<math>}}$3! = 6${{</math>}} ways. 
+'Triple loop' matrix-matrix multiplication can be arranged in {{< math >}}$3! = 6${{< /math >}} ways. 
 These arrangements have their own operators and their own modes of access, and thus the interplay 
 with a spatial distribution of the rows and columns of the matrices is key to
 evaluate the efficiency of the computation. The orderings and properties of these different 
 arrangements is shown in Table 1:
 
-| Loop order | Inner Loop | Middle Loop                                 | Inner Loop Data Access |
-|------------|------------|---------------------------------------------|------------------------|
-| ijk | dot | vector {{<math>}}$\times${{</math>}} matrix | *A* by row, *B* by column |
-| jik | dot | matrix {{<math>}}$\times${{</math>}} vector | *A* by row, *B* by column |
-| ikj | saxpy | row gaxpy                                   | *B* by row |
-| jki | saxpy | column gaxpy                                | *A* by column |
-| kij | saxpy | row outer product                           | *B* by row |
-| kji | saxpy | column outer product                        | *A* by column |
+| Loop order | Inner Loop | Middle Loop                                     | Inner Loop Data Access      |
+|------------|------------|-------------------------------------------------|-----------------------------|
+| ijk | dot | vector {{< math >}}$\times${{< /math >}} matrix | {{< math >}}$A${{< /math >}} by row, {{< math >}}$B${{< /math >}} by column |
+| jik | dot | matrix {{< math >}}$\times${{< /math >}} vector | {{< math >}}$A${{< /math >}} by row, {{< math >}}$B${{< /math >}} by column   |
+| ikj | saxpy | row saxpy                                       | {{< math >}}$B${{< /math >}} by row                  |
+| jki | saxpy | column saxpy                                    | {{< math >}}$A${{< /math >}} by column               |
+| kij | saxpy | row outer product                               | {{< math >}}$B${{< /math >}} by row                  |
+| kji | saxpy | column outer product                            | {{< math >}}$A${{< /math >}} by column               |
 
 *Table 1:* Matrix Multiplication: Orderings and Properties (see <sup>[2](#matrix computations)</sup>)
 
@@ -69,19 +70,19 @@ In a parallel context, all these vector operators have an information distributi
 First, vectors must be embedded in space, and secondly, the vectors need to be aligned so that these 
 element operations can commence. Progressing to matrix operators, we have vectors of vectors that need 
 to be aligned. For the domain flow algorithm we demonstrated, we started from the matrix-multiply expression 
-as {{<math>}}$N^2${{</math>}} independent _dot_ products. 
-In mathematical terms: if we partition the {{<math>}}$A${{</math>}} matrix in rows, and the
-{{<math>}}$B${{</math>}} matrix in columns:
+as {{< math >}}$N^2${{< /math >}} independent _dot_ products. 
+In mathematical terms: if we partition the {{< math >}}$A${{< /math >}} matrix in rows, and the
+{{< math >}}$B${{< /math >}} matrix in columns:
 
-{{<math>}}$$A = \begin{bmatrix} a_1^T \\\\ a_2^T \\\\ \vdots \\\\ a_n^T \end{bmatrix}$${{</math>}}
+{{< math >}}$$A = \begin{bmatrix} a_1^T \\\\ a_2^T \\\\ \vdots \\\\ a_n^T \end{bmatrix}$${{< /math >}}
 
 and
 
-{{<math>}}$$B = \begin{bmatrix} b_1 & b_2 & \cdots & b_n \end{bmatrix}$$ {{</math>}}
+{{< math >}}$$B = \begin{bmatrix} b_1 & b_2 & \cdots & b_n \end{bmatrix}$$ {{< /math >}}
 
 then matrix multiplication can be expressed as the collection of _dot_ products:
 
-{{<math>}}$$\text{for i = 1:N} \\\\ \qquad \text{for j = 1:N} \\\\ \qquad\qquad c_{ij} = a_i^T b_j $${{</math>}}
+{{< math >}}$$\text{for i = 1:N} \\\\ \qquad \text{for j = 1:N} \\\\ \qquad\qquad c_{ij} = a_i^T b_j $${{< /math >}}
 
 Looking just at the individual _dot_ product, a theoretical computer scientist would say: the fastest way 
 to evaluate a _dot_ product is through a binary tree of depth {{<math>}}$log(N)${{</math>}} 
@@ -96,18 +97,18 @@ of electrons participating in the evaluation of an algebraic operator, computati
 are roughly equal in terms of time and thus distance these electrons can 'drift'.
 
 What this means for evaluating the _dot_ product is that the evaluation of
-{{<math>}}$$c_{ij} = \sum\limits_{k=1}^N a_{ik} * b_{kj}$${{</math>}}
+{{< math >}}$$c_{ij} = \sum\limits_{k=1}^N a_{ik} * b_{kj}$${{< /math >}}
 can be executed efficiently as a propagation through local neighborhoods of communicating functional units. 
 In mathematical terms we can write this as a recurrence: 
-{{<math>}}$$c_{ijk} = c_{ijk-1} + a_{ik} * b_{kj}$${{</math>}}
+{{< math >}}$$c_{ijk} = c_{ijk-1} + a_{ik} * b_{kj}$${{< /math >}}
 You can start to recognize the domain flow algorithm as presented in our example. However, if we 
-distribute the {{<math>}}$c_{ij}${{</math>}} propagation in that {{<math>}}$k${{</math>}}-dimension,
-then accesses to {{<math>}}$a_{ik}${{</math>}} and {{<math>}}$b_{kj}${{</math>}} are not local at all. 
-Is there a mechanism to get the correct {{<math>}}$a${{</math>}} and {{<math>}}$b${{</math>}} elements 
+distribute the {{< math >}}$c_{ij}${{< /math >}} propagation in that {{< math >}}$k${{< /math >}}-dimension,
+then accesses to {{< math >}}$a_{ik}${{< /math >}} and {{< math >}}$b_{kj}${{< /math >}} are not local at all. 
+Is there a mechanism to get the correct {{< math >}}$a${{< /math >}} and {{< math >}}$b${{< /math >}} elements 
 to the right location?
 
-Let's take a look at the dot products for {{<math>}}$c_{1,1}${{</math>}}, {{<math>}}$c_{1,2}${{</math>}}, 
-and {{<math>}}$c_{2,1}${{</math>}}. Visualize the propagation of the {{<math>}}$c${{</math>}}
+Let's take a look at the dot products for {{< math >}}$c_{1,1}${{< /math >}}, {{< math >}}$c_{1,2}${{< /math >}}, 
+and {{< math >}}$c_{2,1}${{< /math >}}. Visualize the propagation of the {{< math >}}$c${{< /math >}}
 recurrence along the {{<math>}}$k${{</math>}}-dimension above the point 
 {{<math>}}$i = 1, j = 1, k = 0${{</math>}}. Let's position the row of {{<math>}}$A${{</math>}}, 
 {{<math>}}$a_1^T${{</math>}}, alongside the {{<math>}}$c_{1,1}${{</math>}} propagation in the

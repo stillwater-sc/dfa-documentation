@@ -13,8 +13,6 @@ series = [ "introduction" ]
 
 +++
 
-# Domain Flow
-
 Domain flow is an abstract parallel programming model that is invariant to technology changes.
 
 An equation {{< math >}}$c = a \oplus b${{< /math >}} is comprised of a computation phase, 

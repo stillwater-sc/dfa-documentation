@@ -13,8 +13,6 @@ series = [ "introduction" ]
 
 +++
 
-# Computational Spacetime
-
 Data movement in a parallel machine experiences the constraints of spacetime and more. The propagation delay
 in a communication channel acts similarly as the constraint on the speed of light in spacetime. Let's bring back
 the mental model of a parallel machine being a fixed graph in space with communication channels connecting a set

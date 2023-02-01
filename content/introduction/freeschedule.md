@@ -13,8 +13,6 @@ series = [ "introduction" ]
 
 +++
 
-# Free Schedule
-
 <canvas id="c"></canvas>
 
 We alluded to the fact that inherently-parallel algorithms exhibit some partial order, and not a total order,
@@ -28,13 +26,14 @@ parallelizing compilers can't recover the inherent dependency structure of the m
 leading to disappointing speed-ups. This is a fundamental limitation to trying to generate parallel
 execution models from sequential specifications. Secondly, as we'll see shortly, the best parallel algorithms
 may organize their computation differently as compared to a sequential algorithm. There are even cases where
-a parallel algorithm is better off using a different mathematical basis for its solution to reduce operand
-movement [communication-avoiding linear algebra](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2010/EECS-2010-37.pdf),
-or higher-order methods in finite element and finite volume methods to increase the computation to operand 
-bandwidth ratio of the kernels.
+the parallel algorithm is better off using a different mathematical basis for its solution to reduce operand
+movement. These are so-called communication-avoiding parallel algorithms [(Hoemmen)](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2010/EECS-2010-37.pdf).
+Other approaches, such as, Iso Geometric Analysis (IGA) in next generation finite element and finite volume methods
+use higher-order methods to increase the computation to operand bandwidth ratio of the compute kernels thus
+reducing the data movement requirements of the execution [(G+SMO)](https://github.com/gismo/gismo/wiki/About--G-Smo).
 
-Instead, the domain flow specification only specifies the data dependencies
-inherent to the algorithm: the partial order will simply _*evolve*_ from these constraints.
+Instead, the domain flow specification only specifies the data dependencies inherent to the algorithm: 
+the partial order will _*evolve*_ from these constraints. In other words, it is an emergent behavior.
 If we present a domain flow algorithm with infinite resources and instantaneous access to its inputs, 
 then the computational activity of the specification would evolve in what is called the _free schedule_.
 
@@ -43,8 +42,8 @@ The free schedule for our matrix multiply is visualized in the following, intera
 <div id="freeschedule_animation">_</div>
 
 We see the activity wavefront of the {{< math >}}$a${{< /math >}} recurrence (blue), the 
-{{< math >}}$b${{< /math >}} 
-recurrence (purple), and the {{< math >}}$c${{< /math >}} recurrence (red) evolve through space and time.
+{{< math >}}$b${{< /math >}} recurrence (purple), and the {{< math >}}$c${{< /math >}} recurrence (red) 
+evolve through space and time.
 
 The {{< math >}}$a${{< /math >}} recurrence is defined by the recurrence equation: 
 {{< math >}}$a: a[i,j-1,k]${{< /math >}} 

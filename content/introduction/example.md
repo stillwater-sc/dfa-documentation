@@ -9,7 +9,6 @@ categories = [ "domain-flow", "introduction" ]
 series = [ "introduction" ]
 
 +++
-# An Example
 
 Let's look at a simple, but frequently used operator in Deep Learning inference: 
 dense matrix multiplication. 

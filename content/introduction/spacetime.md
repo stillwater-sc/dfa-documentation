@@ -1,15 +1,14 @@
 +++
 weight = 5
-title = "Spacetime"
+title = "Constraints of Spacetime"
 date = "2017-02-15T06:58:22-05:00"
+menuTitle = "Spacetime"
 
 tags = [ "computational-spacetime" ]
 categories = [ "spacetime", "introduction" ]
 series = [ "introduction" ]
 
 +++
-
-# Constraints of Spacetime
 
 If you visualize the 'world' from the perspective of an operand flowing through a machine, 
 you realize that a physical machine creates a specific spatial constraint for the movement of data. 
