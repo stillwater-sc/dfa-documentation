@@ -52,7 +52,7 @@ Back to our matrix multiply; we can now reinterpret the domain flow algorithm as
 Each index range, that is, the {{< math >}}$i, j, k${{< /math >}} in the constraint set, can be seen as a dimension in 
 the Cartesian lattice. The index tag, such as {{< math >}}$[i,j,k]${{< /math >}}, is a location in the lattice.
 
-This is what the lattice for matmul looks like for a given N:
+This is what the lattice for matmul looks like for a given {{< math >}}$N${{< /math >}}:
 
 <canvas id="c"></canvas>
 
