@@ -162,4 +162,4 @@ compute ( (i,j,k) | 1 <= i,j,k <= N ) {
 
 <a name="history">1</a>: [History of Matrices and Determinants](https://mathshistory.st-andrews.ac.uk/HistTopics/Matrices_and_determinants/)
 
-<a name="matrix-computations">2</a>: [Matrix Computations, Gene Golub and Charles van Loan](https://www.cs.cornell.edu/cv/GVL4/golubandvanloan.htm)
+<a name="matrix-computations">2</a>: [Matrix Computations, Gene Golub and Charles van Loan](https://cs.cornell.edu/cv/cvl_home/books/)
