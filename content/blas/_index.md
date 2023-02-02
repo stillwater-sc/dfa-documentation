@@ -1,19 +1,11 @@
 +++
 
+archetype = "chapter"
+weight = 3
 title = "Basic Linear Algebra"
 date = "2017-02-15T07:54:08-05:00"
-icon = "<b>3. </b>"
-chapter = true
-
-weight = 30
-next = "/blas/level1"
-prev = "/design"
 
 +++
-
-### Chapter 3
-
-# Linear Algebra: the basics
 
 Basic Linear Algebra Subroutines are an historically significant set of
 functions that encapsulate the basic building blocks of a large collection

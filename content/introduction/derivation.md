@@ -16,18 +16,17 @@ Partial orders, or [Poset](https://en.wikipedia.org/wiki/Partially_ordered_set),
 source of high-performance, low-power execution patterns. 
 
 The Linear Algebra universe is particularly rich in partial orders, something that has been exploited 
-for centuries. <sup>[1](#history)</sup> Golub, and van Loan <sup>[2](#matrix computations)</sup> provide 
-a comprehensive review. What follows may be a bit technical to communicate in mathematical terms 
-what is going on, but keep in mind the visualizations of the previous
+for centuries <sup>[1](#history)</sup>. Matrix Computations<sup>[2](#matrix-computations)</sup> by Golub, and van Loan provide 
+a comprehensive review. What follows may be a bit technical, but keep in mind the visualizations of the previous
 pages as you try to visualize what the math implies.
 
-We want to evaluate the matrix-matrix multiplication: {{< math >}}$ C = A \oplus B ${{< /math >}}, where
+We want to evaluate the matrix-matrix multiplication: {{< math >}}$ C = A \otimes B ${{< /math >}}, where
 {{< math >}}$A${{< /math >}}, {{< math >}}$B${{< /math >}}, and {{< math >}}$C${{< /math >}} 
 are matrices of size {{< math >}}$N \times N${{< /math >}}.
 We picked the square matrix version because it is cleaner to visualize the symmetry in the computational
 wavefront, but all that will follow will work just as well when the matrices are rectangular.
 
-Matrix operations exhibits many independent operations. For example, there are four basic vector operations:
+Linear algebra operators exhibits many independent operations. For example, there are four basic vector operators:
 1. scale
 2. add 
 3. multiply, and 
@@ -36,7 +35,7 @@ Matrix operations exhibits many independent operations. For example, there are f
 The operator {{< math >}}$z = alpha * x + y${{< /math >}} is frequently used, and although redundant, tends
 to be added as the fifth operator, and referred to as the _saxpy_ operator for "Scalar Alpha X Plus Y". 
 The _dot product_ is also referred to as the _inner product_. The _inner product_ is an operator that 
-collapses two vectors into a scalar.
+brings two vectors together into a scalar representing a measure how much the vectors point in the same direction.
 The _outer product_ is an operator that expands two vectors into a matrix: for vector 
 {{< math >}}$x${{< /math >}} and {{< math >}}$y${{< /math >}}, the outer product {{< math >}}$\times${{< /math >}} 
 is defined as: {{< math >}}$xy^T${{< /math >}}.
@@ -60,7 +59,7 @@ arrangements is shown in Table 1:
 | kij | saxpy | row outer product                               | {{< math >}}$B${{< /math >}} by row                  |
 | kji | saxpy | column outer product                            | {{< math >}}$A${{< /math >}} by column               |
 
-*Table 1:* Matrix Multiplication: Orderings and Properties (see <sup>[2](#matrix computations)</sup>)
+*Table 1:* Matrix Multiplication: Orderings and Properties (see <sup>[2](#matrix-computations)</sup>)
 
 The _*scale*_, _*add*_, and _*multiply*_ operators are highly parallel in that each individual 
 vector element operation is independent of each other. The _*dot*_ product adds a consolidation, 
@@ -161,6 +160,6 @@ compute ( (i,j,k) | 1 <= i,j,k <= N ) {
     
 ```	
 
-<a name="history">1</a>: [History of Matrices and Determinants](http://www-groups.dcs.st-and.ac.uk/history/HistTopics/Matrices_and_determinants.html)
+<a name="history">1</a>: [History of Matrices and Determinants](https://mathshistory.st-andrews.ac.uk/HistTopics/Matrices_and_determinants/)
 
-<a name="matrix computations">2</a>: [Matrix Computations, Gene Golub and Charles van Loan](https://www.cs.cornell.edu/cv/GVL4/golubandvanloan.htm)
+<a name="matrix-computations">2</a>: [Matrix Computations, Gene Golub and Charles van Loan](https://www.cs.cornell.edu/cv/GVL4/golubandvanloan.htm)

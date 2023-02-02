@@ -1,10 +1,7 @@
 +++
-# icon = "<b>1. </b>"
-# chapter = true
-
 archetype = "chapter"
-title = "Getting Started"
 weight = 1
+title = "Getting Started"
 date = "2017-02-15T06:49:44-05:00"
 
 +++
