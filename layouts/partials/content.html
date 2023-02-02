@@ -11,8 +11,8 @@
   {{ if .Params.LinearScheduleVisualization }}
     {{ partial "linearschedule.html" . }}
   {{ end }}
-  {{ if .Params.WebGLAnimation }}
-    {{ partial "webgl.html" . }}
+  {{ if .Params.WavefrontAnimation }}
+    {{ partial "wavefront.html" . }}
   {{ end }}
 {{ end }}
 {{- .Content }}
