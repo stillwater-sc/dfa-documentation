@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
-function main() {
+function main(canvasId) {
 
-	const canvas = document.querySelector( '#c' );
+	const canvas = document.querySelector( canvasId );
 	const renderer = new THREE.WebGLRenderer( { canvas } );
 
 	const fov = 75;
@@ -95,4 +95,5 @@ function main() {
 
 }
 
-main();
+main('#c');
+main('#c2');
