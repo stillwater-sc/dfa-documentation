@@ -1,30 +1,29 @@
 +++
-date = "2017-02-15T07:55:08-05:00"
-toc = true
-next = "/blas/level2"
-prev = "/blas/"
+
 weight = 5
 title = "BLAS Level 1"
+date = "2017-02-15T07:55:08-05:00"
 
 +++
 
-BLAS Level 1 are $\mathcal{O}(N)$ class operators. This makes these operators operand access limited 
+BLAS Level 1 are {{< math >}}$\mathcal{O}(N)${{< /math >}} class operators. This makes these operators operand access limited 
 and thus require careful distribution in a parallel environment.
 
 There are four basic vector operations, and a fifth convenience operators.
-Let $ \alpha \in \Bbb{R}, x \in \Bbb{R^n}, y \in \Bbb{R^n}$ then:
+Let {{< math >}}$ \alpha \in \Bbb{R}, x \in \Bbb{R^n}, y \in \Bbb{R^n}, z \in \Bbb{R^n}$${{< /math >}} then:
 
- 1. scalar-vector multiplication: $z = \alpha x \space (z\_i = \alpha x\_i)$
- 2. vector addition: $z = x + y \space (z\_i = x\_i + y\_i)$
- 3. dot product: $c = x^Ty \space ( c = \sum\_{i = 1}^n x\_i y\_i ) $, aka inner-product
- 4. vector multiply: $z = x .* y \space (z\_i = x\_i * y\_i)$
- 5. $saxpy$, or _scalar alpha x plus y_, $z = \alpha x + y \implies z\_i = \alpha x\_i + y\_i $
+ 1. _*vector scale*_: scalar-vector multiplication: {{< math >}}$z = \alpha x \implies (z_i = \alpha x_i)${{< /math >}}
+ 2. _*vector element addition*_: {{< math >}}$z = x + y \implies (z_i = x_i + y_i)${{< /math >}}
+ 3. _*vector element multiply*_: {{< math >}}$z = x * y \implies (z_i = x_i * y_i)${{< /math >}}
+ 4. _*vector dot product*_: {{< math >}}$c = x^Ty \implies ( c = \sum_{i = 1}^n x_i y_i ) ${{< /math >}}, aka inner-product
+ 5. _*saxpy*_, or _scalar alpha x plus y_, {{< math >}}$z = \alpha x + y \implies z_i = \alpha x_i + y_i ${{< /math >}}
  
-The fifth operator, while technically redundant, makes the expressions of linear algebra algorithms more productive.
+The fifth operator, while technically redundant, makes the expressions of linear algebra algorithms 
+more concise.
 
-One class of domain flow programs for these operators assumes a linear distribution of the vectors, and propagation
-recurrences for scalar entities. For the dot product, we also use a propagation recurrence to produce the scalar
-result.
+One class of domain flow programs for these operators assumes a linear distribution of the vectors, 
+and propagation recurrences for scalar entities. For the dot product, we also use a propagation 
+recurrence to produce the scalar result.
 
 # scalar-vector multiplication
 

@@ -8,17 +8,20 @@ next = "/factorization"
 
 +++
 
-BLAS Level 3 are $\mathcal{O}(N^3)$ operators, and finally compute bound creating many opportunities to optimize
-operand resuse.
+BLAS Level 3 are {{< math >}}$\mathcal{O}(N^3)${{< /math >}} operators, and finally compute bound 
+creating many opportunities to optimize operand reuse.
 
-In addition to matrix-matrix multiply there are the Rank-k update operators, which are outer products and matrix additions.
+In addition to matrix-matrix multiply there are the Rank-k update operators, which are outer-products
+and matrix additions.
+
 Here is a Hermitian Rank-k update:
 
-$$ C = \alpha A A^T + \beta C, \space where \space C \space is \space Hermitian. $$
+{{< math >}}$$ C = \alpha A A^T + \beta C, \space where \space C \space is \space Hermitian. $${{< /math >}}
 
 A Hermitian matrix is defined as a matrix that is equal to its Hermitian conjugate. In other words, 
-the matrix C is Hermitian if and only if $C = C^H$. Obviously a Hermitian matrix must be square. Hermitian matrices
-can be understood as the complex extension of real _symmetric_ matrices.
+the matrix {{< math >}}$C${{< /math >}} is Hermitian if and only if {{< math >}}$C = C^H${{< /math >}}. Obviously a Hermitian 
+matrix must be square. Hermitian matrices can be understood as the complex extension of real 
+_symmetric_ matrices.
 
 # Matrix-matrix multiply
 
@@ -36,8 +39,9 @@ compute ( (i,j,k) | 1 <= i,j,k <= N ) {
 
 # Hermitian Rank-k update
 
-Starting from a single matrix, generating the transpose is a very expensive operator. For simplicity, let's start
-with the computational phase $\alpha A A^T$.
+Starting from a single matrix, generating the transpose is a very expensive operator. 
+For simplicity, let's start
+with the computational phase {{< math >}}$\alpha A A^T${{< /math >}}.
 
 ```
 
