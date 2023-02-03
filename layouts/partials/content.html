@@ -14,5 +14,8 @@
   {{ if .Params.WavefrontAnimation }}
     {{ partial "wavefront.html" . }}
   {{ end }}
+  {{ if .Params.ProtoAnimation }}
+    {{ partial "prototype.html" . }}
+  {{ end }}
 {{ end }}
 {{- .Content }}
