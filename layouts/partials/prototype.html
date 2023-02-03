@@ -29,10 +29,11 @@
 
         scene = new THREE.Scene();
 
-        renderer = new THREE.WebGLRenderer( { antialias: true } );
-        renderer.setPixelRatio( window.devicePixelRatio );
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        document.body.appendChild( renderer.domElement );
+		const canvas = document.querySelector( '#c' );
+        renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+ //       renderer.setPixelRatio( window.devicePixelRatio );
+ //       renderer.setSize( window.innerWidth, window.innerHeight );
+ //       document.body.appendChild( renderer.domElement );
 
         // camera
 
@@ -135,16 +136,52 @@
 
         requestAnimationFrame( animate );
 
-        group.rotation.y += 0.005;
+        //group.rotation.y += 0.005;
 
         render();
 
     }
 
-    function render() {
+    function renderOrig() {
 
         renderer.render( scene, camera );
 
     }
+
+	function resizeRendererToDisplaySize( renderer ) {
+
+		const canvas = renderer.domElement;
+		const width = canvas.clientWidth;
+		const height = canvas.clientHeight;
+		const needResize = canvas.width !== width || canvas.height !== height;
+		if ( needResize ) {
+
+			renderer.setSize( width, height, false );
+
+		}
+
+		return needResize;
+
+	}
+
+	function render( time ) {
+
+		time *= 0.001;
+
+		if ( resizeRendererToDisplaySize( renderer ) ) {
+
+			const canvas = renderer.domElement;
+			camera.aspect = canvas.clientWidth / canvas.clientHeight;
+			camera.updateProjectionMatrix();
+
+		}
+
+		renderer.render( scene, camera );
+
+		requestAnimationFrame( render );
+
+	}
+
+	// requestAnimationFrame( render );
 
 </script>

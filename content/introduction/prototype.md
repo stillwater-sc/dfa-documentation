@@ -28,6 +28,9 @@ need for storage elements.
 The animation below shows different schedules and the emergent behavior
 of the computational wavefront.
 
-<canvas id="c"></canvas>
+<canvas id="c" width="600px" height="600px" style="border:1px solid #000000;"></canvas>
+
+<div id="proto"></div>
+
 
 
