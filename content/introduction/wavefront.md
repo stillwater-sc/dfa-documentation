@@ -14,12 +14,6 @@ RenderTargetName = "wavefront_animation"
     width: 800px;
     height: 600px;
 }
-#c2 {
-    float: bottom;
-    padding: 5px;
-    width: 800px;
-    height: 600px;
-}
 </style>
 
 Recap of this chapter: domain flow algorithms are defined as systems of
@@ -34,8 +28,6 @@ need for storage elements.
 The animation below shows different schedules and the emergent behavior
 of the computational wavefront.
 
-<canvas id="c"></canvas>
-
-<canvas id="c2" style="border:1px solid #FFFFFF"></canvas>
+<canvas id="c" style="border:5px solid #000"></canvas>
 
 

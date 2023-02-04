@@ -1,12 +1,10 @@
 +++
 archetype = "chapter"
 weight = 1
-title = "Getting Started"
+title = "Domain Flow Algorithms"
 date = "2017-02-15T06:49:44-05:00"
 
 +++
-
-# Domain Flow Algorithms
 
 Domain Flow algorithms are parallel algorithms that incorporate the constraints of space and time.
 By honoring the delay that is inherent to exchanging information between two spatially

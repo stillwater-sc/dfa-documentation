@@ -96,4 +96,3 @@ function main(canvasId) {
 }
 
 main('#c');
-main('#c2');
