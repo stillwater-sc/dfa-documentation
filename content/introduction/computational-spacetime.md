@@ -28,17 +28,24 @@ This dynamic is shown in the following animation: the expanding time horizon of 
 will be able to trigger dependent computations at a distance.
 
 <div id="spacetime_view" style="text-align:center">
-    <canvas id="c" width="800" hight="800" style="border:1px solid #000000;">browser doesn't support canvas tags</canvas>
+    <canvas id="c" width="600" height="600" style="border:1px solid #000000;">browser doesn't support canvas tags</canvas>
 </div>
 
 
-As designers, we have the option to try to compute more, and thus take more time, to broaden the computational 
-spacetime cone and be able to exchange information to nodes that are farther away. 
-This is the act of blocking algorithms if you are an algorithm designer,
-and it is the act of building big processors with lots of storage if you are a computer designer. But we also
-have the option to compute less, and organize the operands in space so that they fall in the future cone of
-the computational event. That is the foundation of designing domain flow algorithms, and building fine-grain 
-computational fabrics. 
+As designers, we have the option to try to compute more, thus taking more time and 
+broaden the computational spacetime light cone and enable the exchange of information 
+to nodes that are farther away. Increasing the computational complexity of the
+operation, for example by introducing a vector scale, or a matrix multiplication
+instruction, provides more time to send input operands. This will _coarsen_ the
+computational graph and _widen_ the communication links. 
+
+Alternatively, we can also compute less, and organize the operands in space 
+in such a way that they fall in the future cone of the computational event. 
+That is the foundation of designing domain flow algorithms, and building fine-grain 
+computational fabrics. The benefit of this approach is that communication bandwidth
+is distributed across the fabric and matches the computational throughput by design.
+Many signal processing and linear algebra operators can take advantage of this
+approach to remove the memory access bottleneck.
 
 Neither of these approaches is a panacea for parallel computation for the simple reason that different algorithms
 have different bottlenecks. Some are compute-bound, in which case the efficiency of computation will govern the
