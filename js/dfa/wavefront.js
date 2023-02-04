@@ -2,18 +2,18 @@
  * Created by tomtz on 2/14/2017.
  */
 function createWavefrontScene( lattice, pointSize, vrtxShader, pxlShader, uniforms, timingFunction ) {
-    var scene = new THREE.Scene();
-    var vertices = lattice.vertices;
+    const scene = new THREE.Scene();
+    const vertices = lattice.vertices;
 
-    var positions = new Float32Array( vertices.length * 3 );
-    var colors    = new Float32Array( vertices.length * 3 );
-    var sizes     = new Float32Array( vertices.length );
-    var timing    = new Float32Array( vertices.length );
+    const positions = new Float32Array( vertices.length * 3 );
+    const colors    = new Float32Array( vertices.length * 3 );
+    const sizes     = new Float32Array( vertices.length );
+    const timing    = new Float32Array( vertices.length );
 
-    var vertex;
-    var color = new THREE.Color();
+    let vertex;
+    const color = new THREE.Color();
 
-    for ( var i = 0, l = vertices.length; i < l; i++ ) {
+    for ( let i = 0, l = vertices.length; i < l; i++ ) {
         vertex = vertices[i];
         vertex.toArray( positions, i * 3 );
 
@@ -27,13 +27,13 @@ function createWavefrontScene( lattice, pointSize, vrtxShader, pxlShader, unifor
         timing[ i ]   = timingFunction( [1,1,1], [ vertex.x, vertex.y, vertex.z ]);
     }
 
-    var geometry = new THREE.BufferGeometry();
-    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-    geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
-    geometry.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
-    geometry.addAttribute( 'schedule', new THREE.BufferAttribute( timing, 1 ) );
+    let geometry = new THREE.BufferGeometry();
+    geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+    geometry.setAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
+    geometry.setAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
+    geometry.setAttribute( 'schedule', new THREE.BufferAttribute( timing, 1 ) );
 
-    var material = new THREE.ShaderMaterial( {
+    let material = new THREE.ShaderMaterial( {
         uniforms: uniforms,
         vertexShader: document.getElementById( vrtxShader ).textContent,
         fragmentShader: document.getElementById( pxlShader ).textContent,
