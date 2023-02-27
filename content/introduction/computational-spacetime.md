@@ -4,14 +4,21 @@ title = "Computational Spacetime"
 date = "2017-02-15T06:58:22-05:00"
 
 WebGLRenderTarget = true
-SpacetimeVisualization = true
-RenderTargetName = "spacetime_view"
+ExpandingWavefrontViz = true
 
 tags = [ "domain-flow", "matrix-multiply", "index-space", "lattice", "computational-spacetime" ]
 categories = [ "domain-flow", "introduction" ]
 series = [ "introduction" ]
 
 +++
+<style>
+#c {
+    float: bottom;
+    padding: 5px;
+    width: 800px;
+    height: 600px;
+}
+</style>
 
 Data movement in a parallel machine experiences the constraints of spacetime and more. The propagation delay
 in a communication channel acts similarly as the constraint on the speed of light in spacetime. Let's bring back
@@ -28,7 +35,7 @@ This dynamic is shown in the following animation: the expanding time horizon of 
 will be able to trigger dependent computations at a distance.
 
 <div id="spacetime_view" style="text-align:center">
-    <canvas id="c" width="600" height="600" style="border:1px solid #000000;">browser doesn't support canvas tags</canvas>
+    <canvas id="c" style="border:5px solid #000;">browser doesn't support canvas tags</canvas>
 </div>
 
 

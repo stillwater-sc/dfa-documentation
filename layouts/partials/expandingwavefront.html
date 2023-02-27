@@ -1,0 +1,17 @@
+
+
+<!-- Import maps polyfill -->
+<!-- Remove this when import maps will be widely supported -->
+<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+<script type="importmap">
+			{
+				"imports": {
+					"three": "{{ .Site.BaseURL }}/js/build/three.module.js",
+					"three/addons/": "{{ .Site.BaseURL }}/jsm/"
+				}
+			}
+</script>
+
+<script type="module" src="{{ .Site.BaseURL }}/js/animations/wavefronts.js"></script>
+

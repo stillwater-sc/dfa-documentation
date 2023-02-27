@@ -28,6 +28,6 @@ need for storage elements.
 The animation below shows different schedules and the emergent behavior
 of the computational wavefront.
 
-<canvas id="c" style="border:5px solid #000"></canvas>
+<canvas id="c" style="border:5px solid #000">browser doesn't support canvas tags</canvas>
 
 

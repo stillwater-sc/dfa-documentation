@@ -4,11 +4,12 @@ import {
     BufferGeometry,
     Float32BufferAttribute
 } from 'three';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { LatticeGeometry } from 'three/addons/geometries/LatticeGeometry.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 
-let group, camera, scene, renderer;
+let group, camera, scene, renderer, params;
 
 function init() {
 
@@ -55,7 +56,7 @@ function init() {
     scene.add( group );
 
     // points
-    
+
     const latticeGeometry = new LatticeGeometry(10, 10, 10, 2);
     const vertices = [];
     const positionAttribute = latticeGeometry.getAttribute( 'position' );
@@ -79,8 +80,102 @@ function init() {
 
     const points = new THREE.Points( pointsGeometry, pointsMaterial );
     group.add( points );
+
+    setupGUI();
+}
+class CST {
+    constructor() {
+        this.type = 'CST';
+
+        this.X = 10;
+        this.Y = 10;
+        this.Z = 10;
+    }
+
+    clone() {
+
+        return new this.constructor().copy( this );
+
+    }
+
+    copy( source ) {
+
+        this.X = source.X;
+
+        return this;
+
+    }
 }
 
+class LinearRight extends CST {
+    constructor( indexPoints = 10 ) {
+        super();
+
+        this.X = indexPoints;
+    }
+}
+
+class LinearBi extends CST {
+    constructor( indexPoints = 10 ) {
+        super();
+
+        this.X = indexPoints;
+    }
+}
+
+class Grid2D extends CST {
+    constructor( X = 10, Y = 10 ) {
+        super();
+
+        this.X = X;
+        this.Y = Y;
+    }
+}
+
+class Grid3D extends CST {
+    constructor( X = 10, Y = 10, Z = 10 ) {
+        super();
+
+        this.X = X;
+        this.Y = Y;
+        this.Z = Z;
+    }
+}
+
+function AddComputationalSpaceTime() {
+
+}
+
+function setupGUI() {
+    const computationalSpacetimes = {
+        linearOne: new LinearRight(10),
+        linearBi: new LinearBi(10),
+        grid2D: new Grid2D(10),
+        grid3D: new Grid3D(10)
+    };
+
+    params = {
+        lattice: 'linearBi',
+        size: 10,
+        metallic: true
+    };
+
+    let h;
+
+    const gui = new GUI();
+
+    // material (attributes)
+
+    h = gui.addFolder( 'Computational Spacetime' );
+    h.add( params, 'lattice', Object.keys( computationalSpacetimes ) ).onChange( function() {
+        AddComputationalSpaceTime();
+    });
+
+    h = gui.addFolder( 'Grid control' );
+
+    h.add( params, 'size', 1.0, 20.0, 1.0 ).name( 'size' ).onChange( render );
+    h.add( params, 'showLinks' ).onChange( render );
+}
 
 function animate() {
 

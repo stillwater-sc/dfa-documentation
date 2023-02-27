@@ -1,6 +1,6 @@
 {{ if .Params.WebGLRenderTarget }}
-  {{ if .Params.SpacetimeVisualization }}
-    {{ partial "spacetime.html" . }}
+  {{ if .Params.ExpandingWavefrontViz }}
+    {{ partial "expandingwavefront.html" . }}
   {{ end }}
   {{ if .Params.IndexSpaceVisualization }}
     {{ partial "indexspace.html" . }}
