@@ -1,7 +1,7 @@
 
 
 <script src="{{ .Site.BaseURL }}/js/build/three.js"></script>
-<script src="{{ .Site.BaseURL }}/js/controls/OrbitControls.js"></script>
+<!-- <script src="{{ .Site.BaseURL }}/js/controls/OrbitControls.js"></script> -->
 <script src="{{ .Site.BaseURL }}/js/Detector.js"></script>
 <script src="{{ .Site.BaseURL }}/js/libs/numeric-1.2.6.js"></script>
 <script src="{{ .Site.BaseURL }}/js/dfa/spacetime.js"></script>
@@ -158,10 +158,10 @@
             camera2.position.set( 5, 5, 2.5 );
             scene2.userData.camera = camera2;
 
-			let controls2 = new THREE.OrbitControls( camera2, view );
-            controls2.minDistance = 2;   // zoom can't zoom in further than z = 20
-            controls2.maxDistance = 100;   // zoom can't zoom out further than z = 500
-            scene2.userData.controls = controls2;
+			//let controls2 = new THREE.OrbitControls( camera2, view );
+            //controls2.minDistance = 2;   // zoom can't zoom in further than z = 20
+            //controls2.maxDistance = 100;   // zoom can't zoom out further than z = 500
+            //scene2.userData.controls = controls2;
 
             scenes.push( scene2 );
         }

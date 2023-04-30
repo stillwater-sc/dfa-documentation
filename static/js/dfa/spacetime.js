@@ -2,14 +2,12 @@
  * Created by tomtz on 2/24/2017.
  */
 function createSpacetimeLattice( N, M, K, cellSize) {
-    let lattice = new Float32Array(N*M*K*3);
+    let lattice = { vertices: [] };
 
     for ( let i = -N/2; i <= N/2; i++ ) {
         for ( let j = -M/2; j <= M/2; j++ ) {
             for ( let k = -K/2; k <= K/2; k++ ) {
-                lattice[i*j*k] = i * cellSize;
-                lattice[i*j*k+1] = j * cellSize;
-                lattice[i*j*k+2] = k * cellSize;
+                lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
             }
         }
     }
@@ -21,7 +19,7 @@ function createSpacetimeLattice( N, M, K, cellSize) {
  */
 function createSpacetimeScene( lattice, pointSize, vrtxShader, pxlShader, uniforms, timingFunction ) {
     let scene = new THREE.Scene();
-    let vertices = lattice;
+    let vertices = lattice.vertices;
 
     let positions = new Float32Array( vertices.length );
     let colors    = new Float32Array( vertices.length );
@@ -46,10 +44,10 @@ function createSpacetimeScene( lattice, pointSize, vrtxShader, pxlShader, unifor
     }
 
     let geometry = new THREE.BufferGeometry();
-    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-    geometry.addAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
-    geometry.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
-    geometry.addAttribute( 'schedule', new THREE.BufferAttribute( timing, 1 ) );
+    geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+    geometry.setAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
+    geometry.setAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
+    geometry.setAttribute( 'schedule', new THREE.BufferAttribute( timing, 1 ) );
 
     let material = new THREE.ShaderMaterial( {
         uniforms: uniforms,
