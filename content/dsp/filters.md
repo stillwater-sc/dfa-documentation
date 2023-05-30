@@ -1,6 +1,7 @@
 +++
+
 weight = 3
-title = "Digital Filters"
+title = "Digital Filtering"
 date = "2023-05-29T16:57:39-00:00"
 toc = true
 

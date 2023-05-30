@@ -1,10 +1,11 @@
 +++
+
 weight = 2
 title = "Signal Conditioning"
 date = "2023-05-29T16:55:11-00:00"
 toc = true
 
-tags = [ "dsp", "algorithm", "signal-conditioning" ]
+tags = [ "dsp", "algorithm", "conditioning" ]
 categories = [ "dsp", "conditioning" ]
 series = [ "Digital Signal Processing" ]
 
