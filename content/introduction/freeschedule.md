@@ -12,8 +12,14 @@ categories = [ "domain-flow", "schedule" ]
 series = [ "introduction" ]
 
 +++
-
-<canvas id="c"></canvas>
+<style>
+#c {
+    float: bottom;
+    padding: 5px;
+    width: 800px;
+    height: 600px;
+}
+</style>
 
 We alluded to the fact that inherently-parallel algorithms exhibit some partial order, and not a total order,
 because the instructions that can execute independently do not have any explicit order among each other.
@@ -39,7 +45,9 @@ then the computational activity of the specification would evolve in what is cal
 
 The free schedule for our matrix multiply is visualized in the following, interactive, simulation:
 
-<div id="freeschedule_animation">_</div>
+<div id="freeschedule_animation"  style="text-align:center">
+    <canvas id="c" style="border:5px solid #000;">browser doesn't support canvas tags</canvas>
+</div>
 
 We see the activity wavefront of the {{< math >}}$a${{< /math >}} recurrence (blue), the 
 {{< math >}}$b${{< /math >}} recurrence (purple), and the {{< math >}}$c${{< /math >}} recurrence (red) 
