@@ -10,7 +10,165 @@ import { LatticeGeometry } from 'three/addons/geometries/LatticeGeometry.js';
 import * as Lattice from 'three/addons/geometries/lattices.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 
+
 let group, camera, scene, renderer, params;
+let count = 0;
+
+let timeLast = 0;
+
+let run = true;
+
+let timeElapsed = 0;
+
+let periodOfTenthOfSeconds = 6;
+
+class IndexSpaceGeometry extends THREE.BufferGeometry {
+
+    constructor( constraints, radius ) {
+
+        super();
+
+        this.type = 'IndexSpaceGeometry';
+
+        this.parameters = {
+            width: radius,
+            height: radius,
+            depth: radius
+        };
+
+        const scope = this;
+
+        // segments
+
+        //widthSegments = Math.floor( widthSegments );
+        //heightSegments = Math.floor( heightSegments );
+        //depthSegments = Math.floor( depthSegments );
+
+        // buffers
+
+        const indices = [];
+        const vertices = [];
+        //const normals = [];
+        //const uvs = [];
+        const signatures = [];
+        // helper variables
+
+        let numberOfVertices = 0;
+        let groupStart = 0;
+
+        buildIndexSpace( constraints, radius, 0 );
+
+        // build each side of the box geometry
+
+        //buildPlane( 'z', 'y', 'x', - 1, - 1, depth, height, width, depthSegments, heightSegments, 0 ); // px
+        //buildPlane( 'z', 'y', 'x', 1, - 1, depth, height, - width, depthSegments, heightSegments, 1 ); // nx
+        //buildPlane( 'x', 'z', 'y', 1, 1, width, depth, height, widthSegments, depthSegments, 2 ); // py
+        //buildPlane( 'x', 'z', 'y', 1, - 1, width, depth, - height, widthSegments, depthSegments, 3 ); // ny
+        //buildPlane( 'x', 'y', 'z', 1, - 1, width, height, depth, widthSegments, heightSegments, 4 ); // pz
+        //buildPlane( 'x', 'y', 'z', - 1, - 1, width, height, - depth, widthSegments, heightSegments, 5 ); // nz
+
+        // build geometry
+
+        this.setIndex( indices );
+
+        this.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+        this.setAttribute( 'signature', new THREE.Float32BufferAttribute( signatures, 3 ) );
+        //this.setAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ) );
+        //this.setAttribute( 'uv', new THREE.Float32BufferAttribute( uvs, 2 ) );
+
+        function buildIndexSpace( constraints, radius, materialIndex ) {
+
+            const xl = constraints[ 0 ];
+            const xh = constraints[ 1 ];
+            const yl = constraints[ 2 ];
+            const yh = constraints[ 3 ];
+            const zl = constraints[ 4 ];
+            const zh = constraints[ 5 ];
+            const width = xh - xl;
+            const height = yh - yl;
+            const depth = zh - zl;
+            const halfRadius = radius / 2;
+
+            const cellSize = radius / ( width - 2 );
+
+            let vertexCounter = 0;
+            let groupCount = 0;
+
+            const vector = new THREE.Vector3();
+
+            // generate index points
+
+            for ( let i = xl; i < xh; i ++ ) {
+
+                for ( let j = yl; j < yh; j ++ ) {
+
+                    for ( let k = zl; k < zh; k ++ ) {
+
+                        console.log( i + ', ' + j + ', ' + k );
+                        signatures.push( i, j, k );
+
+                        // set values to correct vector component
+
+                        vector.x = i * cellSize - halfRadius;
+                        vector.y = j * cellSize - halfRadius;
+                        vector.z = k * cellSize - halfRadius;
+
+                        console.log( vector );
+
+                        // now apply vector to vertex buffer
+
+                        vertices.push( vector.x, vector.y, vector.z );
+
+                        // counters
+
+                        vertexCounter += 1;
+
+                    }
+
+                }
+
+            }
+
+            // add a group to the geometry. this will ensure multi material support
+
+            scope.addGroup( groupStart, groupCount, materialIndex );
+
+            // calculate new start value for groups
+
+            groupStart += groupCount;
+
+            // update total number of vertices
+
+            numberOfVertices += vertexCounter;
+
+        }
+
+
+    }
+
+    copy( source ) {
+
+        super.copy( source );
+
+        this.parameters = Object.assign( {}, source.parameters );
+
+        return this;
+
+    }
+
+    static fromJSON( data ) {
+
+        return new IndexSpaceGeometry( data.width, data.height, data.depth, data.widthSegments, data.heightSegments, data.depthSegments );
+
+    }
+
+}
+
+let  stats;
+let indexSpace, length1;
+
+init();
+animate();
 
 function init() {
 
@@ -25,63 +183,111 @@ function init() {
     const near = 1;
     const far = 1000;
     camera = new THREE.PerspectiveCamera( fov, aspect, near, far);
-    camera.position.set( 15, 20, 30 );
+    camera.position.set( 15, 20, 180 );
     scene.add( camera );
 
     // controls
 
     const controls = new OrbitControls( camera, renderer.domElement );
-    controls.minDistance = 20;
-    controls.maxDistance = 50;
-    controls.maxPolarAngle = Math.PI / 2;
 
-    // ambient light
+    controls.enablePan = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.1;
+    controls.target = new THREE.Vector3(6.5,6.5,6.5);
 
-    scene.add( new THREE.AmbientLight( 0x222222 ) );
+    const geometry = makeGeo();
 
-    // point light
 
-    const light = new THREE.PointLight( 0xffffff, 1 );
-    camera.add( light );
+    const material = makeMaterial();
 
-    // helper
-    // disable the Axes as we generate the index space with the center ot 0
-    // scene.add( new THREE.AxesHelper( 20 ) );
 
-    // textures
+    indexSpace = new THREE.Points( geometry, material );
 
-    const loader = new THREE.TextureLoader();
-    const texture = loader.load( '../../textures/sprites/disc.png' );
+    scene.add( indexSpace );
 
-    group = new THREE.Group();
-    scene.add( group );
 
-    // points
+}
 
-    const latticeGeometry = new LatticeGeometry(5, 5, 5, 4);
-    const vertices = [];
+function makeGeo(){
+
+    const radius = 50;
+    const constraints = [ 0, 6, 0, 6, 0, 6 ];
+
+    const latticeGeometry = new IndexSpaceGeometry( constraints, radius );
+
     const positionAttribute = latticeGeometry.getAttribute( 'position' );
+    const signatureAttribute = latticeGeometry.getAttribute( 'signature' );
 
-    for ( let i = 0; i < positionAttribute.count; i ++ ) {
+    const colors = new Float32Array(positionAttribute.count * 3);
 
-        const vertex = new THREE.Vector3();
+    const sizes = [];
+
+    const wavefront = [];
+
+    const color = new THREE.Color();
+    const vertex = new THREE.Vector3();
+
+    length1 = latticeGeometry.getAttribute( 'position' ).count;
+
+
+    for ( let i = 0, l = positionAttribute.count; i < l; i ++ ) {
+
         vertex.fromBufferAttribute( positionAttribute, i );
-        vertices.push( vertex );
+
+
+        color.setRGB( 1 ,1 ,1 );
+        color.toArray(colors, i * 3 + 1);
+
+        sizes[ i ] = i < length1 ? 100 : 40;
 
     }
 
-    const pointsMaterial = new THREE.PointsMaterial( {
-        color: 0x0080ff,
-        map: texture,
-        size: 1,
-        alphaTest: 0.5
+
+
+
+    for ( let i = 0; i < positionAttribute.count;  i ++) {
+
+        wavefront[i*3] = signatureAttribute.array[i*3+1];
+        wavefront[i*3+1] = signatureAttribute.array[i*3];
+        wavefront[i*3+2] = signatureAttribute.array[i*3] + signatureAttribute.array[i*3+1] + signatureAttribute.array[i*3+2];
+
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute( 'position', positionAttribute );
+    geometry.setAttribute( 'signature', signatureAttribute );
+    geometry.setAttribute( 'size', new THREE.Float32BufferAttribute( sizes, 1 ) );
+    geometry.setAttribute('wavefront', new THREE.Float32BufferAttribute(wavefront, 1));
+    const colorsAttribute = new THREE.Float32BufferAttribute(colors, 3);
+    geometry.setAttribute('ca', colorsAttribute);
+
+    return geometry;
+
+}
+function makeMaterial(){
+
+
+    const texture = new THREE.TextureLoader().load( '../../textures/sprites/ball.png' );
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+
+    const material = new THREE.ShaderMaterial( {
+
+
+
+        uniforms: {
+            color: { value: new THREE.Color( 0xffffff ) },
+            pointTexture: { value: texture }
+        },
+        vertexShader: document.getElementById( 'vertexshader' ).textContent,
+        fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+        transparent: true,
+        vertexColors: true
+
+
     } );
 
-    const pointsGeometry = new THREE.BufferGeometry().setFromPoints( vertices );
-
-    const points = new THREE.Points( pointsGeometry, pointsMaterial );
-    group.add( points );
-
+    return material;
 
 }
 
@@ -100,10 +306,106 @@ function resizeRendererToDisplaySize( renderer ) {
     return needResize;
 
 }
+function sortPoints() {
 
-function render( time ) {
+    const vector = new THREE.Vector3();
 
-    time *= 0.001;
+    // Model View Projection matrix
+
+    const matrix = new THREE.Matrix4();
+    matrix.multiplyMatrices( camera.projectionMatrix, camera.matrixWorldInverse );
+    matrix.multiply( indexSpace.matrixWorld );
+
+    //
+
+    const geometry = indexSpace.geometry;
+
+    let index = geometry.getIndex();
+    const positions = geometry.getAttribute( 'position' ).array;
+    const length = positions.length / 3;
+
+    if ( index === null ) {
+
+        const array = new Uint16Array( length );
+
+        for ( let i = 0; i < length; i ++ ) {
+
+            array[ i ] = i;
+
+        }
+
+        index = new THREE.BufferAttribute( array, 1 );
+
+        geometry.setIndex( index );
+
+    }
+
+    const sortArray = [];
+
+    for ( let i = 0; i < length; i ++ ) {
+
+        vector.fromArray( positions, i * 3 );
+        vector.applyMatrix4( matrix );
+
+        sortArray.push( [ vector.z, i ] );
+
+    }
+
+    function numericalSort( a, b ) {
+
+        return b[ 0 ] - a[ 0 ];
+
+    }
+
+    sortArray.sort(numericalSort);
+
+    const indices = index.array;
+
+    for ( let i = 0; i < length; i ++ ) {
+
+        indices[ i ] = sortArray[ i ][ 1 ];
+
+    }
+
+    geometry.index.needsUpdate = true;
+
+}
+
+function animate() {
+
+    requestAnimationFrame( animate );
+
+    render();
+    stats.update();
+
+}
+
+function render() {
+
+    // time is in tenths of seconds
+    const time = Date.now() * 0.01;
+
+    console.log("the time" ,time);
+
+    console.log("the timeLast" ,timeLast);
+
+    const diff = time - timeLast;
+
+    renderer.render( scene, camera );
+
+    timeElapsed += diff;
+
+    if (timeElapsed < periodOfTenthOfSeconds)
+        return;
+
+    timeElapsed = 0;
+
+    timeLast = Date.now() * 0.01;
+
+    nextAnimationFrame();
+
+    sortPoints();
+
 
     if ( resizeRendererToDisplaySize( renderer ) ) {
 
@@ -118,9 +420,66 @@ function render( time ) {
     requestAnimationFrame( render );
 
 }
+function nextAnimationFrame(){
+
+    const geometry = indexSpace.geometry;
+    const attributes = geometry.attributes;
+
+    //grabs the highest wavefront value
+    const high = geometry.getAttribute('wavefront').array[attributes.wavefront.array.length - 1] + 1;
 
 
-init();
+    for (let i = 0; i < attributes.size.array.length; i++) {
+
+
+
+        if (geometry.getAttribute('wavefront').array[i * 3] == count) {
+
+            attributes.size.array[i] = 32;
+
+            attributes.ca.array[i*3] = 0;
+            attributes.ca.array[i*3+1] = 0;
+            attributes.ca.array[i*3+2] = 1;
+
+        }else if (geometry.getAttribute('wavefront').array[i * 3 + 1] == count){
+
+            attributes.size.array[i] = 32;
+
+            attributes.ca.array[i*3] = 0.5;
+            attributes.ca.array[i*3+1] = 0;
+            attributes.ca.array[i*3+2] = 1;
+
+        }else if (geometry.getAttribute('wavefront').array[i * 3 + 2] == count){
+
+            attributes.size.array[i] = 32;
+
+            attributes.ca.array[i*3] = 1;
+            attributes.ca.array[i*3+1] = 0;
+            attributes.ca.array[i*3+2] = 0;
+
+        } else {
+            attributes.size.array[i] = 10;
+
+            attributes.ca.array[i*3] = 1;
+            attributes.ca.array[i*3+1] = 1;
+            attributes.ca.array[i*3+2] = 1;
+        }
+    }
+    count++;
+    if (count == high)
+        count = 0;
+
+
+    console.log(count);
+
+    attributes.size.needsUpdate = true;
+
+    attributes.ca.needsUpdate = true;
+
+}
+
+
+
 requestAnimationFrame(render);
 
 
