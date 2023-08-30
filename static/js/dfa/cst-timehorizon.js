@@ -20,7 +20,7 @@ let run = true;
 
 let timeElapsed = 0;
 
-let periodOfTenthOfSeconds = 6;
+let periodOfTenthOfSeconds = 8;
 
 class IndexSpaceGeometry extends THREE.BufferGeometry {
 
@@ -183,7 +183,7 @@ function init() {
     const near = 1;
     const far = 1000;
     camera = new THREE.PerspectiveCamera( fov, aspect, near, far);
-    camera.position.set( 15, 20, 180 );
+    camera.position.set( 0, 0, 100);
     scene.add( camera );
 
     // controls
@@ -194,6 +194,7 @@ function init() {
     controls.autoRotate = true;
     controls.autoRotateSpeed = 1.1;
     controls.target = new THREE.Vector3(6.5,6.5,6.5);
+    controls.enabled = false;
 
     const geometry = makeGeo();
 
@@ -211,7 +212,7 @@ function init() {
 function makeGeo(){
 
     const radius = 50;
-    const constraints = [ 0, 6, 0, 6, 0, 6 ];
+    const constraints = [ 0, 15, 0, 15, 0, 1 ];
 
     const latticeGeometry = new IndexSpaceGeometry( constraints, radius );
 
@@ -221,8 +222,6 @@ function makeGeo(){
     const colors = new Float32Array(positionAttribute.count * 3);
 
     const sizes = [];
-
-    const wavefront = [];
 
     const color = new THREE.Color();
     const vertex = new THREE.Vector3();
@@ -245,13 +244,23 @@ function makeGeo(){
 
 
 
-    for ( let i = 0; i < positionAttribute.count;  i ++) {
-
-        wavefront[i*3] = signatureAttribute.array[i*3+1];
-        wavefront[i*3+1] = signatureAttribute.array[i*3];
-        wavefront[i*3+2] = signatureAttribute.array[i*3] + signatureAttribute.array[i*3+1] + signatureAttribute.array[i*3+2];
-
-    }
+    const wavefront = [
+        14, 13, 12, 11, 10,  9,  8,  7,  8,  9, 10, 11, 12, 13, 14,  // First row
+        13, 12, 11, 10,  9,  8,  7,  6,  7,  8,  9, 10, 11, 12, 13,  // Second row
+        12, 11, 10,  9,  8,  7,  6,  5,  6,  7,  8,  9, 10, 11, 12,  // Third row
+        11, 10,  9,  8,  7,  6,  5,  4,  5,  6,  7,  8,  9, 10, 11,  // Fourth row
+        10,  9,  8,  7,  6,  5,  4,  3,  4,  5,  6,  7,  8,  9, 10,  // Fifth row
+        9,  8,  7,  6,  5,  4,  3,  2,  3,  4,  5,  6,  7,  8,  9,  // Sixth row
+        8,  7,  6,  5,  4,  3,  2,  1,  2,  3,  4,  5,  6,  7,  8,  // Seventh row
+        7,  6,  5,  4,  3,  2,  1,  0,  1,  2,  3,  4,  5,  6,  7,  // Eighth row
+        8,  7,  6,  5,  4,  3,  2,  1,  2,  3,  4,  5,  6,  7,  8,  // Ninth row
+        9,  8,  7,  6,  5,  4,  3,  2,  3,  4,  5,  6,  7,  8,  9,  // Tenth row
+        10,  9,  8,  7,  6,  5,  4,  3,  4,  5,  6,  7,  8,  9, 10,  // Eleventh row
+        11, 10,  9,  8,  7,  6,  5,  4,  5,  6,  7,  8,  9, 10, 11,  // Twelfth row
+        12, 11, 10,  9,  8,  7,  6,  5,  6,  7,  8,  9, 10, 11, 12,  // Thirteenth row
+        13, 12, 11, 10,  9,  8,  7,  6,  7,  8,  9, 10, 11, 12, 13,  // Fourteenth row
+        14, 13, 12, 11, 10,  9,  8,  7,  8,  9, 10, 11, 12, 13, 14,  // Fifteenth row
+    ];
 
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute( 'position', positionAttribute );
@@ -433,36 +442,21 @@ function nextAnimationFrame(){
 
 
 
-        if (geometry.getAttribute('wavefront').array[i * 3] == count) {
+        if (geometry.getAttribute('wavefront').array[i] == count) {
 
-            attributes.size.array[i] = 32;
+            attributes.size.array[i] = 28;
 
-            attributes.ca.array[i*3] = 0;
-            attributes.ca.array[i*3+1] = 0;
-            attributes.ca.array[i*3+2] = 1;
-
-        }else if (geometry.getAttribute('wavefront').array[i * 3 + 1] == count){
-
-            attributes.size.array[i] = 32;
-
-            attributes.ca.array[i*3] = 0.5;
-            attributes.ca.array[i*3+1] = 0;
-            attributes.ca.array[i*3+2] = 1;
-
-        }else if (geometry.getAttribute('wavefront').array[i * 3 + 2] == count){
-
-            attributes.size.array[i] = 32;
-
-            attributes.ca.array[i*3] = 1;
-            attributes.ca.array[i*3+1] = 0;
-            attributes.ca.array[i*3+2] = 0;
-
-        } else {
+            attributes.ca.array[i * 3] = 0.3;
+            attributes.ca.array[i * 3 + 1] = 1;
+            attributes.ca.array[i * 3 + 2] = 0.5;
+        }
+        else{
             attributes.size.array[i] = 10;
 
-            attributes.ca.array[i*3] = 1;
-            attributes.ca.array[i*3+1] = 1;
-            attributes.ca.array[i*3+2] = 1;
+            attributes.ca.array[i * 3] = 1;
+            attributes.ca.array[i * 3 + 1] = 1;
+            attributes.ca.array[i * 3 + 2] = 1;
+
         }
     }
     count++;
