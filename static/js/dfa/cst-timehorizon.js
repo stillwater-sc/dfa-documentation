@@ -444,7 +444,7 @@ function nextAnimationFrame(){
 
         if (geometry.getAttribute('wavefront').array[i] == count) {
 
-            attributes.size.array[i] = 28;
+            attributes.size.array[i] = 14;
 
             attributes.ca.array[i * 3] = 0.3;
             attributes.ca.array[i * 3 + 1] = 1;
