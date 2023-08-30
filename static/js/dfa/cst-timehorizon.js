@@ -451,7 +451,7 @@ function nextAnimationFrame(){
             attributes.ca.array[i * 3 + 2] = 0.5;
         }
         else{
-            attributes.size.array[i] = 10;
+            attributes.size.array[i] = 6;
 
             attributes.ca.array[i * 3] = 1;
             attributes.ca.array[i * 3 + 1] = 1;
