@@ -7,7 +7,7 @@ theme = [ "hugo-theme-relearn" ]
 
 # for search functionality
 [outputs]
-  home = [ "HTML", "RSS", "JSON", "SEARCHPAGE"]
+  home = [ "HTML", "RSS", "JSON"]
 
 [params]
 # This controls whether submenus will be expanded (true), or collapsed (false) in the
