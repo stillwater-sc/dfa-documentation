@@ -1,6 +1,6 @@
 +++
 prev = "/design/dfa"
-weight = 4
+weight = 5
 title = "Time: the when"
 next = "/design/space"
 toc = true
@@ -52,3 +52,35 @@ the affine transformations into propagations. The affine maps typically
 represent gathers (reductions) and scatters (broadcasts), and these
 affine transformations can be made uniform by using uniform dependencies
 to propagate the values through the index space.
+
+Whereas it is sufficient to solve a single linear program to determine
+if a single variable uniform recurrence is explicitly defined, the
+procedure to test computability of a system of equations requires an
+iterative decomposition of the dependence graph into strong connected
+components. 
+
+A directed graph is called _strongly connected_ if any two distinct
+vertices lie in a common cycle. A _strongly connected component_ of a
+directed graph is a strong connected subgraph not properly contained
+in any other strongly connected subgraph. A directed graph may contain
+several strong components, and each vertex lies in exactly one strongly
+connected component.
+
+We can decompose the graph representing the system of recurrence 
+equations in a hierarchy of strongly connected components as follows:
+create a roo node of the tree containing the orginal dependence graph.
+Determine the strongly connected components of _G_ and create a child for
+the root for each strong component. Then apply a zero-weight cycle
+search procedure on each of the strongly connected components and
+create children for each of the subgraphs that are produced, adding
+new levels to the tree for each new decomposition. At each step
+of the decomposition, two or more disjoint cycles are separated.
+Obviously, the procedure will terminate as the dependence graph _G_
+has a finite number of edges.
+
+The number of vertices in the longest path of the decomposition tree
+is called the depth of the tree, and is related to the inherent 
+parallelism of the algorithm. Karp, Miller, and Winograd provide
+a proof that bounds the free schedule for each of the subgraphs
+that reside in the nodes of the decomposition tree. They use
+this bound to quantify the amount of parallelism.

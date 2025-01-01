@@ -1,6 +1,6 @@
 +++
 prev = "/design/time"
-weight = 5
+weight = 7
 title = "Space: the where"
 toc = true
 next = "/design/nextsteps"

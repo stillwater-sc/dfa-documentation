@@ -24,19 +24,27 @@ This constraint forces web applications to service all requests from memory.
 
 For high-performance computing, the mandate is even stronger. A typical
 HPC application will use tens of thousands of processors in a synchronized
-manner, and thus one slow process can impede the progress of tens of
+manner, and one slow process can impede the progress of tens of
 thousands other processes, destroying the performance of the parallel
-application. In addition to requiring that all requests are serviced from
-memory, it is also paramount that the algorithm keeps all the processors
-busy by load balancing and overlapping data accesses with computation. 
-This is particularly important when operands need to traverse the weakest
-link in a parallel computation: the communication link/network. 
+application. It is paramount for parallel algorithms to distribute the
+data structures on which to compute in such a way that the working set
+is in memory across all processing nodes.
+
+In addition to requiring that all requests are serviced from
+memory, the algorithm should aim to keeps all the processors
+busy by balancing the computational intensity. When information
+must be exchanged among the processors, it is beneficial if 
+communication overlaps computation. The communication network
+tends to be the weakest link in parallel computation with latencies
+that are 5 to 6 orders of magnitude slower than ALU operations.
 
 Good algorithm desigms, sequential or parallel, take into account where, 
 and how, operands need to be accessed. The key insight for sequential
 algorithm optimization is to be aware of the memory hierarchy. The 
 insight for parallel algorithms is to be aware where in space the 
-operands reside, and avoid accessing these remote operands. 
+operands reside, and avoid accessing remote operands. Instead, the
+algorithm designer must orchestrate a global memory allocation and 
+use as to hide the latency of communicating state among processors.
 
 Variability is another attribute that parallel algorithms are sensitive to. 
 As tens of thousands of processors are working together, when the initial 
@@ -44,4 +52,5 @@ division of labor has generated a balanced workload, any variability
 caused by poor operand locality, network contention, or clock frequency
 modulation due to power constraints, causes the collective to wait for 
 the slowest process. As the number of processors grows, so does 
-variability. When variability rises processor utilization drops.
+variability. And unfortunately, when variability rises processor 
+utilization drops and algorithmic performance suffers.

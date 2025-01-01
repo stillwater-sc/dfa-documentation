@@ -1,6 +1,6 @@
 +++
 prev = "/design/space"
-weight = 6
+weight = 9
 title = "Next Steps"
 next = "/blas"
 date = "2017-02-15T07:49:53-05:00"

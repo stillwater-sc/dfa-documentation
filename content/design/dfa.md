@@ -1,6 +1,6 @@
 +++
 prev = "/design/dfm"
-weight = 3
+weight = 4
 title = "Domain Flow Architecture"
 toc = true
 next = "/design/time"
