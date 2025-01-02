@@ -1,0 +1,19 @@
+_index.md
+1. currentstate.md
+2. elements.md
+3. dfm.md
+4. dfa.md
+5. time.md
+6.
+7. space.md
+8.
+9. nextsteps.md
+
+_index.md:weight = 2
+currentstate.md:weight = 1
+dfa.md:weight = 3
+dfm.md:weight = 3
+elements.md:weight = 2
+nextsteps.md:weight = 6
+space.md:weight = 5
+time.md:weight = 4
