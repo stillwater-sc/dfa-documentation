@@ -1,0 +1,2 @@
+# Description of the site, will be used in meta information
+description = "Introduction and educational site for the design and optimization of parallel domain flow algorithms"

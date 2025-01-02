@@ -7,23 +7,153 @@ theme = [ "hugo-theme-relearn" ]
 
 # for search functionality
 [outputs]
-  home = [ "HTML", "RSS", "JSON"]
+  home = [ "html", "rss"]
 
 [params]
-# This controls whether submenus will be expanded (true), or collapsed (false) in the
-# menu; if no setting is given, the first menu level is set to false, all others to true;
-# this can be overridden in the pages frontmatter
-alwaysopen = true
-# Prefix URL to edit current page. Will display an "Edit" button on top right hand corner of every page.
-# Useful to give opportunity to people to create merge request for your doc.
-# See the config.toml file from this documentation site to have an example.
-editURL = ""
-# Author of the site, will be used in meta information
-author = "E. Theodore L. Omtzigt"
-# Description of the site, will be used in meta information
-description = "Introduction and educational site for the design and optimization of parallel domain flow algorithms"
-# Shows a checkmark for visited pages on the menu
+# If an option value is said to be not set, you can achieve the same behavior
+# by giving it an empty string value.
+
+###############################################################################
+# Hugo
+# These options usually apply to other themes as well.
+
+# The title to be used for links to the main page
+# Default: not set
+# This name will be used for the link to the main page in the upper section
+# of the menu. If not set, `title` from the Hugo settings will be used.
+linkTitle = 'DomainFlow'
+
+# The author of your site.
+# Default: not set
+# This will be used in HTML meta tags, the opengraph protocol and twitter
+# cards.
+# You can also set `author.email` if you want to publish this information.
+author.name = 'E. Theodore L. Omtzigt'
+
+# The social media image of your site.
+# Default: not set
+# This is used for generating social media meta information for the opengraph
+# protocol and twitter cards.
+# This can be overridden in the page's frontmatter.
+images = [ 'images/hero.png' ]
+
+# Admin options for social media.
+# Default: not set
+# Configuration for the Open Graph protocol and Twitter Cards adhere to Hugo's
+# implementation. See the Hugo docs for possible values.
+social.facebook_admin = ''
+social.twitter = ''
+
+###############################################################################
+# Relearn Theme
+# These options are specific to the Relearn theme.
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Branding
+# These options set your overall visual appearance.
+
+# Used color variants.
+# Default: 'auto'
+# This sets one or more color variants, available to your readers to choose
+# from. You can
+# - set a single value eg. 'zen-light'
+# - an array like [ 'neon', 'learn' ]
+# - an array with options like [ { identifier = 'neon' },{ identifier = 'learn' } ]
+# The last form allows to set further options for each variant.
+# The `identifier` is mandatory. You can also set `name` which overrides the
+# value displayed in the variant selector.
+# If the array has more than one entry, a variant selector
+# is shown in the lower part of the menu. The first entry in the array is the
+# default variant, used for first time visitors.
+# The theme ships with the following variants: 'relearn-bright',
+# 'relearn-light', 'relearn-dark', 'zen-light', 'zen-dark', 'neon', 'learn',
+# 'blue', 'green', 'red'. In addition you can use auto mode variants. See the
+# docs for a detailed explanation.
+# You can also define your own variants. See the docs how this works. Also,
+# the docs provide an interactive theme generator to help you with this task.
+themeVariant = [
+	{ identifier = 'relearn-auto',  name = 'Relearn Light/Dark', auto = [] },
+	{ identifier = 'relearn-light'  },
+	{ identifier = 'relearn-dark'   },
+	{ identifier = 'relearn-bright' },
+	{ identifier = 'zen-auto',      name = 'Zen Light/Dark', auto = [ 'zen-light', 'zen-dark' ] },
+	{ identifier = 'zen-light'      },
+	{ identifier = 'zen-dark'       },
+	{ identifier = 'retro-auto',    name = 'Retro Learn/Neon', auto = [ 'learn', 'neon' ] },
+	{ identifier = 'neon'           },
+	{ identifier = 'learn'          },
+	{ identifier = 'blue'           },
+	{ identifier = 'green'          },
+	{ identifier = 'red'            }
+]
+#themeVariant = [ "blue", "green", "red", "relearn-light", "relearn-dark" ]
+# Change the title separator. Default to "::".
+titleSeparator = "-"
+# If a single page can contain content in multiple languages, add those here
+additionalContentLanguage = [ "en" ]
+# If set to true, no index.html will be appended to prettyURLs; this will cause pages not
+# to be servable from the file system
+disableExplicitIndexURLs = false
+# For external links you can define how they are opened in your browser; this setting will only be applied to the content area but not the shortcut menu
+externalLinkTarget = "_blank"
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Menu
+# These options modify the menu appearance.
+
+# Hide the Home entry.
+# Default: false
+# If shown, a Home button will appear below the search bar and the main menu.
+# It links to your the home page of the current language.
+disableLandingPageButton = true
+
+# Hide the language switcher.
+# Default: false
+# If you have more than one language configured, a language switcher is
+# displayed in the lower part of the menu. This option lets you explicitly
+# turn this behavior off.
+disableLanguageSwitchingButton = false
+
+# Shows checkmarks for visited pages of the main menu.
+# Default: false
+# This also causes the display of the `Clear History` entry in the lower part
+# of the menu to remove all checkmarks. The checkmarks will also been removed
+# if you regenerate your site as the ids are not stable.
 showVisitedLinks = true
+
+# The order of main menu submenus.
+# Default: 'weight'
+# Submenus can be ordered by 'weight', 'title', 'linktitle', 'modifieddate',
+# 'expirydate', 'publishdate', 'date', 'length' or 'default' (adhering to
+# Hugo's default sort order). This can be overridden in the pages frontmatter.
+ordersectionsby = 'weight'
+
+# The initial expand state of submenus.
+# Default: not set
+# This controls whether submenus will be expanded (true), or collapsed (false)
+# in the menu. If not set, the first menu level is set to false, all others
+# levels are set to true. This can be overridden in the page's frontmatter.
+# If the displayed page has submenus, they will always been displayed expanded
+# regardless of this option.
+alwaysopen = true
+
+# Shows expander for submenus.
+# Default: false
+# If set to true, a submenu in the sidebar will be displayed in a collapsible
+# tree view and a clickable expander is set in front of the entry.
+# This can be overridden in the page's frontmatter.
+collapsibleMenu = true
+
+# Hide heading above the shortcuts menu.
+# Default: false
+# If a sidebar menu with identifier `shortcuts` is configured (see below),
+# this is the easy way to remove the heading;
+# The title for the heading can be overwritten in your i18n files. See Hugo's
+# documentation how to do this.
+disableShortcutsTitle = false
+
+
+
 # Disable search function. It will hide search bar
 disableSearch = false
 # Disable search in hidden pages, otherwise they will be shown in search box
@@ -32,63 +162,101 @@ disableSearchHiddenPages = false
 disableSeoHiddenPages = false
 # Disables hidden pages from showing up on the tags page although the tag term will be displayed even if all pages are hidden
 disableTagHiddenPages = false
-# Javascript and CSS cache are automatically busted when new version of site is generated.
-# Set this to true to disable this behavior (some proxies don't handle well this optimization)
-disableAssetsBusting = false
-# Set this to true if you want to disable generation for generator version meta tags of hugo and the theme;
-# don't forget to also set Hugo's disableHugoGeneratorInject=true, otherwise it will generate a meta tag into your home page
-disableGeneratorVersion = false
 # Set this to true to disable copy-to-clipboard button for inline code.
 disableInlineCopyToClipBoard = false
-# A title for shortcuts in menu is set by default. Set this to true to disable it.
-disableShortcutsTitle = false
-# If set to false, a Home button will appear below the search bar on the menu.
-# It is redirecting to the landing page of the current language if specified. (Default is "/")
-disableLandingPageButton = true
-# When using mulitlingual website, disable the switch language button.
-disableLanguageSwitchingButton = false
-# Hide breadcrumbs in the header and only show the current page title
-disableBreadcrumb = false
-# If set to true, hide table of contents menu in the header of all pages
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# General
+# These options are defining general, non visual behavior.
+
+# Avoid new asset URLs on build.
+# Default: false
+# By default JavaScript-files and CSS-files get a unique ID on each rebuild.
+# This makes sure, the user always has the latest version and not some stale
+# copy of his browser cache. Anyways, it can be desireable to turn this
+# off in certain circumstances. For example if you have Hugo's dev server
+# running. Also some proxies dislike this optimization.
+disableAssetsBusting = false
+
+# Avoid generator meta tags.
+# Default: false
+# Set this to true if you want to disable generation for generator meta tags
+# of Hugo and the theme in your HTML head. In this case also don't forget to
+# set Hugo's disableHugoGeneratorInject=true. Otherwise Hugo will generate a
+# meta tag into your home page anyways.
+disableGeneratorVersion = false
+
+# Avoid unique IDs.
+# Default: false
+# In various situations the theme generates non stable unique ids to be used
+# in HTML fragment links. This can be undesirable for example when testing
+# the output for changes. If you disable the random id generation, the theme
+# may not function correctly anymore.
+disableRandomIds = false
+
+# Additional code dependencies.
+# Default: See hugo.toml of the theme
+# The theme provides a mechanism to load further JavaScript and CSS
+# dependencies on demand only if they are needed. This comes in handy if you
+# want to add own shortcodes that depend on additional code to be loaded.
+# See the docs how this works.
+# [relearn.dependencies]
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Topbar
+# These options modify the topbar appearance.
+
+# Hide the table of contents button.
+# Default: false
+# If the TOC button is hidden, also the keyboard shortcut is disabled.
+# This can be overridden in the page's frontmatter.
 disableToc = false
+
+# Hide the breadcrumbs.
+# Default: false
+# If the breadcrumbs are hidden, the title of the displayed page will still be
+# shown in the topbar.
+disableBreadcrumb = false
+
+# Hide the Markdown button.
+# Default: false
+# This hides the Markdown button if you activated the Markdown output format.
+# This can be overridden in the page's frontmatter.
+disableMarkdownButton = false
+
+# Hide the print button.
+# Default: false
+# This hides the print button if you activated the print output format.
+# This can be overridden in the page's frontmatter.
+disablePrintButton = false
+
+# Hide Next and Previous navigation buttons.
+# Default: false
+# If the navigation buttons are hidden, also the keyboard shortcuts are
+# disabled.
+disableNextPrev = false
+
 # If set to true, load the MathJax module on every page regardless if a MathJax shortcode is present
-math = true
+math.force = true
 # Specifies the remote location of the MathJax js
 customMathJaxURL = 'https://unpkg.com/mathjax/es5/tex-mml-chtml.js'
 # Initialization parameter for MathJax, see MathJax documentation
 #mathJaxInitialize = '{ "chtml": { "displayAlign": "left" }, { "tex": { "inlineMath": [["\(", "\)"], ["@", "@"]], displayMath: [["\[", "\]"], ["@@", "@@"]] }, "options": { "enableMenu": false }'
 mathJaxInitialize = '{}'
 # If set to false, load the Mermaid module on every page regardless if a Mermaid shortcode or Mermaid codefence is present
-disableMermaid = false
+mermaid.force = false
 # Specifies the remote location of the Mermaid js
 customMermaidURL = "https://unpkg.com/mermaid/dist/mermaid.min.js"
 # Initialization parameter for Mermaid, see Mermaid documentation
 mermaidInitialize = "{ \"theme\": \"default\" }"
 # If set to false, load the Swagger module on every page regardless if a Swagger shortcode is present
-disableSwagger = false
+#disableSwagger = false
 # Specifies the remote location of the RapiDoc js
-customSwaggerURL = "https://unpkg.com/rapidoc/dist/rapidoc-min.js"
+#customSwaggerURL = "https://unpkg.com/rapidoc/dist/rapidoc-min.js"
 # Initialization parameter for Swagger, see RapiDoc documentation
-swaggerInitialize = "{ \"theme\": \"light\" }"
-# Hide Next and Previous page buttons normally displayed full height beside content
-disableNextPrev = false
-# Order sections in menu by "weight" or "title". Default to "weight";
-# this can be overridden in the pages frontmatter
-ordersectionsby = "weight"
-# Change default color scheme with a variant one. Eg. can be "red", "blue", "green" or an array like [ "blue", "green" ].
-#themeVariant = "relearn-light"
-themeVariant = [ "blue", "green", "red", "relearn-light", "relearn-dark" ]
-# Change the title separator. Default to "::".
-titleSeparator = "-"
-# If set to true, the menu in the sidebar will be displayed in a collapsible tree view. Although the functionality works with old browsers (IE11), the display of the expander icons is limited to modern browsers
-collapsibleMenu = false
-# If a single page can contain content in multiple languages, add those here
-additionalContentLanguage = [ "en" ]
-# If set to true, no index.html will be appended to prettyURLs; this will cause pages not
-# to be servable from the file system
-disableExplicitIndexURLs = false
-# For external links you can define how they are opened in your browser; this setting will only be applied to the content area but not the shortcut menu
-externalLinkTarget = "_blank"
+#swaggerInitialize = "{ \"theme\": \"light\" }"
+
+
 
 
 [markup]
