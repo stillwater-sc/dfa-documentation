@@ -30,23 +30,26 @@ of {{< math >}}$c[i,j,k]${{< /math >}} can commence.
 In contrast, the {{< math >}}$a${{< /math >}} and {{< math >}}$b${{< /math >}} recurrences are 
 independent of each other.
 
-From a design perspective, an explicit dependency enables us to 'order' the nodes in a computational graph. 
+From a design perspective, an explicit dependency enables us to _order_ the nodes in a computational graph. 
 This can be done in time, as is customary in sequential programming: the sequence of
 instructions is a constraint to order the operations in time and enable an unambiguious semantic 
 interpretation of the value of a variable even though that variable may be reused.
 Parallel algorithms offer more degrees of freedom to order the computational events. In addition to 
-sequential order, we can also disambiguate variables in space. For high-performant parallel computation,
-we are looking for partial orders, or [posets](https://en.wikipedia.org/wiki/Partially_ordered_set), 
-where independent computational events are spatially separated
-in space, and where dependent events are spatially 'close'. 
+sequential order, we must also disambiguate variables in space as variables that occupy the 
+same location represent resource contention. Any physical execution machine would need to provide a
+mechanism to sequence that resource contention, increasing complexity and slowing down the execution.
 
-If we look back again at the domain flow code of matrix multiply, we observe that all results
-are assigned to a unique variable. This is called *Single Assignment Form* (SAF), and this yields a
-computational graph that makes all computational dependencies explicit.
+The key design objective for high-performant parallel computation is to find
+partial orders, [posets](https://en.wikipedia.org/wiki/Partially_ordered_set), 
+where independent computational events are spatially separated, and dependent events are spatially 'close'. 
+
+If we look back at the domain flow code of matrix multiply, we observe that all results
+are bound to a unique variable. This is called *Static Single Assignment Form* (SSA). 
+Such a graph that makes all computational dependencies explicit.
 
 The second observation is that the computational events are made unique with a variable name and 
-an index tag, represented by {{< math >}}$[i,j,k]]${{< /math >}}. 
-The constraint set: {{< math >}}$compute ( (i,j,k) | 1 <= i,j,k <= N )${{< /math >}}, 
+an index tag, represented by {{< math >}}$[i,j,k]${{< /math >}}. 
+The constraint set: {{< math >}}$compute \; (\quad (i,j,k) \quad | \quad 1 <= i,j,k <= N \;)${{< /math >}}, 
 carves out a subset in the lattice {{< math >}}$N^3${{< /math >}}, 
 and the body defines the computational events at each of the lattice points 
 {{< math >}}$[i,j,k]${{< /math >}} contained in the subset.

@@ -25,7 +25,7 @@ in a communication channel acts similarly as the constraint on the speed of ligh
 Think back to the model of a physical parallel machine being a fixed graph in space with communication 
 channels connecting computational nodes. The channels of communication constrain the propagation directions 
 for information exchange. To enable fine-grain parallelism assume that computation and communication 
-are separate steps in a computational even. By doing so, we have created an efficient pipeline
+are separate steps in a computational event. By doing so, we have created an efficient pipeline
 that hides the latency of the communication phase. We can now leverage the mental model of spacetime 
 to argue about partial orders of computational events that might be able to effect each other. 
 
