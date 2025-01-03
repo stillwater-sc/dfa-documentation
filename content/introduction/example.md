@@ -56,7 +56,7 @@ and the body defines the computational events at each of the lattice points
 
 Thirdly, dependencies between computational events are specified by an index expression.
 The statement {{< math >}}$a: a[i,j-1,k]${{< /math >}} is a shorthand for 
-{{< math >}}$a: a[i,j,k] => a[i,j,k] = a[i,j-1,k]${{< /math >}},
+{{< math >}}$a[i,j,k] := a[i,j-1,k]${{< /math >}},
 defining a dependency to the value at {{< math >}}$[i,j-1,k]${{< /math >}} for each lattice point 
 where the variable {{< math >}}$a${{< /math >}} is defined.
 
