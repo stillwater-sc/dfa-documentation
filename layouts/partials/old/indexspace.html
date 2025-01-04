@@ -1,0 +1,218 @@
+
+        <script src="{{ .Site.BaseURL }}/js/Detector.js"></script>
+        <script src="{{ .Site.BaseURL }}/js/libs/numeric-1.2.6.js"></script>
+
+        <script type="x-shader/x-vertex" id="vertexshader">
+			attribute float size;
+			attribute vec3 customColor;
+			varying vec3 vColor;
+			void main() {
+				vColor = customColor;
+				vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
+				gl_PointSize = size * ( 300.0 / -mvPosition.z );
+				gl_Position = projectionMatrix * mvPosition;
+			}
+		</script>
+
+        <script type="x-shader/x-fragment" id="fragmentshader">
+			uniform vec3 color;
+			uniform sampler2D texture;
+			varying vec3 vColor;
+			void main() {
+				gl_FragColor = vec4( color * vColor, 1.0 );
+				gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );
+				if ( gl_FragColor.a < ALPHATEST ) discard;
+			}
+		</script>
+
+        <!-- Import maps polyfill -->
+        <!-- Remove this when import maps will be widely supported -->
+        <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+        <script type="importmap">
+			{
+				"imports": {
+					"three": "{{ .Site.BaseURL }}/js/build/three.module.js",
+					"three/addons/": "{{ .Site.BaseURL }}/js/"
+				}
+			}
+		</script>
+
+        <script type="module">
+            import * as THREE from 'three';
+
+            import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+            if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+            let scenes = [];
+            var views = [];
+            var t, canvas, renderer;
+            var PARTICLE_SIZE = 2;
+            var clock = new THREE.Clock( true );
+
+            window.onload = init;
+            function createIndexSpaceGeometry( N, M, K, cellSize, center, matmul ) {
+                    let lattice = { vertices: [] };
+
+                    if (center) {
+                            for ( let i = -N/2; i <= N/2; i++ ) {
+                                    for ( let j = -M/2; j <= M/2; j++ ) {
+                                            for ( let k = -K/2; k <= K/2; k++ ) {
+                                                    lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
+                                            }
+                                    }
+                            }
+                    } else {
+                            for ( let i = 0; i < N; i++ ) {
+                                    for ( let j = 0; j < M; j++ ) {
+                                            for ( let k = 0; k < K; k++ ) {
+                                                    if (matmul) {
+                                                            // create the lattices for a, b, and c recurrences
+                                                            lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
+                                                            lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
+                                                            lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
+                                                    } else {
+                                                            lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
+                                                    }
+                                            }
+                                    }
+                            }
+                    }
+
+                    return lattice;
+            }
+
+            function createIndexSpaceScene( lattice, pointSize ) {
+                    let scene = new THREE.Scene();
+                    // var geometry1 = new THREE.BoxGeometry( 200, 200, 200, 16, 16, 16 );
+                    let vertices = lattice.vertices;
+
+                    let positions = new Float32Array( vertices.length * 3 );
+                    let colors    = new Float32Array( vertices.length * 3 );
+                    let sizes     = new Float32Array( vertices.length );
+
+                    let vertex;
+                    let color = new THREE.Color();
+
+                    let hue = 0.11;
+                    for ( let i = 0, l = vertices.length; i < l; i++ ) {
+                            vertex = vertices[i];
+                            vertex.toArray( positions, i * 3 );
+
+                            // color.setHSL( 0.01 + 0.1 * ( i / l ), 1.0, 0.5 );
+                            color.setHSL( hue, 1.0, 0.5 );
+                            color.toArray( colors, i * 3 );
+
+                            sizes[ i ] = pointSize;
+                    }
+
+                    let geometry = new THREE.BufferGeometry();
+                    geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+                    geometry.setAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
+                    geometry.setAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
+
+                    let material = new THREE.ShaderMaterial( {
+                            uniforms: {
+                                    color:    { value: new THREE.Color( 0xffffff ) },
+                                    texture:  { value: new THREE.TextureLoader().load( "../../textures/sprites/ball.png" ) }
+                            },
+
+                            vertexShader: document.getElementById( 'vertexshader' ).textContent,
+                            fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
+
+                            alphaTest: 0.9
+                    } );
+
+                    let particles = new THREE.Points( geometry, material );
+                    scene.add( particles );
+
+                    return scene;
+            }
+
+            function init() {
+                canvas = document.getElementById( 'c' );
+
+                renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+                renderer.setClearColor( 0xffffff );
+                renderer.setPixelRatio( window.devicePixelRatio );
+
+                let renderTarget = "{{ .Params.RenderTargetName }}";
+                views.push( document.getElementById( renderTarget ) );
+
+                { // views[0] = index_space_view
+                    let lattice0 = createIndexSpaceGeometry(20, 20, 20, 1, true);
+                    let pointSize0 = PARTICLE_SIZE * 0.5;
+                    let scene0 = createIndexSpaceScene( lattice0, pointSize0 );
+                    scene0.userData.view = views[0];
+
+                    // PerspectiveCamera ( fov, aspectRatio, near clipping plane, var clipping plane )
+                    let camera0 = new THREE.PerspectiveCamera( 75, 1, 0.1, 1000 );
+                    camera0.position.set( 0, 0, 25 );   // ( x = 0, y = 0, z = 25 )
+                    scene0.userData.camera = camera0;
+
+                    let controls0 = new OrbitControls( camera0, views[0] );
+                    controls0.minDistance = 20;   // zoom can't zoom in further than z = 20
+                    controls0.maxDistance = 500;   // zoom can't zoom out further than z = 500
+                    scene0.userData.controls = controls0;
+
+                    scenes.push( scene0 );
+                }
+
+                t = 0;
+                animate();
+
+            }
+
+            function updateSize() {
+                var width = canvas.clientWidth;
+                var height = canvas.clientHeight;
+
+                if ( canvas.width !== width || canvas.height != height ) {
+                    renderer.setSize( width, height, false );
+                }
+            }
+
+            function animate() {
+                render();
+                requestAnimationFrame( animate );
+            }
+
+            function render() {
+                updateSize();
+
+                // the ScissorTest machinery is needed to make the viewport clipping work properly.
+                renderer.setClearColor( 0xffffff );
+                renderer.setScissorTest( false );
+                renderer.clear();
+
+                renderer.setClearColor( 0x000000 );
+                renderer.setScissorTest( true );
+
+                scenes.forEach( function( scene ) {
+
+                    var rect = scene.userData.view.getBoundingClientRect();
+                    // check if it's off-screen. If so skip it
+                    if ( rect.bottom < 0 || rect.top  > renderer.domElement.clientHeight ||
+                        rect.right  < 0 || rect.left > renderer.domElement.clientWidth ) {
+                        return;  // it's off-screen so skip the renderering
+                    }
+
+                    // set the viewport
+                    var width  = rect.right - rect.left;
+                    var height = rect.bottom - rect.top;
+                    var left   = rect.left;
+                    var bottom = renderer.domElement.clientHeight - rect.bottom;
+                    renderer.setViewport( left, bottom, width, height );
+                    renderer.setScissor( left, bottom, width, height );
+
+                    renderer.render( scene, scene.userData.camera );
+
+                    scene.children[0].geometry.verticesNeedUpdate = true;
+
+                } );
+
+                t = clock.getElapsedTime();
+            }
+
+        </script>

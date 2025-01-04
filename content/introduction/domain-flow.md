@@ -12,6 +12,14 @@ categories = [ "domain-flow", "introduction" ]
 series = [ "introduction" ]
 
 +++
+<style>
+#c {
+    float: bottom;
+    padding: 5px;
+    width: 800px;
+    height: 600px;
+}
+</style>
 
 Domain flow is an abstract parallel programming model that is invariant to technology changes.
 
@@ -54,7 +62,7 @@ the Cartesian lattice. The index tag, such as {{< math >}}$[i,j,k]${{< /math >}}
 
 This is what the lattice for matmul looks like for a given {{< math >}}$N${{< /math >}}:
 
-<canvas id="c"></canvas>
-
-<div id="index_space_view"></div>
+<div id="index_space_view"  style="text-align:center">
+    <canvas id="c" style="border:5px solid #000">browser doesn't support canvas tags</canvas>
+</div>
 

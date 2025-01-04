@@ -10,7 +10,6 @@ import { LatticeGeometry } from 'three/addons/geometries/LatticeGeometry.js';
 import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
 
 let group, camera, scene, renderer;
-//let params;
 
 function init() {
 
