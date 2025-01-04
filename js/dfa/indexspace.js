@@ -1,80 +1,135 @@
-/**
- * Created by tomtz on 2/14/2017.
- */
-function createIndexSpaceGeometry( N, M, K, cellSize, center, matmul ) {
-    let lattice = { vertices: [] };
 
-    if (center) {
-        for ( let i = -N/2; i <= N/2; i++ ) {
-            for ( let j = -M/2; j <= M/2; j++ ) {
-                for ( let k = -K/2; k <= K/2; k++ ) {
-                    lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
-                }
-            }
-        }
-    } else {
-        for ( let i = 0; i < N; i++ ) {
-            for ( let j = 0; j < M; j++ ) {
-                for ( let k = 0; k < K; k++ ) {
-                    if (matmul) {
-                        // create the lattices for a, b, and c recurrences
-                        lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
-                        lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
-                        lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
-                    } else {
-                        lattice.vertices.push( new THREE.Vector3( i * cellSize, j * cellSize, k * cellSize ) );
-                    }
-                }
-            }
-        }
+import * as THREE from 'three';
+import {
+    BufferGeometry,
+    Float32BufferAttribute
+} from 'three';
+//import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { LatticeGeometry } from 'three/addons/geometries/LatticeGeometry.js';
+import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js';
+
+let group, camera, scene, renderer;
+
+function init() {
+
+    scene = new THREE.Scene();
+
+    const canvas = document.querySelector( '#c' );
+    renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+
+    // camera
+    const fov = 40;
+    const aspect = 2;  // the canvas default
+    const near = 1;
+    const far = 1000;
+    camera = new THREE.PerspectiveCamera( fov, aspect, near, far);
+    camera.position.set( 15, 20, 30 );
+    scene.add( camera );
+
+    // controls
+
+    const controls = new OrbitControls( camera, renderer.domElement );
+    controls.minDistance = 20;
+    controls.maxDistance = 50;
+    controls.maxPolarAngle = Math.PI / 2;
+
+    // ambient light
+
+    scene.add( new THREE.AmbientLight( 0x222222 ) );
+
+    // point light
+
+    const light = new THREE.PointLight( 0xffffff, 1 );
+    camera.add( light );
+
+    // helper
+    // disable the Axes as we generate the index space with the center ot 0
+    // scene.add( new THREE.AxesHelper( 20 ) );
+
+    // textures
+
+    const loader = new THREE.TextureLoader();
+    const texture = loader.load( '../../textures/sprites/disc.png' );
+
+    group = new THREE.Group();
+    scene.add( group );
+
+    // points
+
+    const latticeGeometry = new LatticeGeometry(9, 9, 9, 2);
+    const vertices = [];
+    const positionAttribute = latticeGeometry.getAttribute( 'position' );
+
+    for ( let i = 0; i < positionAttribute.count; i ++ ) {
+
+        const vertex = new THREE.Vector3();
+        vertex.fromBufferAttribute( positionAttribute, i );
+        vertices.push( vertex );
+
     }
 
-    return lattice;
-}
-
-function createIndexSpaceScene( lattice, pointSize ) {
-    let scene = new THREE.Scene();
-    // var geometry1 = new THREE.BoxGeometry( 200, 200, 200, 16, 16, 16 );
-    let vertices = lattice.vertices;
-
-    let positions = new Float32Array( vertices.length * 3 );
-    let colors    = new Float32Array( vertices.length * 3 );
-    let sizes     = new Float32Array( vertices.length );
-
-    let vertex;
-    let color = new THREE.Color();
-
-    let hue = 0.11;
-    for ( let i = 0, l = vertices.length; i < l; i++ ) {
-        vertex = vertices[i];
-        vertex.toArray( positions, i * 3 );
-
-        // color.setHSL( 0.01 + 0.1 * ( i / l ), 1.0, 0.5 );
-        color.setHSL( hue, 1.0, 0.5 );
-        color.toArray( colors, i * 3 );
-
-        sizes[ i ] = pointSize;
-    }
-
-    let geometry = new THREE.BufferGeometry();
-    geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-    geometry.setAttribute( 'customColor', new THREE.BufferAttribute( colors, 3 ) );
-    geometry.setAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
-
-    let material = new THREE.ShaderMaterial( {
-        uniforms: {
-            color:    { value: new THREE.Color( 0xffffff ) },
-            texture:  { value: new THREE.TextureLoader().load( "../../textures/sprites/ball.png" ) }
-        },
-
-        vertexShader: document.getElementById( 'vertexshader' ).textContent,
-        fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
-
-        alphaTest: 0.9
+    const pointsMaterial = new THREE.PointsMaterial( {
+        color: 0x0080ff,
+        map: texture,
+        size: 1,
+        alphaTest: 0.5
     } );
 
-    particles = new THREE.Points( geometry, material );
-    scene.add( particles );
+    const pointsGeometry = new THREE.BufferGeometry().setFromPoints( vertices );
 
-    return scene;
+    const points = new THREE.Points( pointsGeometry, pointsMaterial );
+    group.add( points );
+
+
 }
+
+function animate() {
+
+    requestAnimationFrame( animate );
+
+    //group.rotation.y += 0.005;
+
+    render();
+
+}
+
+function resizeRendererToDisplaySize( renderer ) {
+
+    const canvas = renderer.domElement;
+    const width = canvas.clientWidth;
+    const height = canvas.clientHeight;
+    const needResize = canvas.width !== width || canvas.height !== height;
+    if ( needResize ) {
+
+        renderer.setSize( width, height, false );
+
+    }
+
+    return needResize;
+
+}
+
+function render( time ) {
+
+    time *= 0.001;
+
+    if ( resizeRendererToDisplaySize( renderer ) ) {
+
+        const canvas = renderer.domElement;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+
+    }
+
+    renderer.render( scene, camera );
+
+    requestAnimationFrame( render );
+
+}
+
+
+init();
+requestAnimationFrame(render);
+
+
