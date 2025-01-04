@@ -12,7 +12,7 @@ series = [ "introduction" ]
 
 Let's look at a simple, but frequently used operator in Deep Learning inference: 
 dense matrix multiplication. 
-A Domain Flow program for this operator is shown below:
+A Domain Flow program <sup>[1](#derivation)</sup> for this operator is shown below:
 
 ```verbatim
 compute ( (i,j,k) | 1 <= i,j,k <= N ) {
@@ -69,3 +69,4 @@ of input operands to avoid memory elements.
 
 In the next segment, let's explore these execution patterns.
 
+<a name="derivation">1</a>: [Derivation of Domain Flow Matmul](https://stillwater-sc.github.io/domain-flow/introduction/derivation)</a>
