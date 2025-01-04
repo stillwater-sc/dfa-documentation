@@ -12,7 +12,7 @@ import * as BufferGeometryUtils from 'three/addons/utils/BufferGeometryUtils.js'
 
 
 let group, camera, scene, renderer, params;
-let count = 0;
+let wavefrontNr = 0;
 
 let timeLast = 0;
 
@@ -202,7 +202,6 @@ function init() {
 
     scene.add( indexSpace );
 
-
 }
 
 function makeGeo(){
@@ -226,21 +225,16 @@ function makeGeo(){
 
     length1 = latticeGeometry.getAttribute( 'position' ).count;
 
-
     for ( let i = 0, l = positionAttribute.count; i < l; i ++ ) {
 
         vertex.fromBufferAttribute( positionAttribute, i );
 
-
-        color.setRGB( 1 ,1 ,1 );
+        color.setRGB( 1, 1, 1 );
         color.toArray(colors, i * 3 + 1);
 
         sizes[ i ] = i < length1 ? 100 : 40;
 
     }
-
-
-
 
     for ( let i = 0; i < positionAttribute.count;  i ++) {
 
@@ -261,16 +255,14 @@ function makeGeo(){
     return geometry;
 
 }
-function makeMaterial(){
 
+function makeMaterial(){
 
     const texture = new THREE.TextureLoader().load( '../../textures/sprites/ball.png' );
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
 
     const material = new THREE.ShaderMaterial( {
-
-
 
         uniforms: {
             color: { value: new THREE.Color( 0xffffff ) },
@@ -280,7 +272,6 @@ function makeMaterial(){
         fragmentShader: document.getElementById( 'fragmentshader' ).textContent,
         transparent: true,
         vertexColors: true
-
 
     } );
 
@@ -383,9 +374,9 @@ function render() {
     // time is in tenths of seconds
     const time = Date.now() * 0.01;
 
-    // console.log("the time" ,time);
+    //console.log("the time" ,time);
 
-    // console.log("the timeLast" ,timeLast);
+    //console.log("the timeLast" ,timeLast);
 
     const diff = time - timeLast;
 
@@ -418,17 +409,18 @@ function render() {
     requestAnimationFrame( render );
 
 }
-function nextAnimationFrame(){
+
+function nextAnimationFrame() {
 
     const geometry = indexSpace.geometry;
     const attributes = geometry.attributes;
 
-    //grabs the highest wavefront value
+    // grabs the highest wavefront value
     const high = geometry.getAttribute('wavefront').array[attributes.wavefront.array.length - 1] + 1;
 
     for (let i = 0; i < attributes.size.array.length; i++) {
 
-        if (geometry.getAttribute('wavefront').array[i * 3] == count) {
+        if (geometry.getAttribute('wavefront').array[i * 3] == wavefrontNr) {
 
             attributes.size.array[i] = 32;
 
@@ -436,7 +428,7 @@ function nextAnimationFrame(){
             attributes.ca.array[i*3+1] = 0;
             attributes.ca.array[i*3+2] = 1;
 
-        }else if (geometry.getAttribute('wavefront').array[i * 3 + 1] == count){
+        }else if (geometry.getAttribute('wavefront').array[i * 3 + 1] == wavefrontNr){
 
             attributes.size.array[i] = 32;
 
@@ -444,7 +436,7 @@ function nextAnimationFrame(){
             attributes.ca.array[i*3+1] = 0;
             attributes.ca.array[i*3+2] = 1;
 
-        }else if (geometry.getAttribute('wavefront').array[i * 3 + 2] == count){
+        }else if (geometry.getAttribute('wavefront').array[i * 3 + 2] == wavefrontNr){
 
             attributes.size.array[i] = 32;
 
@@ -460,17 +452,17 @@ function nextAnimationFrame(){
             attributes.ca.array[i*3+2] = 1;
         }
     }
-    count++;
-    if (count == high)
-        count = 0;
-
-    //console.log(count);
+    wavefrontNr++;
+    if (wavefrontNr == high)
+        wavefrontNr = 0;
+    console.log("Wavefront number = " + wavefrontNr);
 
     attributes.size.needsUpdate = true;
 
     attributes.ca.needsUpdate = true;
 
 }
+
 
 
 requestAnimationFrame(render);

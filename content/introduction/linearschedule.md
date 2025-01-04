@@ -12,7 +12,6 @@ categories = [ "domain flow", "schedule" ]
 series = [ "introduction" ]
 
 +++
-
 <style>
 #c {
     float: bottom;
