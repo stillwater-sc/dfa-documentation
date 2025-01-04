@@ -238,9 +238,12 @@ function makeGeo(){
 
     for ( let i = 0; i < positionAttribute.count;  i ++) {
 
-        wavefront[i*3] = signatureAttribute.array[i*3+1];
-        wavefront[i*3+1] = signatureAttribute.array[i*3];
-        wavefront[i*3+2] = signatureAttribute.array[i*3] + signatureAttribute.array[i*3+1] + signatureAttribute.array[i*3+2];
+        // with scheduling vector [1 1 1] the sequence number of 
+        // individual wavefronts is the dot product between [1 1 1] and the signature
+        const sequenceNr = signatureAttribute.array[i*3] + signatureAttribute.array[i*3+1] + signatureAttribute.array[i*3+2];
+        wavefront[i*3] = sequenceNr;
+        wavefront[i*3+1] = sequenceNr;
+        wavefront[i*3+2] = sequenceNr;
 
     }
 
@@ -418,36 +421,49 @@ function nextAnimationFrame() {
     // grabs the highest wavefront value
     const high = geometry.getAttribute('wavefront').array[attributes.wavefront.array.length - 1] + 1;
 
+    let showPropagationOfA = false;
+    let showPropagationOfB = false;
+    let showPropagationOfC = true;
+
     for (let i = 0; i < attributes.size.array.length; i++) {
 
-        if (geometry.getAttribute('wavefront').array[i * 3] == wavefrontNr) {
-
-            attributes.size.array[i] = 32;
-
-            attributes.ca.array[i*3] = 0;
+        if (showPropagationOfA && geometry.getAttribute('wavefront').array[i * 3] == wavefrontNr) {
+            // size of the index point sphere of the wavefront
+            attributes.size.array[i] = 32;  
+            // color of the A propagation wavefront
+            attributes.ca.array[i*3+0] = 0;
             attributes.ca.array[i*3+1] = 0;
             attributes.ca.array[i*3+2] = 1;
+            // alternate wavefronts
+            //showPropagationOfA = false;
+            //showPropagationOfB = true;
 
-        }else if (geometry.getAttribute('wavefront').array[i * 3 + 1] == wavefrontNr){
-
+        } else if (showPropagationOfB && geometry.getAttribute('wavefront').array[i * 3 + 1] == wavefrontNr){
+            // size of the index point sphere of the wavefront
             attributes.size.array[i] = 32;
+            // color of the B propagation wavefront
+            attributes.ca.array[i*3+0] = 0;
+            attributes.ca.array[i*3+1] = 1;
+            attributes.ca.array[i*3+2] = 0;
+            // alternate wavefronts
+            //showPropagationOfB = false;
+            //showPropagationOfC = true;
 
-            attributes.ca.array[i*3] = 0.5;
-            attributes.ca.array[i*3+1] = 0;
-            attributes.ca.array[i*3+2] = 1;
-
-        }else if (geometry.getAttribute('wavefront').array[i * 3 + 2] == wavefrontNr){
-
-            attributes.size.array[i] = 32;
-
-            attributes.ca.array[i*3] = 1;
+        } else if (showPropagationOfC && geometry.getAttribute('wavefront').array[i * 3 + 2] == wavefrontNr){
+            // size of the index point sphere of the wavefront
+            attributes.size.array[i] = 32;  
+            // color of the C propagation wavefront 
+            attributes.ca.array[i*3+0] = 1;
             attributes.ca.array[i*3+1] = 0;
             attributes.ca.array[i*3+2] = 0;
-
+            // alternate wavefronts
+            //showPropagationOfC = false;
+            //showPropagationOfA = true;
         } else {
+            // size of the index point sphere that is not part of the wavefront
             attributes.size.array[i] = 10;
-
-            attributes.ca.array[i*3] = 1;
+            // color of the index space points
+            attributes.ca.array[i*3+0] = 1;
             attributes.ca.array[i*3+1] = 1;
             attributes.ca.array[i*3+2] = 1;
         }
@@ -455,7 +471,7 @@ function nextAnimationFrame() {
     wavefrontNr++;
     if (wavefrontNr == high)
         wavefrontNr = 0;
-    console.log("Wavefront number = " + wavefrontNr);
+    //console.log("Wavefront number = " + wavefrontNr);
 
     attributes.size.needsUpdate = true;
 
