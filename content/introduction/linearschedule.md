@@ -13,7 +13,14 @@ series = [ "introduction" ]
 
 +++
 
-<canvas id="c"></canvas>
+<style>
+#c {
+    float: bottom;
+    padding: 5px;
+    width: 800px;
+    height: 600px;
+}
+</style>
 
 In the previous section, we saw what the computational evolution of an unconstrained parallel algorithm looks like.
 However, an actual physical system would have finite resources, and certainly limited operand bandwidth.
@@ -42,7 +49,9 @@ to participate in the computational event:
 
 This constrained, _linear_ schedule is shown in the next animation.
 
-<div id="linearschedule_animation">_</div>
+<div id="linearschedule_animation"style="text-align:center">
+    <canvas id="c" style="border:5px solid #000;">browser doesn't support canvas tags</canvas>
+</div>
 
 This particular schedule is called _memoryless_, that is, no memory is required to execute along this
 evolution. Another way to look at this is that the memory function is provided by the network and the act of

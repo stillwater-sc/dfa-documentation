@@ -20,7 +20,7 @@ let run = true;
 
 let timeElapsed = 0;
 
-let periodOfTenthOfSeconds = 6;
+let periodOfTenthOfSeconds = 25;
 
 class IndexSpaceGeometry extends THREE.BufferGeometry {
 
@@ -183,7 +183,7 @@ function init() {
     const near = 1;
     const far = 1000;
     camera = new THREE.PerspectiveCamera( fov, aspect, near, far);
-    camera.position.set( 15, 20, 180 );
+    camera.position.set( 100, 100, 400 );
     scene.add( camera );
 
     // controls
@@ -210,8 +210,8 @@ function init() {
 
 function makeGeo(){
 
-    const radius = 50;
-    const constraints = [ 0, 6, 0, 6, 0, 6 ];
+    const radius = 150;
+    const constraints = [ 0, 15, 0, 15, 0, 15 ];
 
     const latticeGeometry = new IndexSpaceGeometry( constraints, radius );
 
@@ -383,7 +383,7 @@ function animate() {
 function render() {
 
     // time is in tenths of seconds
-    const time = Date.now() * 0.01;
+    const time = Date.now() * 0.001;
 
     console.log("the time" ,time);
 
@@ -400,7 +400,7 @@ function render() {
 
     timeElapsed = 0;
 
-    timeLast = Date.now() * 0.01;
+    timeLast = Date.now() * 0.001;
 
     nextAnimationFrame();
 
