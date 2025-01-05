@@ -19,12 +19,12 @@ space, as it takes time to do so.
 What would be the best way to build scalable, parallel execution engines? In 1966,
 Michael J. Flynn, proposed a taxonmy based on two dimensions, the parallelism of
 data and instructions <sup>[1](#flynn)</sup>. A purely sequential machine has a
-single instruction stream and a single data stream and the acronym *SISD*. A machine
-that applies the same instruction on multiple data elements is a *SIMD* machine, 
+single instruction stream and a single data stream and the acronym **SISD**. A machine
+that applies the same instruction on multiple data elements is a **SIMD** machine, 
 short for Single Instruction Multiple Data. Machines that have multiple instruction
 streams operating on a single data element as used in fault-tolerant and redundant
-system designs, and carry the designation *MISD*, Multiple Instruction Single Data.
-The Multiple Instruction Multiple Data machine, or *MIMD*, consists of many processing
+system designs, and carry the designation **MISD**, Multiple Instruction Single Data.
+The Multiple Instruction Multiple Data machine, or **MIMD**, consists of many processing
 elements simultaneously operating on different data.
 
 The diagram below shows the Flynn Taxonomy <sup>[2](#wikipedia)</sup>:
@@ -40,7 +40,7 @@ _blocks_ of the data structure, and an exchange phase to communicate dependent d
 the nodes.
 
 For these algorithms to work well, the computation phase and the data exchange phase need
-to be coordinated such that the program does not need to wait. Distributed Memory Machine
+to be coordinated such that the program does not need to wait. Distributed Memory Machine (DMM)
 algorithms have been studied to categorize them as a function of this constraint. This
 categorization has become known as the Seven Dwarfs <sup>[3](#dwarfs)</sup>. Later refinement
 has expanded that to thirteen dwarfs. 
@@ -53,7 +53,27 @@ complexity, yielding so-called _weak scaling_ algorithms that can be made effici
 by scaling up the data structure size. Any other information exchange will diminish
 the compute efficiency of the distributed machine.
 
+Supercomputers that are purpose-build for capability have been constructed as DMMs since
+the early '90s, attesting to the success of the Distributed Memory Machine model. 
+And thirty years of empirical evidence has shown that designing these DMM algorithms is 
+difficult, due to the fact that the dynamic behavior of the actual execution requires
+careful design and benchmarking to maximize resource efficiency.
 
+The **MIMD** approach, however, is not isolated to just the Distributed Memory Machine.
+Real-time data acquisition, signal processing, and control systems also demand parallel
+execution, but systems for these use cases tend to be constructed very differently. 
+Instead of _blocking_ the computation to create subprograms that can be executed 
+on a Stored Program Machine, real-time system tend to favor distributed and balanced 
+data paths designed to never require dynamic reconfiguration.
+
+Whereas Distributed Memory Machines require coarse-grain parallelism to work, 
+real-time systems tend to favor fine-grain parallelism. Fine-grain parallel systems
+offer lower latencies, and an increasingly important benefit, energy efficiency.
+In the next chapter, we'll discuss the techniques used to design spatial mappings
+for fine-grained parallel machines.
+
+
+**Footnotes**
 
 <a name="flynn">1:</a> Flynn, Michael J. (December 1966), [Very high-speed computing systems](https://ieeexplore.ieee.org/document/1447203)
 
