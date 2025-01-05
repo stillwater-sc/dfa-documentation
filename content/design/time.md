@@ -46,8 +46,8 @@ provides a concise description of the global activity of a single variable
 uniform recurrence equation.
 
 We can extend that framework to work with systems of uniform recurrence
-equations. And we can bring the class of algorithms described by systems
-of affine recurrence equations into this new framework by transforming
+equations (SURE). And we can bring the class of algorithms described by systems
+of affine recurrence equations into this SURE framework by transforming
 the affine transformations into propagations. The affine maps typically
 represent gathers (reductions) and scatters (broadcasts), and these
 affine transformations can be made uniform by using uniform dependencies
@@ -56,19 +56,19 @@ to propagate the values through the index space.
 Whereas it is sufficient to solve a single linear program to determine
 if a single variable uniform recurrence is explicitly defined, the
 procedure to test computability of a system of equations requires an
-iterative decomposition of the dependence graph into strong connected
+iterative decomposition of the dependence graph into strongly connected
 components. 
 
 A directed graph is called _strongly connected_ if any two distinct
 vertices lie in a common cycle. A _strongly connected component_ of a
-directed graph is a strong connected subgraph not properly contained
+directed graph is a strongly connected subgraph not properly contained
 in any other strongly connected subgraph. A directed graph may contain
 several strong components, and each vertex lies in exactly one strongly
 connected component.
 
-We can decompose the graph representing the system of recurrence 
+We can decompose the graph representing the system of uniform recurrence 
 equations in a hierarchy of strongly connected components as follows:
-create a roo node of the tree containing the orginal dependence graph.
+create a root node of the tree containing the orginal dependence graph.
 Determine the strongly connected components of _G_ and create a child for
 the root for each strong component. Then apply a zero-weight cycle
 search procedure on each of the strongly connected components and
@@ -83,4 +83,15 @@ is called the depth of the tree, and is related to the inherent
 parallelism of the algorithm. Karp, Miller, and Winograd provide
 a proof that bounds the free schedule for each of the subgraphs
 that reside in the nodes of the decomposition tree. They use
-this bound to quantify the amount of parallelism.
+this bound to quantify the amount of parallelism in the algorithm.
+Their goal was to create a complexity hierarchy of parallel
+algorithms based on inherent concurrency. Unfortunately, this did
+not pan out because the computational domain impacts this parallelism
+and the theoretical complexity did not relate to any practical
+benefits.
+
+However, the derivation of feasible schedules given a system of
+recurrence equations has practical application for the design
+of optimal computational data paths. The Domain Flow model
+uses the Karp, Miller, and Winograd piecewise linear scheduling
+construction to sequence activity wavefronts.
