@@ -33,7 +33,8 @@ Linear algebra operators exhibits many independent operations. For example, ther
 4. dot product 
 
 The operator {{< math >}}$z = alpha * x + y${{< /math >}} is frequently used, and although redundant, tends
-to be added as the fifth operator, and referred to as the _saxpy_ operator for "Scalar Alpha X Plus Y". 
+to be added as the fifth operator, and referred to as the _axpy_ operator, short for "alpha X plus Y",
+where _alpha_ is a scalar and _X_ and _Y_ are vectors. 
 The _dot product_ is also referred to as the _inner product_. The _inner product_ is an operator that 
 brings two vectors together into a scalar representing a measure how much the vectors point in the same direction.
 The _outer product_ is an operator that expands two vectors into a matrix: for vector 
@@ -52,12 +53,12 @@ arrangements is shown in Table 1:
 
 | Loop order | Inner Loop | Middle Loop                                     | Inner Loop Data Access      |
 |------------|------------|-------------------------------------------------|-----------------------------|
-| ijk | dot | vector {{< math >}}$\times${{< /math >}} matrix | {{< math >}}$A${{< /math >}} by row, {{< math >}}$B${{< /math >}} by column |
-| jik | dot | matrix {{< math >}}$\times${{< /math >}} vector | {{< math >}}$A${{< /math >}} by row, {{< math >}}$B${{< /math >}} by column   |
-| ikj | saxpy | row saxpy                                       | {{< math >}}$B${{< /math >}} by row                  |
-| jki | saxpy | column saxpy                                    | {{< math >}}$A${{< /math >}} by column               |
-| kij | saxpy | row outer product                               | {{< math >}}$B${{< /math >}} by row                  |
-| kji | saxpy | column outer product                            | {{< math >}}$A${{< /math >}} by column               |
+| ijk | dot  | vector {{< math >}}$\times${{< /math >}} matrix | {{< math >}}$A${{< /math >}} by row, {{< math >}}$B${{< /math >}} by column |
+| jik | dot  | matrix {{< math >}}$\times${{< /math >}} vector | {{< math >}}$A${{< /math >}} by row, {{< math >}}$B${{< /math >}} by column   |
+| ikj | axpy | row axpy                                        | {{< math >}}$B${{< /math >}} by row                  |
+| jki | axpy | column axpy                                     | {{< math >}}$A${{< /math >}} by column               |
+| kij | axpy | row outer product                               | {{< math >}}$B${{< /math >}} by row                  |
+| kji | axpy | column outer product                            | {{< math >}}$A${{< /math >}} by column               |
 
 *Table 1:* Matrix Multiplication: Orderings and Properties (see <sup>[2](#matrix-computations)</sup>)
 
