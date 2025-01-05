@@ -52,6 +52,11 @@ This constrained, _linear_ schedule is shown in the next animation.
     <canvas id="c" style="border:5px solid #000;">browser doesn't support canvas tags</canvas>
 </div>
 
+In this animation we show the result wavefront in green: it is the cumulative activity of the three
+recurrence equations evolving along the _scheduling vector_ {{< math >}}$S = [1 1 1]^T${{< /math >}}.
+The wavefronts are _sequenced_ in time by the _dot_ product between the scheduling vector _S_ and the
+index space coordinate, defined in domain flow as the _signature_ of the activity.
+
 This particular schedule is called _memoryless_, that is, no memory is required to execute along this
 evolution. Another way to look at this is that the memory function is provided by the network and the act of
 communicating operands between locations in the lattice. From an energy perspective, this is attractive as

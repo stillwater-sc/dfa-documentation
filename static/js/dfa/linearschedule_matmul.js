@@ -442,9 +442,9 @@ function nextAnimationFrame() {
             // size of the index point sphere of the wavefront
             attributes.size.array[i] = 32;
             // color of the B propagation wavefront
-            attributes.ca.array[i*3+0] = 0;
-            attributes.ca.array[i*3+1] = 1;
-            attributes.ca.array[i*3+2] = 0;
+            attributes.ca.array[i*3+0] = 0.5;
+            attributes.ca.array[i*3+1] = 0;
+            attributes.ca.array[i*3+2] = 1;
             // alternate wavefronts
             //showPropagationOfB = false;
             //showPropagationOfC = true;
@@ -453,8 +453,8 @@ function nextAnimationFrame() {
             // size of the index point sphere of the wavefront
             attributes.size.array[i] = 32;  
             // color of the C propagation wavefront 
-            attributes.ca.array[i*3+0] = 1;
-            attributes.ca.array[i*3+1] = 0;
+            attributes.ca.array[i*3+0] = 0;
+            attributes.ca.array[i*3+1] = 1;  // green
             attributes.ca.array[i*3+2] = 0;
             // alternate wavefronts
             //showPropagationOfC = false;
