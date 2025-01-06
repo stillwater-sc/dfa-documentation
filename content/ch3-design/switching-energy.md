@@ -1,9 +1,9 @@
 +++
-prev = "/design/energy"
-weight = 9
+prev = "/ch3-design/nextsteps"
+weight = 11
 title = "Switching Energy Estimates"
 toc = true
-next = "/design/nextsteps"
+next = "/blas"
 date = "2025-01-05T13:39:38-05:00"
 
 +++

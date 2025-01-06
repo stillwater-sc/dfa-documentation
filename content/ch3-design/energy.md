@@ -1,9 +1,9 @@
 +++
-prev = "/design/space"
-weight = 8
-title = "Energy Efficiency"
+prev = "/ch3-design/space"
+weight = 5
+title = "Energy: the how"
 toc = true
-next = "/design/switching-energy"
+next = "/ch3-design/switching-energy"
 date = "2025-01-05T13:39:38-05:00"
 
 +++

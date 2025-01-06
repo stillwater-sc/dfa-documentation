@@ -1,9 +1,9 @@
 +++
-prev = "/design/currentstate"
+prev = "/ch3-design/currentstate"
 weight = 2
 title = "Elements of Design"
 toc = true
-next = "/design/dfm"
+next = "/ch3-design/time"
 date = "2017-02-15T07:43:18-05:00"
 
 +++

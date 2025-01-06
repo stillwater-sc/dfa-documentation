@@ -1,7 +1,7 @@
 +++
 
 archetype = "chapter"
-weight = 2
+weight = 3
 title = "Elements of Good Design"
 date = "2017-02-15T07:42:59-05:00"
 
@@ -15,7 +15,6 @@ caused by the trade-off sequential algorithms have to make between computation a
 accessing memory. The constraints of data movement are even more pronounced
 in parallel algorithms as demonstrated in the previous section.
 
-This chapter explores the elements of good design for parallel algorithms and their
-execution on real hardware.
+This chapter explores the elements of good design for parallel algorithms and their execution on real hardware.
 
 

@@ -1,6 +1,6 @@
 +++
 
-weight = 6
+weight = 7
 archetype = "chapter"
 title = "Linear Solvers"
 date = "2017-02-15T07:54:08-05:00"

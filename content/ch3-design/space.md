@@ -1,10 +1,10 @@
 +++
-prev = "/design/time"
-weight = 7
+prev = "/ch3-design/time"
+weight = 4
 title = "Space: the where"
 toc = true
-next = "/design/nextsteps"
-date = "2017-02-15T07:49:38-05:00"
+next = "/ch3-design/energy"
+date = "2025-01-05T13:39:38-05:00"
 
 +++
 

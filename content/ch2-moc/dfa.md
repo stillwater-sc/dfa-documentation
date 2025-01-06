@@ -1,10 +1,10 @@
 +++
-prev = "/design/dfm"
-weight = 4
+
+weight = 5
 title = "Domain Flow Architecture"
 toc = true
-next = "/design/time"
-date = "2017-02-17T09:20:57-05:00"
+
+date = "2024-01-06T16:46:11-05:00"
 
 +++
 

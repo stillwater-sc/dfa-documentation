@@ -1,8 +1,8 @@
 +++
-prev = "/design/dfa"
-weight = 5
+prev = "/ch3-design/elements"
+weight = 3
 title = "Time: the when"
-next = "/design/space"
+next = "/ch3-design/space"
 toc = true
 date = "2017-02-15T07:48:27-05:00"
 

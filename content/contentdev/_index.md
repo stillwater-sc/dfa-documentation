@@ -1,6 +1,6 @@
 +++
 
-weight = 8
+weight = 9
 archetype = "chapter"
 title = "Content Development"
 date = "2017-02-15T06:49:44-05:00"

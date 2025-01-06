@@ -1,7 +1,7 @@
 +++
 
 archetype = "chapter"
-weight = 4
+weight = 5
 title = "Matrix Factorization"
 date = "2017-02-15T07:54:08-05:00"
 

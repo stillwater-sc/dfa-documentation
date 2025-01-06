@@ -11,5 +11,5 @@ By honoring the delay that is inherent to exchanging information between two spa
 separate computation or storage sites, domain flow algorithms can improve performance and energy efficiency
 compared to sequential programming models that depend on (globally addressable) random access memory.
 
-High-performance, low-latency, energy-efficient computation is particularly important for the emerging application
-class of autonomous intelligent systems.
+High-performance, low-latency, energy-efficient computation is particularly important for the 
+emerging application class of autonomous intelligent systems.

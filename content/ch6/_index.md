@@ -1,6 +1,6 @@
 +++
 
-weight = 5
+weight = 6
 archetype = "chapter"
 title = "Matrix Kernels"
 date = "2017-02-15T07:54:08-05:00"

@@ -1,10 +1,10 @@
 +++
-prev = "/design/currentstate"
+
 weight = 3
 title = "Data Flow Machine"
 toc = true
-next = "/design/dfa"
-date = "2017-02-17T09:20:57-05:00"
+
+date = "2024-01-06T16:44:37-05:00"
 
 +++
 

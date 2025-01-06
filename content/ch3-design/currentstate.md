@@ -1,10 +1,10 @@
 +++
-prev = "/design/"
+prev = "/ch2/"
 weight = 1
 title = "Computational Dynamics"
 date = "2017-02-17T08:59:30-05:00"
 toc = true
-next = "/design/elements"
+next = "/ch3-design/elements"
 
 +++
 

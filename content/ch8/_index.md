@@ -1,6 +1,6 @@
 +++
 
-weight = 7
+weight = 8
 archetype = "chapter"
 title = "Digital Signal Processing"
 date = "2023-05-29T16:50:01-05:00"

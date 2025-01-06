@@ -1,13 +1,17 @@
 _index.md
 1. currentstate.md
 2. elements.md
-3. dfm.md
-4. dfa.md
-5. time.md
-6.
-7. space.md
-8.
-9. nextsteps.md
+3. time.md
+4. space.md
+5. energy.md
+6. resource management
+7. spm.md
+8. dfm.md
+9. dfa.md
+10. nextsteps.md
+    background info
+11. switching-energy.md
+
 
 _index.md:weight = 2
 currentstate.md:weight = 1

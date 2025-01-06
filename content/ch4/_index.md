@@ -1,7 +1,7 @@
 +++
 
 archetype = "chapter"
-weight = 3
+weight = 4
 title = "Basic Linear Algebra"
 date = "2017-02-15T07:54:08-05:00"
 
