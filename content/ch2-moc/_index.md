@@ -2,7 +2,7 @@
 
 archetype = "chapter"
 weight = 2
-title = "Resource Contention Management"
+title = "Computer Architecture"
 date = "2025-01-05T13:39:38-05:00"
 
 +++
