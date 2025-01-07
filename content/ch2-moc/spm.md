@@ -1,7 +1,7 @@
 +++
 
 weight = 2
-title = "Stored Program Machine"
+title = "Random Access Machine"
 toc = true
 
 date = "2025-01-06T16:43:57-05:00"
@@ -21,7 +21,7 @@ The infinite sequence of cells is equivalent to the infinite Turing Machine tape
 A key inspiration for the RAM model of computation came from the von Neumann architecture, which was conceptualized by John von Neumann in the late 1940s. The von Neumann architecture's hallmark feature is the stored-program concept, where instructions and data are stored in the same memory. The von-Neumann machine, later
 renamed to the Stored Program Machine had a profound impact on the design and development of modern computers, enabling programmability and flexibility.
 
-## Basic Operating Principle
+**Basic Operating Principle**
 
 After loading a program into the main memory of the Stored Program Machine,
 the Operating System writes the address of the entry point of the program
@@ -40,7 +40,7 @@ to unabiguously execute a program:
 
 This cycle is repeated till a halt instruction is executed, or an interrupt is issued.
  
-## Success and Impact
+**Success and Impact**
 
 The RAM model, particularly through its stored-program realization, has had a profound influence on both theoretical computer science and practical engineering. It serves as the foundation for algorithm analysis, underpinning complexity classes like **P** and **NP**. By providing a clear and manageable abstraction, it has guided the development of efficient algorithms and hardware architectures.
 
