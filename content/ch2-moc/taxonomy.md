@@ -77,8 +77,8 @@ for fine-grained parallel machines.
 
 **Footnotes**
 
-<a name="flynn">1:</a> Flynn, Michael J. (December 1966), [Very high-speed computing systems](https://ieeexplore.ieee.org/document/1447203)
+<a name="flynn">[1]</a> Flynn, Michael J. (December 1966), [Very high-speed computing systems](https://ieeexplore.ieee.org/document/1447203)
 
-<a name="wikipedia">2:</a> Flynn's taxonomy [Wikipedia](https://en.wikipedia.org/wiki/Flynn's_taxonomy)
+<a name="wikipedia">[2]</a> Flynn's taxonomy [Wikipedia](https://en.wikipedia.org/wiki/Flynn's_taxonomy)
 
-<a name="dwarfs">3:</a> The Landscape of Parallel Computing Research: A View from Berkeley [The Seven Dwarfs](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2006/EECS-2006-183.pdf)
+<a name="dwarfs">[3]</a> The Landscape of Parallel Computing Research: A View from Berkeley [The Seven Dwarfs](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2006/EECS-2006-183.pdf)
