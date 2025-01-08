@@ -1,5 +1,5 @@
 +++
-weight = 7
+weight = 3
 title = "Computer Organization"
 toc = true
 date = "2025-01-07T13:20:04-05:00"

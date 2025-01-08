@@ -8,8 +8,9 @@ toc = true
 
 +++
 
-We have quickly introduced computer hardware organization to deliver
-resource contention management.
+We have quickly introduced different computer hardware organizations to deliver
+resource contention management required for the execution of algorithms that
+exhibit problem sizes larger than the available hardware resources.
 Our next step is to look at specific algorithms, and explore
 their optimal parallel execution dynamics.
 

@@ -4,7 +4,7 @@ weight = 5
 title = "Domain Flow Architecture"
 toc = true
 
-date = "2024-01-06T16:46:11-05:00"
+date = "2025-01-06T16:46:11-05:00"
 
 +++
 
@@ -41,11 +41,15 @@ Moldovan's systolic array mapping methodology successfully solved the resource
 contention management problem for the special case of fully articulated arrays.
 But when the size of the problem was bigger than the available VLSI resources.
 the methodology broke down. Any approach that uses a divide-and-conquer approach
-to aggregate activity, will need a control mechanism to reuse the processing
-element, and that mechanism will not be able to follow the constraints of VLSI
-as spatial relationships will have been destroyed. The solution to this problem
-was offered by Omtzigt <sup>[4](#omtzigt)</sup> in the form of infinite, but
-bounded network architectures using spatial data flow tags to control resource contention.  
+to aggregate activity, will need a control mechanism to reuse the processing element, 
+and that mechanism will not be able to follow the constraints of VLSI as the spatial
+relationships that separated computational activities will have been destroyed. 
+One solution to this problem was offered by Omtzigt <sup>[4](#omtzigt)</sup> in the 
+form of Domain Flow Architectures (DFA): infinite, but bounded network architectures 
+using spatial data flow tags to control resource contention <sup>[5](#domain-flow)</sup>. 
+These domain flow architectures provide local 
+neighborhoods that offer the same fine-grained interconnect as the fully articulated
+array, while at the same time offering infinite connectivity at the algorithm level. 
 
 
 
@@ -58,3 +62,5 @@ bounded network architectures using spatial data flow tags to control resource c
 <a name="moldovan">[3]</a>  Dan I. Moldovan, _On the Design of Algorithms for VLSI Systolic Arrays_, Proceedings of the IEEE, Volume 71, Number 1, January 1983
 
 <a name="omtzigt">[4]</a> Omtzigt, E.T.L., _Domain Flow and streaming architectures_, Proceedings of the International Conference on Application Specific Array Processors, 1990 [conference paper](https://ieeexplore.ieee.org/document/145479)
+
+<a name="domain-flow">[5]</a> Omtzigt, E.T.L., _Domain Flow and Streaming Architectures_, Ph.D. Thesis, Yale University, 1993
