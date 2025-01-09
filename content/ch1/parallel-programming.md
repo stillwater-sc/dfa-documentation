@@ -9,7 +9,7 @@ series = [ "introduction" ]
 
 +++
 
-To appreciate the domain flow programming model and what it enables, you need to think about the physical
+To appreciate the domain flow programming model and what it enables, we need to think about the physical
 form a 'program evaluator' could take. In the days when a processor occupied the volume
 of a small room, any physical computational machine was limited to a single computational element.
 This implied that the execution of any algorithm had to be specified as a complete order in time.

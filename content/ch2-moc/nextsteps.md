@@ -8,7 +8,7 @@ toc = true
 
 +++
 
-We have quickly introduced different computer hardware organizations to deliver
+We introduced different computer hardware organizations to deliver
 resource contention management required for the execution of algorithms that
 exhibit problem sizes larger than the available hardware resources.
 Our next step is to look at specific algorithms, and explore

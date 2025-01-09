@@ -64,8 +64,8 @@ and the network that connects the CAM to the fabric of computational elements.
 As concurrency demands grow, the efficiency of both the CAM and the fabric
 decreases making large data flow machines uncompetitive. However, small data
 flow machines don't have this problem and are able to deliver energy-efficient, 
-low-latency resource management. Today, all high-performance microprocessors 
-have a data flow machine at their core. 
+low-latency resource management <sup>[5](#hpsm)</sup>. Today, all high-performance microprocessors 
+have such a _restricted_ data flow machine at their core. 
 
 **Success and Impact**
 
@@ -91,10 +91,12 @@ these models have significantly influenced both theoretical research and practic
 
 **Footnotes**
 
-<a href=https://ieeexplore.ieee.org/document/1653418>[1]</a>  Jack B. Dennis, _Data Flow Supercomputing_, IEEE Computer, Volume 13, Issue 11, November 1980
+<a id="dennis">[1]</a>  Jack B. Dennis, _Data Flow Supercomputing_, IEEE Computer, Volume 13, Issue 11, November 1980 [paper](https://ieeexplore.ieee.org/document/1653418)
 
-<a href=https://www.sci.utah.edu/~nathang/utah-history/utah-history-computing.pdf>[2]</a>  Utah Computing History Project
+<a id="barton">[2]</a>  Utah Computing History Project [brochure]](https://www.sci.utah.edu/~nathang/utah-history/utah-history-computing.pdf)
 
-<a href=https://dl.acm.org/doi/10.1145/800094.803050>[3]</a>  A. L. Davis, _Architecture and System Method of DDM1: A recursively structured data driven machine_, ISCA 1978: Proceedings of the 5th annual symposium on Computer architecture, Pages 210-215
+<a id="davis">[3]</a>  A. L. Davis, _Architecture and System Method of DDM1: A recursively structured data driven machine_, ISCA 1978: Proceedings of the 5th annual symposium on Computer architecture, Pages 210-215 [paper](https://dl.acm.org/doi/10.1145/800094.803050)
 
-<a href=https://ieeexplore.ieee.org/document/1458143>[4]</a>  Edward A. Lee, David G. Messerschmitt, _Synchronous data flow_, Proceedings of the IEEE ( Volume: 75, Issue: 9, September 1987)
+<a id="lee">[4]</a>  Edward A. Lee, David G. Messerschmitt, _Synchronous data flow_, Proceedings of the IEEE, Volume: 75, Issue: 9, September 1987, [paper](https://ieeexplore.ieee.org/document/1458143)
+
+<a id="hpsm">[5]</a> Wen-mei Hwu and Yale N. Patt, _HPSm, a High Performance Architecture Restricted Data Flow Having Minimal Functionality_, [paper](https://dl.acm.org/doi/pdf/10.1145/285930.285989)
